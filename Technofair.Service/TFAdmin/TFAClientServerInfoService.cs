@@ -2,9 +2,9 @@
 using System.Collections;
 
 using System.Management;
-using Technofair.Model.TFAdmin;
+using TFSMS.Admin.Model.TFAdmin;
 using Technofair.Lib.Model;
-using Technofair.Model.ViewModel.TFAdmin;
+using TFSMS.Admin.Model.ViewModel.TFAdmin;
 using System.Net;
 using TFSMS.Admin.Data.Repository.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure;

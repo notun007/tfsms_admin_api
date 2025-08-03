@@ -1,10 +1,10 @@
 ﻿using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Data.Repository.Accounts;
 using Technofair.Lib.Model;
-using Technofair.Model.Accounts;
-using Technofair.Model.ViewModel.Accounts;
-using Technofair.Model.ViewModel.Security;
-using Technofair.Model.ViewModel.TFAdmin;
+using TFSMS.Admin.Model.Accounts;
+using TFSMS.Admin.Model.ViewModel.Accounts;
+using TFSMS.Admin.Model.ViewModel.Security;
+using TFSMS.Admin.Model.ViewModel.TFAdmin;
 using Technofair.Utiity.Security;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Repository.Accounts;

@@ -1,5 +1,5 @@
 ﻿using Technofair.Lib.Utilities;
-using Technofair.Model.Security;
+using TFSMS.Admin.Model.Security;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Technofair.Lib;
-using Technofair.Model.ViewModel.Common;
-using Technofair.Model.ViewModel.Security;
-using Technofair.Model.Common;
+using TFSMS.Admin.Model.ViewModel.Common;
+using TFSMS.Admin.Model.ViewModel.Security;
+using TFSMS.Admin.Model.Common;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 

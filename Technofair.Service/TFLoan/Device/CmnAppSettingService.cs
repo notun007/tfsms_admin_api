@@ -9,8 +9,8 @@ using Technofair.Data.Repository.TFLoan.Device;
 //using Technofair.Data.Repository.Common;
 //using Technofair.Data.Repository.Security;
 using Technofair.Lib.Model;
-using Technofair.Model.Common;
-//using Technofair.Model.Security;
+using TFSMS.Admin.Model.Common;
+//using TFSMS.Admin.Model.Security;
 //using Technofair.Model.Subscription;
 
 namespace TFSMS.Admin.Service.TFLoan.Device

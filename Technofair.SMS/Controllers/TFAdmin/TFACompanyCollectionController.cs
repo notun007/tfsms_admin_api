@@ -7,11 +7,11 @@ using Technofair.Data.Infrastructure;
 using Technofair.Data.Repository.Accounts;
 using Technofair.Data.Repository.Common;
 using Technofair.Lib.Utilities;
-using Technofair.Model.Accounts;
-using Technofair.Model.Common;
-using Technofair.Model.HRM;
-using Technofair.Model.ViewModel.Accounts;
-using Technofair.Model.ViewModel.Common;
+using TFSMS.Admin.Model.Accounts;
+using TFSMS.Admin.Model.Common;
+using TFSMS.Admin.Model.HRM;
+using TFSMS.Admin.Model.ViewModel.Accounts;
+using TFSMS.Admin.Model.ViewModel.Common;
 using Technofair.Service.Accounts;
 using Technofair.Service.Common;
 using TFSMS.Admin.Web.Models;
@@ -19,7 +19,7 @@ using Technofair.Service.TFAdmin;
 using Technofair.Data.Repository.TFAdmin;
 using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Lib.Model;
-using Technofair.Model.TFAdmin;
+using TFSMS.Admin.Model.TFAdmin;
 using Microsoft.AspNetCore.Authorization;
 
 namespace TFSMS.Admin.Controllers.TFAdmin

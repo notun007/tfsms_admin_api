@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Technofair.Data.Infrastructure;
 using Technofair.Data.Repository.Accounts;
-using Technofair.Model.Accounts;
+using TFSMS.Admin.Model.Accounts;
 using Technofair.Service.Accounts;
 using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Service.TFAdmin;
 using Technofair.Data.Repository.TFAdmin;
-using Technofair.Model.TFAdmin;
+using TFSMS.Admin.Model.TFAdmin;
 using Technofair.Lib.Model;
 using Microsoft.AspNetCore.Authorization;
 

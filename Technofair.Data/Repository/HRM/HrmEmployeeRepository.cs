@@ -1,5 +1,5 @@
 ﻿using Technofair.Lib.Utilities;
-using Technofair.Model.HRM;
+using TFSMS.Admin.Model.HRM;
 using Technofair.Model.ViewModel.HRM;
 using Technofair.Model.ViewModel.HRM.Reports;
 using System;
@@ -10,8 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Technofair.Model.Common;
-using Technofair.Model.Accounts;
+using TFSMS.Admin.Model.Common;
+using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 

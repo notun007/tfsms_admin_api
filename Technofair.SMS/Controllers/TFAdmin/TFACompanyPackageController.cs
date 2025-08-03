@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Technofair.Data.Infrastructure;
 using Technofair.Data.Repository.Accounts;
-using Technofair.Model.Accounts;
-using Technofair.Model.ViewModel.Accounts;
+using TFSMS.Admin.Model.Accounts;
+using TFSMS.Admin.Model.ViewModel.Accounts;
 using Technofair.Service.Accounts;
 using Technofair.Service.TFAdmin;
 using Technofair.Data.Infrastructure.TFAdmin;
-using Technofair.Model.TFAdmin;
+using TFSMS.Admin.Model.TFAdmin;
 using Technofair.Lib.Model;
 using Technofair.Data.Repository.TFAdmin;
-using Technofair.Model.ViewModel.TFAdmin;
+using TFSMS.Admin.Model.ViewModel.TFAdmin;
 using Microsoft.AspNetCore.Authorization;
 
 namespace TFSMS.Admin.Controllers.TFAdmin

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Technofair.Data.Infrastructure;
 using Technofair.Data.Repository.Common;
 using Technofair.Lib.Model;
-using Technofair.Model.Common;
+using TFSMS.Admin.Model.Common;
 using Technofair.Service.Common;
 
 namespace TFSMS.Admin.Controllers.Common

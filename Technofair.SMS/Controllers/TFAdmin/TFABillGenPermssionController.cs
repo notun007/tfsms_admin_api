@@ -6,8 +6,8 @@ using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Data.Repository.TFAdmin;
 using Technofair.Lib.Model;
 
-using Technofair.Model.TFAdmin;
-using Technofair.Model.ViewModel.TFAdmin;
+using TFSMS.Admin.Model.TFAdmin;
+using TFSMS.Admin.Model.ViewModel.TFAdmin;
 
 using Technofair.Service.TFAdmin;
 

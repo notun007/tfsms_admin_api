@@ -5,16 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Technofair.Model.Accounts;
-using Technofair.Model.Common;
-using Technofair.Model.HRM;
-using Technofair.Model.Security;
+using TFSMS.Admin.Model.Accounts;
+using TFSMS.Admin.Model.Common;
+using TFSMS.Admin.Model.HRM;
+using TFSMS.Admin.Model.Security;
 
 
-//using Technofair.Model.Accounts;
-//using Technofair.Model.Common;
-using Technofair.Model.TFAdmin;
-using Technofair.Model.TFLoan.Device;
+//using TFSMS.Admin.Model.Accounts;
+//using TFSMS.Admin.Model.Common;
+using TFSMS.Admin.Model.TFAdmin;
+using TFSMS.Admin.Model.TFLoan.Device;
 using Technofair.Utiity.Helper;
 
 namespace TFSMS.Admin.Data

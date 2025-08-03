@@ -3,14 +3,14 @@ using System.Net.Http.Headers;
 using Technofair.Data.Infrastructure;
 using Technofair.Data.Repository.Common;
 using Technofair.Data.Repository.TFAdmin;
-using Technofair.Model.Common;
+using TFSMS.Admin.Model.Common;
 using Technofair.Service.Common;
 using Technofair.Service.TFAdmin;
 using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Lib.Model;
-using Technofair.Model.TFAdmin;
+using TFSMS.Admin.Model.TFAdmin;
 using System.Collections.Generic;
-using Technofair.Model.ViewModel.TFAdmin;
+using TFSMS.Admin.Model.ViewModel.TFAdmin;
 using Microsoft.AspNetCore.Authorization;
 
 

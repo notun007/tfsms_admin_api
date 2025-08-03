@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Technofair.Lib;
 
-using Technofair.Model.Security;
-using Technofair.Model.ViewModel.Security;
-using Technofair.Model.ViewModel.Subscription;
+using TFSMS.Admin.Model.Security;
+using TFSMS.Admin.Model.ViewModel.Security;
+using TFSMS.Admin.Model.ViewModel.Subscription;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 

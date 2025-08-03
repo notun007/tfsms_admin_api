@@ -1,7 +1,7 @@
 ﻿using Technofair.Lib.Model;
 using System;
 using System.Collections.Generic;
-using Technofair.Model.HRM;
+using TFSMS.Admin.Model.HRM;
 using Technofair.Model.ViewModel.HRM;
 using System.Data;
 using Technofair.Lib.Utilities;

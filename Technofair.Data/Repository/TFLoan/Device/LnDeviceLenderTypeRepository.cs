@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Technofair.Model.TFLoan.Device;
+using TFSMS.Admin.Model.TFLoan.Device;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 //using Technofair.Model.Loan.Device;

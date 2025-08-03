@@ -1,7 +1,7 @@
 ﻿using Technofair.Lib.Model;
 using Technofair.Lib.Utilities;
-using Technofair.Model.Security;
-using Technofair.Model.ViewModel.Security;
+using TFSMS.Admin.Model.Security;
+using TFSMS.Admin.Model.ViewModel.Security;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Technofair.Model.ViewModel.Common;
+using TFSMS.Admin.Model.ViewModel.Common;
 using TFSMS.Admin.Data.Repository.Security;
 using TFSMS.Admin.Data.Infrastructure;
 using Technofair.Data.Infrastructure.TFAdmin;

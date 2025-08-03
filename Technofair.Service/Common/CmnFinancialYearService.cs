@@ -1,4 +1,4 @@
-﻿using Technofair.Model.Common;
+﻿using TFSMS.Admin.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Technofair.Lib.Model;
 using Technofair.Lib.Utilities;
-using Technofair.Model.ViewModel.Common;
+using TFSMS.Admin.Model.ViewModel.Common;
 using TFSMS.Admin.Data.Repository.Common;
 using TFSMS.Admin.Data.Infrastructure;
 using Technofair.Data.Infrastructure.TFAdmin;

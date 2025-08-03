@@ -10,11 +10,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Technofair.Lib.Utilities;
-using Technofair.Model.Common;
+using TFSMS.Admin.Model.Common;
 
-using Technofair.Model.TFAdmin;
-using Technofair.Model.ViewModel.Accounts;
-using Technofair.Model.ViewModel.TFAdmin;
+using TFSMS.Admin.Model.TFAdmin;
+using TFSMS.Admin.Model.ViewModel.Accounts;
+using TFSMS.Admin.Model.ViewModel.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 

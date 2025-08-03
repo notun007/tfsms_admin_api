@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Data.Repository.Accounts;
 using Technofair.Lib.Model;
-using Technofair.Model.Accounts;
+using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Data.Infrastructure;
 
 namespace TFSMS.Admin.Service.Accounts

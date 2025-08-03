@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Technofair.Data.Infrastructure;
 using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Data.Repository.Security;
-using Technofair.Model.Security;
+using TFSMS.Admin.Model.Security;
 using Technofair.Service.Security;
 
 namespace TFSMS.Admin.Controllers.Security

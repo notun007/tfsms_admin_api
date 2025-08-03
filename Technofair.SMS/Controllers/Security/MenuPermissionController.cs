@@ -5,9 +5,9 @@ using Technofair.Data.Infrastructure;
 using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Data.Repository.Security;
 using Technofair.Lib.Model;
-using Technofair.Model.Security;
-using Technofair.Model.ViewModel.Common;
-using Technofair.Model.ViewModel.Security;
+using TFSMS.Admin.Model.Security;
+using TFSMS.Admin.Model.ViewModel.Common;
+using TFSMS.Admin.Model.ViewModel.Security;
 using Technofair.Service.Security;
 
 namespace TFSMS.Admin.Controllers.Security

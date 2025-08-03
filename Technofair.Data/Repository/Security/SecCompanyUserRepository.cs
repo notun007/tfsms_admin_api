@@ -1,6 +1,6 @@
 ﻿using Technofair.Lib.Utilities;
-using Technofair.Model.Common;
-using Technofair.Model.Security;
+using TFSMS.Admin.Model.Common;
+using TFSMS.Admin.Model.Security;
 using System;
 using System.Collections.Generic;
 using System.Data;

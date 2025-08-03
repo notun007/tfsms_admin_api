@@ -1,5 +1,5 @@
 ﻿
-using Technofair.Model.Common;
+using TFSMS.Admin.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 
 using System.Data;
 using System.Reflection;
-using Technofair.Model.ViewModel.Common;
+using TFSMS.Admin.Model.ViewModel.Common;
 using Technofair.Lib.Utilities;
 using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;

@@ -4,7 +4,7 @@ using Technofair.Data.Repository.TFLoan.Device;
 
 //using Technofair.Data.Repository.Common;
 using Technofair.Lib.Model;
-using Technofair.Model.Common;
+using TFSMS.Admin.Model.Common;
 
 namespace TFSMS.Admin.Service.TFLoan.Device
 {

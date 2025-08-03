@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Data.Repository.Accounts;
 using Technofair.Lib.Model;
-using Technofair.Model.Accounts;
-using Technofair.Model.TFAdmin;
-using Technofair.Model.ViewModel.Accounts;
-using Technofair.Model.ViewModel.TFAdmin;
+using TFSMS.Admin.Model.Accounts;
+using TFSMS.Admin.Model.TFAdmin;
+using TFSMS.Admin.Model.ViewModel.Accounts;
+using TFSMS.Admin.Model.ViewModel.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Repository.TFAdmin;
 

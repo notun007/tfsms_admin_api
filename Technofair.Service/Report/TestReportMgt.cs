@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Technofair.Lib.Utilities;
 using Technofair.Model.ViewModel;
-using Technofair.Model.ViewModel.Common;
+using TFSMS.Admin.Model.ViewModel.Common;
 
 
 namespace TFSMS.Admin.Service.Report

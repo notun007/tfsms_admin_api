@@ -1,6 +1,6 @@
 ﻿//using Technofair.Data.Infrastructure;
-using Technofair.Model.Common;
-using Technofair.Model.ViewModel.Common;
+using TFSMS.Admin.Model.Common;
+using TFSMS.Admin.Model.ViewModel.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;

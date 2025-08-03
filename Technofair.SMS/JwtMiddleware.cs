@@ -6,7 +6,7 @@ using Technofair.Data.Infrastructure;
 using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Data.Repository.Common;
 using Technofair.Data.Repository.Security;
-using Technofair.Model.Common;
+using TFSMS.Admin.Model.Common;
 using Technofair.Service.Security;
 
 namespace TFSMS.Admin

@@ -1,7 +1,7 @@
 ﻿using Technofair.Data.Repository.HRM;
 using Technofair.Data.Infrastructure;
 using Technofair.Lib.Model;
-using Technofair.Model.HRM;
+using TFSMS.Admin.Model.HRM;
 using Technofair.Service.HRM;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Technofair.Model.Common;
+using TFSMS.Admin.Model.Common;
 using Technofair.Data.Infrastructure.TFAdmin;
 
 

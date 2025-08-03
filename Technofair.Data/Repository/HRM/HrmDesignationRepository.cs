@@ -1,5 +1,5 @@
 ﻿using Technofair.Lib.Utilities;
-using Technofair.Model.HRM;
+using TFSMS.Admin.Model.HRM;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Technofair.Model.Common;
+using TFSMS.Admin.Model.Common;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 
 namespace TFSMS.Admin.Data.Repository.HRM

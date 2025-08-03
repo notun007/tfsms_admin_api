@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Technofair.Model.Common;
+using TFSMS.Admin.Model.Common;
 using TFSMS.Admin.Data.Infrastructure;
 //using Technofair.Data.Infrastructure;
 

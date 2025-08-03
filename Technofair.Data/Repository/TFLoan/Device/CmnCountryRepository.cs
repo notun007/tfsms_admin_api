@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Technofair.Model.Common;
-using Technofair.Model.Accounts;
+using TFSMS.Admin.Model.Common;
+using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Data.Infrastructure;
 
 namespace TFSMS.Admin.Data.Repository.TFLoan.Device

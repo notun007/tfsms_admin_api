@@ -4,11 +4,11 @@ using System.Web.Http;
 using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Lib.Model;
 using Technofair.Lib.Utilities;
-using Technofair.Model.Common;
+using TFSMS.Admin.Model.Common;
 
-using Technofair.Model.Utility;
-using Technofair.Model.ViewModel.Common;
-using Technofair.Model.ViewModel.Subscription;
+using TFSMS.Admin.Model.Utility;
+using TFSMS.Admin.Model.ViewModel.Common;
+using TFSMS.Admin.Model.ViewModel.Subscription;
 using Technofair.Utiity.Http;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Repository.Common;

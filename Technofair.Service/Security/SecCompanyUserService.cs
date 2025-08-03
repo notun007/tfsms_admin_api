@@ -1,8 +1,8 @@
 ﻿using Technofair.Lib.Model;
 using Technofair.Lib.Utilities;
-using Technofair.Model.Security;
-using Technofair.Model.ViewModel.Common;
-using Technofair.Model.ViewModel.Security;
+using TFSMS.Admin.Model.Security;
+using TFSMS.Admin.Model.ViewModel.Common;
+using TFSMS.Admin.Model.ViewModel.Security;
 using System;
 using System.Collections.Generic;
 using System.Data;

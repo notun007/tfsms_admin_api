@@ -1,7 +1,7 @@
 ﻿
 using Technofair.Lib.Model;
 
-using Technofair.Model.TFAdmin;
+using TFSMS.Admin.Model.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Repository.TFAdmin;
 

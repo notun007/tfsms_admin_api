@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-using Technofair.Model.Accounts;
-using Technofair.Model.Common;
-using Technofair.Model.HRM;
-using Technofair.Model.Security;
+using TFSMS.Admin.Model.Accounts;
+using TFSMS.Admin.Model.Common;
+using TFSMS.Admin.Model.HRM;
+using TFSMS.Admin.Model.Security;
 
 using Technofair.Utiity.Helper;
 

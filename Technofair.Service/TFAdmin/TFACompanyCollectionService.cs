@@ -1,11 +1,11 @@
 ﻿
-using Technofair.Model.ViewModel.Accounts;
-using Technofair.Model.ViewModel.Subscription;
+using TFSMS.Admin.Model.ViewModel.Accounts;
+using TFSMS.Admin.Model.ViewModel.Subscription;
 using Technofair.Lib.Model;
 
-using Technofair.Model.TFAdmin;
+using TFSMS.Admin.Model.TFAdmin;
 
-//using Technofair.Model.Common;
+//using TFSMS.Admin.Model.Common;
 using System.Data;
 using TFSMS.Admin.Data.Repository.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure;
@@ -142,12 +142,12 @@ namespace TFSMS.Admin.Service.TFAdmin
             try
             {
                 List<AnFClientPaymentDetailViewModel> list = new List<AnFClientPaymentDetailViewModel>();
-                List<Technofair.Model.Common.CmnMonth> months = Technofair.Lib.Utilities.Helper.GetInstituteMonthByYearId(yearId, domain);
+                List<TFSMS.Admin.Model.Common.CmnMonth> months = Technofair.Lib.Utilities.Helper.GetInstituteMonthByYearId(yearId, domain);
                 List<ScpSubscriberViewModel> listSubscriber = Technofair.Lib.Utilities.Helper.GetSubscriberByDomainAndYear(domain, yearId);
                 AnFClientPackageViewModel objPackage = GetPackageInfoByClientId(clientId, filePath);
                 if (objPackage != null && objPackage.Id > 0)
                 {
-                    foreach (Technofair.Model.Common.CmnMonth m in months)
+                    foreach (TFSMS.Admin.Model.Common.CmnMonth m in months)
                     {
                         AnFClientPaymentDetailViewModel objF = new AnFClientPaymentDetailViewModel();
                         objF.CmnMonthId = m.Id;

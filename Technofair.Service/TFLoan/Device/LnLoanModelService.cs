@@ -9,7 +9,7 @@ using Technofair.Data.Repository.TFLoan.Device;
 
 //using Technofair.Data.Repository.Loan.Device;
 using Technofair.Lib.Model;
-using Technofair.Model.TFLoan.Device;
+using TFSMS.Admin.Model.TFLoan.Device;
 using TFSMS.Admin.Data.Repository.TFLoan.Device;
 
 

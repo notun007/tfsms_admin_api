@@ -2,7 +2,7 @@
 using Technofair.Data.Infrastructure;
 using Technofair.Data.Repository.Security;
 using Technofair.Lib.Model;
-using Technofair.Model.Security;
+using TFSMS.Admin.Model.Security;
 using Technofair.Service.Common;
 using Technofair.Service.Security;
 using System;
@@ -11,8 +11,8 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using Technofair.Lib.Utilities;
-using Technofair.Model.Common;
-using Technofair.Model.ViewModel.Security;
+using TFSMS.Admin.Model.Common;
+using TFSMS.Admin.Model.ViewModel.Security;
 using Microsoft.AspNetCore.Mvc;
 using Technofair.Data.Infrastructure.TFAdmin;
 

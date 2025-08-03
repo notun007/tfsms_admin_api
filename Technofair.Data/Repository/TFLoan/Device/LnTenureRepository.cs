@@ -1,5 +1,5 @@
 ﻿
-using Technofair.Model.TFLoan.Device;
+using TFSMS.Admin.Model.TFLoan.Device;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 

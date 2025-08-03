@@ -4,9 +4,9 @@ using Technofair.Data.Infrastructure;
 using Technofair.Data.Repository.Accounts;
 
 using Technofair.Lib.Model;
-using Technofair.Model.Accounts;
+using TFSMS.Admin.Model.Accounts;
 
-using Technofair.Model.ViewModel.Accounts;
+using TFSMS.Admin.Model.ViewModel.Accounts;
 using Technofair.Service.Accounts;
 
 

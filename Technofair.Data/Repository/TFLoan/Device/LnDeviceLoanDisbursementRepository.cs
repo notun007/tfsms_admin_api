@@ -8,8 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Technofair.Lib.Utilities;
-using Technofair.Model.TFLoan.Device;
-using Technofair.Model.ViewModel.TFLoan;
+using TFSMS.Admin.Model.TFLoan.Device;
+using TFSMS.Admin.Model.ViewModel.TFLoan;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 

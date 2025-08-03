@@ -1,6 +1,6 @@
 ﻿
 using Technofair.Lib.Utilities;
-using Technofair.Model.Common;
+using TFSMS.Admin.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,15 +8,15 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Technofair.Model.ViewModel.Common;
+using TFSMS.Admin.Model.ViewModel.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Technofair.Model.HRM;
-using Technofair.Model.Security;
-using Technofair.Model.ViewModel.Security;
-using Technofair.Model.Accounts;
+using TFSMS.Admin.Model.HRM;
+using TFSMS.Admin.Model.Security;
+using TFSMS.Admin.Model.ViewModel.Security;
+using TFSMS.Admin.Model.Accounts;
 
 using Technofair.Utiity.Security;
 using Newtonsoft.Json.Linq;

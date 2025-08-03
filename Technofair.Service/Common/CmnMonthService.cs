@@ -1,8 +1,8 @@
-﻿using Technofair.Model.Common;
+﻿using TFSMS.Admin.Model.Common;
 using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;
-using Technofair.Model.HRM;
+using TFSMS.Admin.Model.HRM;
 using TFSMS.Admin.Data.Repository.Common;
 using TFSMS.Admin.Data.Infrastructure;
 using Technofair.Data.Infrastructure.TFAdmin;

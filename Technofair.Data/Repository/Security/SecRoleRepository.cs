@@ -1,5 +1,5 @@
 ﻿
-using Technofair.Model.Security;
+using TFSMS.Admin.Model.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-using Technofair.Model.ViewModel.Security;
-using Technofair.Model.Common;
+using TFSMS.Admin.Model.ViewModel.Security;
+using TFSMS.Admin.Model.Common;
 using static Azure.Core.HttpHeader;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;

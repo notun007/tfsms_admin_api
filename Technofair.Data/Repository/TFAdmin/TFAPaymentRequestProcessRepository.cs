@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Technofair.Lib.Utilities;
 
 
-using Technofair.Model.TFAdmin;
+using TFSMS.Admin.Model.TFAdmin;
 using System.Data.SqlClient;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure;

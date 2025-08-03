@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Technofair.Model.Accounts;
+using TFSMS.Admin.Model.Accounts;
 
-using Technofair.Model.ViewModel.Accounts;
+using TFSMS.Admin.Model.ViewModel.Accounts;
 using Technofair.Utiity.Security;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;

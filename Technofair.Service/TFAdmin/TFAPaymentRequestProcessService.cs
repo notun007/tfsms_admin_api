@@ -2,7 +2,7 @@
 using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Lib.Model;
 
-using Technofair.Model.TFAdmin;
+using TFSMS.Admin.Model.TFAdmin;
 using Technofair.Service.TFLoan.Device;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
@@ -45,7 +45,7 @@ namespace TFSMS.Admin.Service.TFAdmin
             string processID = "";
             try
             {
-                Technofair.Model.Accounts.AnFPaymentMethod objMethod = servicePayment.GetById(paymentMethodId);
+                TFSMS.Admin.Model.Accounts.AnFPaymentMethod objMethod = servicePayment.GetById(paymentMethodId);
                 if (objMethod != null)
                 {
                     TFAPaymentRequestProcess? obj = repository.GetMany(p => p.AnFPaymentMethodId == paymentMethodId).OrderByDescending(o => o.Id).FirstOrDefault();

@@ -1,10 +1,10 @@
 ﻿using Technofair.Lib.Model;
-using Technofair.Model.Accounts;
-using Technofair.Model.ViewModel.Accounts;
+using TFSMS.Admin.Model.Accounts;
+using TFSMS.Admin.Model.ViewModel.Accounts;
 using System.Data;
 using Microsoft.AspNetCore.Mvc;
 using Technofair.Utiity.Security;
-using Technofair.Model.ViewModel.Security;
+using TFSMS.Admin.Model.ViewModel.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

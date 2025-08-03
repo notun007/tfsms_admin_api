@@ -1,5 +1,5 @@
 ﻿//using Technofair.Data.Infrastructure;
-using Technofair.Model.Common;
+using TFSMS.Admin.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 using System.Data;
 using System.Reflection;
-using Technofair.Model.ViewModel.Common;
+using TFSMS.Admin.Model.ViewModel.Common;
 using Technofair.Lib.Utilities;
 using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
 
-using Technofair.Model.ViewModel.Security;
+using TFSMS.Admin.Model.ViewModel.Security;
 //using Microsoft.ReportingServices.DataProcessing;
-using Technofair.Model.ViewModel.Subscription;
-using Technofair.Model.Security;
+using TFSMS.Admin.Model.ViewModel.Subscription;
+using TFSMS.Admin.Model.Security;
 using Microsoft.Reporting.Map.WebForms.BingMaps;
 using System.Security.Cryptography.X509Certificates;
 using Azure;

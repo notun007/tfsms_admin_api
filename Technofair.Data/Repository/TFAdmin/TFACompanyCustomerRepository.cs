@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Technofair.Model.TFAdmin;
+using TFSMS.Admin.Model.TFAdmin;
 using System.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Technofair.Model.Common;
+using TFSMS.Admin.Model.Common;
 using System.Data;
 using System.Collections;
 using Technofair.Lib.Utilities;
-using Technofair.Model.ViewModel.TFAdmin;
+using TFSMS.Admin.Model.ViewModel.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 

@@ -15,13 +15,13 @@ using Technofair.Data.Repository.HRM;
 using Technofair.Data.Repository.Security;
 using Technofair.Data.Repository.TFLoan.Device;
 using Technofair.Lib.Model;
-using Technofair.Model.Common;
-using Technofair.Model.HRM;
+using TFSMS.Admin.Model.Common;
+using TFSMS.Admin.Model.HRM;
 
-using Technofair.Model.Security;
+using TFSMS.Admin.Model.Security;
 
-using Technofair.Model.ViewModel.Common;
-using Technofair.Model.ViewModel.Subscription;
+using TFSMS.Admin.Model.ViewModel.Common;
+using TFSMS.Admin.Model.ViewModel.Subscription;
 //using Technofair.Service.Common;
 using Technofair.Service.HRM;
 using Technofair.Service.Security;

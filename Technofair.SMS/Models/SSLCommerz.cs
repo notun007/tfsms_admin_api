@@ -7,7 +7,7 @@ using System.Text;
 using System.IO;
 using System.Collections.Specialized;
 using Newtonsoft.Json;
-using Technofair.Model.Accounts;
+using TFSMS.Admin.Model.Accounts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TFSMS.Admin.Models

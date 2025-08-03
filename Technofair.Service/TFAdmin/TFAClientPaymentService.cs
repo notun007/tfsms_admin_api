@@ -1,12 +1,12 @@
 ﻿
 using Technofair.Lib.Model;
-using Technofair.Model.Accounts;
-using Technofair.Model.Common;
-using Technofair.Model.ViewModel.Accounts;
-using Technofair.Model.ViewModel.Subscription;
-using Technofair.Model.TFAdmin;
-using Technofair.Model.ViewModel.TFAdmin;
-using Technofair.Model.ViewModel.Accounts.Reports;
+using TFSMS.Admin.Model.Accounts;
+using TFSMS.Admin.Model.Common;
+using TFSMS.Admin.Model.ViewModel.Accounts;
+using TFSMS.Admin.Model.ViewModel.Subscription;
+using TFSMS.Admin.Model.TFAdmin;
+using TFSMS.Admin.Model.ViewModel.TFAdmin;
+using TFSMS.Admin.Model.ViewModel.Accounts.Reports;
 using TFSMS.Admin.Data.Repository.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Service.Common;

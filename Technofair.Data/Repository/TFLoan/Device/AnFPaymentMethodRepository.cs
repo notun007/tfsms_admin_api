@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Technofair.Data;
-using Technofair.Model.Accounts;
+using TFSMS.Admin.Model.Accounts;
 
-using Technofair.Model.ViewModel.Accounts;
+using TFSMS.Admin.Model.ViewModel.Accounts;
 using Technofair.Utiity.Security;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;

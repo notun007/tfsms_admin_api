@@ -1,6 +1,6 @@
 ﻿using Technofair.Lib.Model;
-using Technofair.Model.TFAdmin;
-using Technofair.Model.ViewModel.TFAdmin;
+using TFSMS.Admin.Model.TFAdmin;
+using TFSMS.Admin.Model.ViewModel.TFAdmin;
 using TFSMS.Admin.Data.Repository.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure;
 using Technofair.Data.Infrastructure.TFAdmin;

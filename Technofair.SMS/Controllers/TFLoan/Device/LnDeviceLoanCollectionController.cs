@@ -9,11 +9,11 @@ using Technofair.Data.Repository.TFLoan.Device;
 //using Technofair.Data.Repository.Common;
 //using Technofair.Data.Repository.Loan.Device;
 using Technofair.Lib.Model;
-using Technofair.Model.TFLoan.Device;
+using TFSMS.Admin.Model.TFLoan.Device;
 
 //using Technofair.Model.Loan.Device;
-using Technofair.Model.Utility;
-using Technofair.Model.ViewModel.TFLoan;
+using TFSMS.Admin.Model.Utility;
+using TFSMS.Admin.Model.ViewModel.TFLoan;
 using Technofair.Service.TFLoan.Device;
 //using Technofair.Service.Common;
 //using Technofair.Service.Loan.Device;

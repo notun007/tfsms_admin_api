@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Technofair.Data.Infrastructure;
 using Technofair.Data.Infrastructure.TFAdmin;
-using Technofair.Model.TFLoan.Device;
+using TFSMS.Admin.Model.TFLoan.Device;
 using Technofair.Service.TFLoan.Device;
 using Technofair.Data.Repository.TFLoan.Device;
 //using Technofair.Data.Repository.Loan.Device;

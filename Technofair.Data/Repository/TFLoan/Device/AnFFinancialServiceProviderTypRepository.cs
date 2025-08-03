@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-using Technofair.Model.Accounts;
+using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 

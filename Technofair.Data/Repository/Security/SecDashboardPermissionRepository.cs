@@ -1,5 +1,5 @@
 ﻿using Technofair.Lib.Utilities;
-using Technofair.Model.Security;
+using TFSMS.Admin.Model.Security;
 using System;
 using System.Collections.Generic;
 using System.Data;

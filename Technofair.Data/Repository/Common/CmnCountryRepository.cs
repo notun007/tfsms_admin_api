@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Technofair.Model.Common;
+using TFSMS.Admin.Model.Common;
 //using Technofair.Data.Infrastructure;
-using Technofair.Model.Accounts;
+using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Data.Infrastructure;
 
 namespace TFSMS.Admin.Data.Repository.Common

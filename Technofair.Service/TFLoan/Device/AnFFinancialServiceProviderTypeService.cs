@@ -10,7 +10,7 @@ using Technofair.Data.Repository.TFLoan.Device;
 //using Technofair.Data.Repository.Accounts;
 //using Technofair.Data.Repository.Subscription;
 using Technofair.Lib.Model;
-using Technofair.Model.Accounts;
+using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Data.Repository.Accounts;
 
 

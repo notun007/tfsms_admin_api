@@ -10,7 +10,7 @@ using System.Configuration;
 using System.Text;
 //using Technofair.BGService;
 using Technofair.Data;
-using Technofair.Model.Common;
+using TFSMS.Admin.Model.Common;
 using Technofair.SMS;
 using TFSMS.Admin.Helper;
 using Technofair.Utiity.Helper;

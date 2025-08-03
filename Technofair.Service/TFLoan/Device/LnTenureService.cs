@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Technofair.Data.Infrastructure;
 using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Data.Repository.TFLoan.Device;
-using Technofair.Model.TFLoan.Device;
+using TFSMS.Admin.Model.TFLoan.Device;
 using TFSMS.Admin.Data.Repository.TFLoan.Device;
 
 

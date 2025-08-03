@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 using Technofair.Lib.Utilities;
 
-using Technofair.Model.TFAdmin;
+using TFSMS.Admin.Model.TFAdmin;
 using System.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
-using Technofair.Model.Accounts;
-using Technofair.Model.ViewModel.TFAdmin;
+using TFSMS.Admin.Model.Accounts;
+using TFSMS.Admin.Model.ViewModel.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 

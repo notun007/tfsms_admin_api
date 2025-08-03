@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Technofair.Model.Common;
+using TFSMS.Admin.Model.Common;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 
