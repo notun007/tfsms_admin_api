@@ -69,7 +69,7 @@ namespace TFSMS.Admin.Data
         public DbSet<CmnUnion> CmnUnions { get; set; }
         public DbSet<CmnCompanyType> CmnCompanyTypes { get; set; }
         public DbSet<CmnCompany> CmnCompanies { get; set; }
-        public DbSet<CmnFinancialYear> CmnFinancialYears { get; set; }
+        //public DbSet<CmnFinancialYear> CmnFinancialYears { get; set; }
         public DbSet<CmnCountry> CmnCountries { get; set; }
         //public DbSet<SecCompanyModule> SecCompanyModules { get; set; }
         //public DbSet<SecCompanyUser> SecCompanyUsers { get; set; }

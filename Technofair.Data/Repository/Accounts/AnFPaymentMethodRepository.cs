@@ -4,6 +4,7 @@ using Technofair.Model.Accounts;
 using Technofair.Model.ViewModel.Accounts;
 using Technofair.Utiity.Security;
 using TFSMS.Admin.Data.Infrastructure;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 
 
 namespace TFSMS.Admin.Data.Repository.Accounts
@@ -21,10 +22,10 @@ namespace TFSMS.Admin.Data.Repository.Accounts
 
     #endregion
 
-    public class AnFPaymentMethodRepository : BaseRepository<AnFPaymentMethod>, IAnFPaymentMethodRepository
+    public class AnFPaymentMethodRepository : AdminBaseRepository<AnFPaymentMethod>, IAnFPaymentMethodRepository
     {
 
-        public AnFPaymentMethodRepository(IDatabaseFactory databaseFactory)
+        public AnFPaymentMethodRepository(IAdminDatabaseFactory databaseFactory)
             : base(databaseFactory)
         {
 

@@ -72,6 +72,7 @@ namespace TFSMS.Admin.Data
            
         }
 
+        public DbSet<CmnFinancialYear> CmnFinancialYears { get; set; }
         public DbSet<SecCompanyModule> SecCompanyModules { get; set; }
         public DbSet<SecModule> SecModules { get; set; }
         public DbSet<SecMenu> SecMenus { get; set; }

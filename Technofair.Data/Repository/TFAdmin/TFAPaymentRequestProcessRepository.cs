@@ -12,6 +12,7 @@ using Technofair.Lib.Utilities;
 using Technofair.Model.TFAdmin;
 using System.Data.SqlClient;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Infrastructure;
 
 
 
@@ -28,9 +29,9 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
         string GetProcessID(int deviceNumberId);
     }
 
-    public interface IRepository<T>
-    {
-    }
+    //public interface IRepository<T>
+    //{
+    //}
 
     #endregion
 

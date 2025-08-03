@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Technofair.Data.Infrastructure.TFAdmin;
 
 namespace TFSMS.Admin.Data.Infrastructure.TFAdmin
 {
    
-    public class AdminUnitOfWork : IUnitOfWork
+    public class AdminUnitOfWork : IAdminUnitOfWork
     {
         private readonly IAdminDatabaseFactory databaseFactory;
         private TFAdminContext dataContext;
