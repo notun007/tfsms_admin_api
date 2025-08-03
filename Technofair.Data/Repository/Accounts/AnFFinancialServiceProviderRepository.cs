@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 //using Technofair.Data.Infrastructure;
 using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Data.Infrastructure;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 
 namespace TFSMS.Admin.Data.Repository.Accounts
 {
@@ -13,9 +14,9 @@ namespace TFSMS.Admin.Data.Repository.Accounts
     {
         Int16 AddEntity(AnFFinancialServiceProvider obj);
     }
-    public class AnFFinancialServiceProviderRepository : BaseRepository<AnFFinancialServiceProvider>, IAnFFinancialServiceProviderRepository
+    public class AnFFinancialServiceProviderRepository : AdminBaseRepository<AnFFinancialServiceProvider>, IAnFFinancialServiceProviderRepository
     {
-        public AnFFinancialServiceProviderRepository(IDatabaseFactory databaseFactory)
+        public AnFFinancialServiceProviderRepository(IAdminDatabaseFactory databaseFactory)
            : base(databaseFactory)
         {
 

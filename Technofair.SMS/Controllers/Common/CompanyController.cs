@@ -1,37 +1,33 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 using Microsoft.Reporting.Map.WebForms.BingMaps;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+
 using System.Net.Http.Headers;
-using System.Security.Policy;
-using Technofair.Data.Infrastructure;
-using Technofair.Data.Infrastructure.TFAdmin;
-using Technofair.Data.Repository.Common;
-using Technofair.Data.Repository.HRM;
-using Technofair.Data.Repository.Security;
+
 using Technofair.Data.Repository.TFLoan.Device;
 using Technofair.Lib.Model;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.Common;
+using TFSMS.Admin.Data.Repository.Security;
 using TFSMS.Admin.Model.Common;
 using TFSMS.Admin.Model.HRM;
 
 using TFSMS.Admin.Model.Security;
 
 using TFSMS.Admin.Model.ViewModel.Common;
-using TFSMS.Admin.Model.ViewModel.Subscription;
-//using Technofair.Service.Common;
-using Technofair.Service.HRM;
-using Technofair.Service.Security;
-using Technofair.Service.TFLoan.Device;
-using Technofair.Utiity.Security;
-using static Technofair.Utiity.Enums.Security;
-using CmnCompanyRepository = Technofair.Data.Repository.TFLoan.Device.CmnCompanyRepository;
-using CmnCompanyService = Technofair.Service.TFLoan.Device.CmnCompanyService;
-using ICmnCompanyRepository = Technofair.Data.Repository.TFLoan.Device.ICmnCompanyRepository;
-using ICmnCompanyService = Technofair.Service.TFLoan.Device.ICmnCompanyService;
+
+using TFSMS.Admin.Service.HRM;
+using TFSMS.Admin.Service.Security;
+using TFSMS.Admin.Service.TFLoan.Device;
+using TFSMS.Admin.Data.Repository.HRM;
+using TFSMS.Admin.Service.Common;
+
+//using CmnCompanyRepository = TFSMS.Admin.Data.Repository.Common.CmnCompanyRepository;
+//using CmnCompanyService = TFSMS.Admin.Service.Common.CmnCompanyService;
+//using ICmnCompanyRepository = TFSMS.Admin.Data.Repository.Common.ICmnCompanyRepository;
+//using ICmnCompanyService = TFSMS.Admin.Service.Common.ICmnCompanyService;
 
 
 namespace TFSMS.Admin.Controllers.Common
@@ -244,9 +240,9 @@ namespace TFSMS.Admin.Controllers.Common
 
         [AllowAnonymous]
         [HttpGet(("GetSolutionProvider"))]
-        public async Task<CmnCompany> GetSolutionProvider()
+        public CmnCompany GetSolutionProvider()
         {
-            CmnCompany company = await service.GetSolutionProvider();
+            CmnCompany company = service.GetSolutionProvider();
             return company;
         }
 

@@ -1,34 +1,28 @@
-﻿using Technofair.Data.Infrastructure;
-using Technofair.Data.Repository.Security;
+﻿
 using TFSMS.Admin.Model.Security;
-using Technofair.Service.Security;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
-using Technofair.Lib.Utilities;
+
 using Technofair.Lib.Model;
 using TFSMS.Admin.Model.ViewModel.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Technofair.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Service.Security;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.Security;
 
 namespace TFSMS.Admin.Controllers.Security
 {
     [Route("Security/[Controller]")]
     public class UserRoleController : ControllerBase
     {
-        //
-
+      
         private ISecUserRoleService service;
-        //private ISecUserService serviceUser;
-
+       
         public UserRoleController()
         {
             var dbfactory = new AdminDatabaseFactory();
             service = new SecUserRoleService(new SecUserRoleRepository(dbfactory), new AdminUnitOfWork(dbfactory));
-            //serviceUser = new SecUserService(new SecUserRepository(dbfactory), new UnitOfWork(dbfactory));
+           
         }
 
         [Authorize(Policy = "Authenticated")]
@@ -47,14 +41,7 @@ namespace TFSMS.Admin.Controllers.Security
             return list;
         }
 
-        //[Authorize(Policy = "Authenticated")]
-        //[HttpPost("GetUserRolesByCompanyAndRoleId")]
-        //public async Task<List<SecUserRoleViewModel>> GetUserRolesByCompanyAndRoleId(int companyId, int roleId)
-        //{
-        //    List<SecUserRoleViewModel> list = service.GetUserRolesByCompanyAndRoleId(companyId, roleId);
-        //    return list;
-        //}
-        
+             
         [Authorize(Policy = "Authenticated")]
         [HttpPost("GetRoleLessUserByCompanyId")]
         public async Task<List<UserRoleViewModel>> GetRoleLessUserByCompanyId(int companyId)

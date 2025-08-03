@@ -1,24 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Technofair.Data.Infrastructure;
-using Technofair.Data.Infrastructure.TFAdmin;
-//using Technofair.Data.Repository.Common;
-using Technofair.Data.Repository.TFAdmin;
-using Technofair.Data.Repository.TFLoan.Device;
 
-//using Technofair.Data.Repository.Loan.Device;
+using Technofair.Data.Repository.TFLoan.Device;
 using Technofair.Lib.Model;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 using TFSMS.Admin.Model.Common;
 using TFSMS.Admin.Model.TFLoan.Device;
 using TFSMS.Admin.Model.ViewModel.TFLoan;
-
-
-//using Technofair.Model.Loan.Device;
-
-//using Technofair.Service.Common;
-using Technofair.Service.TFAdmin;
-using Technofair.Service.TFLoan.Device;
-//using Technofair.Service.Loan.Device;
+using TFSMS.Admin.Service.TFLoan.Device;
 
 namespace TFSMS.Admin.Controllers.TFLoan.Device
 {
@@ -36,12 +25,6 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             var dbfactory = new AdminDatabaseFactory();          
             service = new LnDeviceLenderService(new LnDeviceLenderRepository(dbfactory), new AdminUnitOfWork(dbfactory));
             serviceAppSetting = new CmnAppSettingService(new CmnAppSettingRepository(dbfactory), new AdminUnitOfWork(dbfactory));
-
-
-            //Old: 28072025
-            //var dbfactory = new DatabaseFactory();
-            //service = new LnDeviceLenderService(new LnDeviceLenderRepository(dbfactory), new UnitOfWork(dbfactory));
-            //serviceAppSetting = new CmnAppSettingService(new CmnAppSettingRepository(dbfactory), new UnitOfWork(dbfactory));
         }
         [HttpPost("GetAll")]
         public List<LnDeviceLender> GetAll()

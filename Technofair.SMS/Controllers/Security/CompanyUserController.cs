@@ -1,20 +1,9 @@
-﻿using Technofair.Data.Repository.Common;
-using Technofair.Data.Infrastructure;
-using Technofair.Data.Repository.Security;
-using Technofair.Lib.Model;
-using TFSMS.Admin.Model.Security;
-using Technofair.Service.Common;
-using Technofair.Service.Security;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
-using Technofair.Lib.Utilities;
-using TFSMS.Admin.Model.Common;
-using TFSMS.Admin.Model.ViewModel.Security;
+﻿
 using Microsoft.AspNetCore.Mvc;
-using Technofair.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.Security;
+using TFSMS.Admin.Service.Security;
+
 
 namespace TFSMS.Admin.Controllers.Security
 {

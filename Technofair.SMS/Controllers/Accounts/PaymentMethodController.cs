@@ -3,7 +3,7 @@ using Technofair.Data.Infrastructure;
 using Technofair.Lib.Model;
 using Technofair.Lib.Utilities;
 using TFSMS.Admin.Model.Accounts;
-using Technofair.Service.Accounts;
+
 using TFSMS.Admin.Model.ViewModel.Accounts;
 using System;
 using System.Collections.Generic;
@@ -18,6 +18,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using TFSMS.Admin.Service.Accounts;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.Accounts;
 
 namespace TFSMS.Admin.Controllers.Accounts
 {
@@ -28,8 +31,8 @@ namespace TFSMS.Admin.Controllers.Accounts
         private IAnFPaymentMethodService service;
         public PaymentMethodController()
         {
-            var dbfactory = new DatabaseFactory();
-            service = new AnFPaymentMethodService(new AnFPaymentMethodRepository(dbfactory), new UnitOfWork(dbfactory));
+            var dbfactory = new AdminDatabaseFactory();
+            service = new AnFPaymentMethodService(new AnFPaymentMethodRepository(dbfactory), new AdminUnitOfWork(dbfactory));
         }
 
 

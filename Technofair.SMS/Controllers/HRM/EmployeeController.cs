@@ -1,25 +1,22 @@
-﻿using Technofair.Data.Repository.HRM;
-using Technofair.Data.Infrastructure;
+﻿
 using Technofair.Lib.Model;
 using TFSMS.Admin.Model.HRM;
-using Technofair.Service.HRM;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+
 using System.Data;
-using System.Linq;
-using System.Web;
-using Technofair.Model.ViewModel.HRM;
-using Technofair.Model.ViewModel.HRM.Reports;
 using TFSMS.Admin.Model.Common;
-using Technofair.Service.Common;
-using Technofair.Data.Repository.Common;
+
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting.Internal;
+
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Authorization;
 using Technofair.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Model.ViewModel.HRM;
+using TFSMS.Admin.Service.HRM;
+using TFSMS.Admin.Service.Common;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.HRM;
+using TFSMS.Admin.Data.Repository.Common;
+using TFSMS.Admin.Model.ViewModel.HRM.Reports;
 
 namespace Technofair.SMS.Controllers.HRM
 {

@@ -1,16 +1,4 @@
-﻿using Technofair.Data.Infrastructure;
-using Technofair.Data.Repository.Security;
-using TFSMS.Admin.Model.Security;
-using Technofair.Service.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Technofair.Lib.Utilities;
-using Technofair.Lib.Model;
-using TFSMS.Admin.Model.ViewModel.Security;
-
-
+﻿
 namespace TFSMS.Admin.Controllers.Security
 {
     //public class DashboardPermissionController : Controller

@@ -4,6 +4,7 @@ using Technofair.Lib.Model;
 using TFSMS.Admin.Model.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Repository.TFAdmin;
+using Technofair.Data.Infrastructure.TFAdmin;
 
 
 namespace TFSMS.Admin.Service.TFAdmin
@@ -25,8 +26,8 @@ namespace TFSMS.Admin.Service.TFAdmin
     public class TFACompanyPackageTypeService : ITFACompanyPackageTypeService
     {
         private ITFACompanyPackageTypeRepository repository;
-        private IUnitOfWork _UnitOfWork;
-        public TFACompanyPackageTypeService(ITFACompanyPackageTypeRepository _repository, IUnitOfWork unitOfWork)
+        private IAdminUnitOfWork _UnitOfWork;
+        public TFACompanyPackageTypeService(ITFACompanyPackageTypeRepository _repository, IAdminUnitOfWork unitOfWork)
         {
             this.repository = _repository;
             this._UnitOfWork = unitOfWork;

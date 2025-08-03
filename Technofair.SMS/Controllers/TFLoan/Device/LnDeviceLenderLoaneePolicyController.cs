@@ -1,20 +1,20 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Technofair.Data.Infrastructure;
-using Technofair.Data.Infrastructure.TFAdmin;
-using Technofair.Data.Repository.TFAdmin;
+
 using Technofair.Data.Repository.TFLoan.Device;
 
-//using Technofair.Data.Repository.Loan.Device;
+using TFSMS.Admin.Data.Repository.TFAdmin;
 using Technofair.Lib.Model;
 
 using TFSMS.Admin.Model.TFLoan.Device;
-using TFSMS.Admin.Model.ViewModel.Subscription;
+
 using TFSMS.Admin.Model.ViewModel.TFLoan;
-using Technofair.Service.TFAdmin;
-using Technofair.Service.TFLoan.Device;
+
 using Technofair.Utiity.Http;
-//using Technofair.Service.Loan.Device;
+using TFSMS.Admin.Service.TFLoan.Device;
+using TFSMS.Admin.Service.TFAdmin;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+
 
 namespace TFSMS.Admin.Controllers.TFLoan.Device
 {
@@ -24,7 +24,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
     {
         private ILnDeviceLenderLoaneePolicyService service;
         private ITFACompanyCustomerService serviceCompanyCustomer;
-        //private IWebHostEnvironment _hostingEnvironment;
+      
 
         public LnDeviceLenderLoaneePolicyController()
         {

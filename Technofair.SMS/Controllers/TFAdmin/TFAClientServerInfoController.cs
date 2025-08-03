@@ -1,17 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Technofair.Data.Infrastructure;
-using Technofair.Data.Repository.Common;
-using Technofair.Data.Repository.TFAdmin;
-using TFSMS.Admin.Model.Common;
-using TFSMS.Admin.Model.ViewModel.Common;
-using Technofair.Service.Common;
-using Technofair.Service.TFAdmin;
-using Technofair.Data.Infrastructure.TFAdmin;
+
 using Technofair.Lib.Model;
 using TFSMS.Admin.Model.TFAdmin;
 using TFSMS.Admin.Model.ViewModel.TFAdmin;
-using Technofair.Service.Security;
+
 using Microsoft.AspNetCore.Authorization;
+using TFSMS.Admin.Service.TFAdmin;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.TFAdmin;
 
 
 namespace TFSMS.Admin.Controllers.TFAdmin
@@ -23,13 +19,13 @@ namespace TFSMS.Admin.Controllers.TFAdmin
     {
 
         private ITFAClientServerInfoService service;
-        //private ICmnCompanyService serviceCompany;
+
         public TFAClientServerInfoController()
         {
             var adminDbfactory = new AdminDatabaseFactory();
-            var dbfactory = new DatabaseFactory();
+            var dbfactory = new AdminDatabaseFactory();
             service = new TFAClientServerInfoService(new TFAClientServerInfoRepository(adminDbfactory), new AdminUnitOfWork(adminDbfactory));
-            //serviceCompany = new CmnCompanyService(new CmnCompanyRepository(dbfactory), new UnitOfWork(dbfactory));
+          
         }
 
         #region Method

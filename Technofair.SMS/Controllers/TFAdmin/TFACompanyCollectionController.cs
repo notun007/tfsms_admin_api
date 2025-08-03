@@ -3,24 +3,21 @@ using Newtonsoft.Json;
 using RestSharp;
 using System.Net;
 using System.Text;
-using Technofair.Data.Infrastructure;
-using Technofair.Data.Repository.Accounts;
-using Technofair.Data.Repository.Common;
-using Technofair.Lib.Utilities;
-using TFSMS.Admin.Model.Accounts;
+
+
 using TFSMS.Admin.Model.Common;
-using TFSMS.Admin.Model.HRM;
+
 using TFSMS.Admin.Model.ViewModel.Accounts;
 using TFSMS.Admin.Model.ViewModel.Common;
-using Technofair.Service.Accounts;
-using Technofair.Service.Common;
+
 using TFSMS.Admin.Web.Models;
-using Technofair.Service.TFAdmin;
-using Technofair.Data.Repository.TFAdmin;
-using Technofair.Data.Infrastructure.TFAdmin;
+
 using Technofair.Lib.Model;
 using TFSMS.Admin.Model.TFAdmin;
 using Microsoft.AspNetCore.Authorization;
+using TFSMS.Admin.Service.TFAdmin;
+using TFSMS.Admin.Data.Repository.TFAdmin;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 
 namespace TFSMS.Admin.Controllers.TFAdmin
 {
@@ -32,22 +29,19 @@ namespace TFSMS.Admin.Controllers.TFAdmin
         private ITFACompanyCollectionService service;
         private ITFAClientPaymentService servicePayment;
         private ITFACompanyCollectionRepository repository;
-        //private ICmnPaymentGatewayUserService serviceGatewayUser;
+
         private ITFACompanyCustomerService serviceClient;
 
      
         AdminDatabaseFactory dbfactory = new AdminDatabaseFactory();
-        DatabaseFactory dbfac = new DatabaseFactory();
+        AdminDatabaseFactory dbfac = new AdminDatabaseFactory();
         public TFACompanyCollectionController()
         {
             repository = new TFACompanyCollectionRepository(dbfactory);
             service = new TFACompanyCollectionService(repository, new AdminUnitOfWork(dbfactory));
             servicePayment = new TFAClientPaymentService(new TFAClientPaymentRepository(dbfactory), new AdminUnitOfWork(dbfactory));
-            //serviceGatewayUser = new CmnPaymentGatewayUserService(new CmnPaymentGatewayUserRepository(dbfac), new UnitOfWork(dbfac));
-            serviceClient = new TFACompanyCustomerService(new TFACompanyCustomerRepository(dbfactory), new AdminUnitOfWork(dbfactory));
 
-            //servicePaymentMethod = new AnFPaymentMethodService(new AnFPaymentMethodRepository(dbfac), new UnitOfWork(dbfac));
-            //serviceMethodDetail = new AnFPaymentMethodDetailService(new AnFPaymentMethodDetailRepository(dbfac), new UnitOfWork(dbfac));
+            serviceClient = new TFACompanyCustomerService(new TFACompanyCustomerRepository(dbfactory), new AdminUnitOfWork(dbfactory));
         }
 
 

@@ -6,14 +6,11 @@ using Technofair.Data.Repository.TFLoan.Device;
 
 //using Technofair.Data.Repository.Loan.Device;
 using Technofair.Lib.Model;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 using TFSMS.Admin.Model.TFLoan.Device;
 using TFSMS.Admin.Model.ViewModel.TFLoan;
-
-
-//using Technofair.Model.Loan.Device;
-
-using Technofair.Service.TFLoan.Device;
-//using Technofair.Service.Loan.Device;
+using TFSMS.Admin.Service.TFLoan.Device;
+using TFSMS.Admin.Data.Repository.TFLoan.Device;
 
 namespace TFSMS.Admin.Controllers.TFLoan.Device
 {

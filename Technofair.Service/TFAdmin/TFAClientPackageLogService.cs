@@ -32,7 +32,7 @@ namespace TFSMS.Admin.Service.TFAdmin
     {
         private ITFAClientPackageLogRepository repository;
         private IAdminUnitOfWork _UnitOfWork;
-        public TFAClientPackageLogService(ITFAClientPackageLogRepository _repository, IaDMINUnitOfWork unitOfWork)
+        public TFAClientPackageLogService(ITFAClientPackageLogRepository _repository, IAdminUnitOfWork unitOfWork)
         {
             this.repository = _repository;
             this._UnitOfWork = unitOfWork;

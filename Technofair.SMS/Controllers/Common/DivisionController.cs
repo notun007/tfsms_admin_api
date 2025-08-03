@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Technofair.Data.Infrastructure;
-using Technofair.Data.Repository.Common;
+using Technofair.Data.Repository.TFLoan.Device;
 using Technofair.Lib.Model;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 using TFSMS.Admin.Model.Common;
-using Technofair.Service.Common;
+using TFSMS.Admin.Service.Common;
+
 
 namespace TFSMS.Admin.Controllers.Common
 {
@@ -16,8 +18,8 @@ namespace TFSMS.Admin.Controllers.Common
         private ICmnDivisionService _IG;
         public DivisionController()
         {
-            var dbFactory = new DatabaseFactory();
-            _IG = new CmnDivisionService(new CmnDivisionRepository(dbFactory), new UnitOfWork(dbFactory));
+            var dbFactory = new AdminDatabaseFactory();
+            _IG = new CmnDivisionService(new CmnDivisionRepository(dbFactory), new AdminUnitOfWork(dbFactory));
             //this._IG = _IG;
         }
 

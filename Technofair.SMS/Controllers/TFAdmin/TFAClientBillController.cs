@@ -4,14 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Security.Policy;
 using Technofair.Data.Infrastructure.TFAdmin;
-using Technofair.Data.Repository.TFAdmin;
+
 using Technofair.Lib.Model;
 using Technofair.Lib.Utilities;
 using TFSMS.Admin.Model.TFAdmin;
 using TFSMS.Admin.Model.ViewModel.Subscription;
 using TFSMS.Admin.Model.ViewModel.TFAdmin;
-using Technofair.Service.TFAdmin;
+
 using Technofair.Utiity.Http;
+using TFSMS.Admin.Service.TFAdmin;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.TFAdmin;
 
 namespace TFSMS.Admin.Controllers.TFAdmin
 {

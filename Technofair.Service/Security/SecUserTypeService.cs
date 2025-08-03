@@ -9,6 +9,7 @@ using TFSMS.Admin.Model.Security;
 using TFSMS.Admin.Model.ViewModel.Security;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Repository.Security;
+using Technofair.Data.Infrastructure.TFAdmin;
 
 namespace TFSMS.Admin.Service.Security
 {
@@ -19,10 +20,10 @@ namespace TFSMS.Admin.Service.Security
     public class SecUserTypeService : ISecUserTypeService
     {
         private ISecUserTypeRepository repository;
-        private IUnitOfWork _UnitOfWork;
+        private IAdminUnitOfWork _UnitOfWork;
 
 
-        public SecUserTypeService(ISecUserTypeRepository _repository, IUnitOfWork unitOfWork)
+        public SecUserTypeService(ISecUserTypeRepository _repository, IAdminUnitOfWork unitOfWork)
         {
             this.repository = _repository;
             this._UnitOfWork = unitOfWork;

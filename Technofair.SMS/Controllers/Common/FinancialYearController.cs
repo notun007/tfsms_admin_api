@@ -1,18 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
-using Technofair.Data.Infrastructure;
-using Technofair.Data.Repository.Accounts;
-using Technofair.Data.Repository.Common;
+
 using Technofair.Lib.Model;
 using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Model.Common;
-using TFSMS.Admin.Model.ViewModel.Accounts;
-using TFSMS.Admin.Model.ViewModel.Accounts.Reports;
-using TFSMS.Admin.Model.ViewModel.Common;
-using Technofair.Service.Accounts;
-using Technofair.Service.Common;
+
 using Technofair.SMS.Filters;
+using TFSMS.Admin.Service.Common;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.Common;
 
 namespace TFSMS.Admin.Controllers.Common
 {
@@ -20,19 +17,14 @@ namespace TFSMS.Admin.Controllers.Common
     [ApiController]
     public class FinancialYearController : ControllerBase
     {
-        //
-        // GET: /Common/FinancialYear/
+        
         private ICmnFinancialYearService service;
-        //private IAnFOpeningBalanceService serviceOpeningBalance;
-        //private AnFReportService serviceReport;
-        //private AnFChartOfAccountService serviceChart;
+      
         public FinancialYearController()
         {
-            var dbfactory = new DatabaseFactory();
-            service = new CmnFinancialYearService(new CmnFinancialYearRepository(dbfactory), new UnitOfWork(dbfactory));
-            //serviceOpeningBalance = new AnFOpeningBalanceService(new AnFOpeningBalanceRepository(dbfactory), new UnitOfWork(dbfactory));
-            //serviceReport = new AnFReportService(new AnFReportRepository(dbfactory));
-            //serviceChart = new AnFChartOfAccountService(new AnFChartOfAccountRepository(dbfactory), new UnitOfWork(dbfactory));
+            var dbfactory = new AdminDatabaseFactory();
+            service = new CmnFinancialYearService(new CmnFinancialYearRepository(dbfactory), new AdminUnitOfWork(dbfactory));
+         
         }
 
         [Authorize(Policy = "Authenticated")]

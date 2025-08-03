@@ -13,6 +13,7 @@ using TFSMS.Admin.Model.Utility;
 using TFSMS.Admin.Model.ViewModel.Common;
 using TFSMS.Admin.Model.ViewModel.Subscription;
 using TFSMS.Admin.Data.Repository.Common;
+using Technofair.Data.Infrastructure.TFAdmin;
 
 namespace TFSMS.Admin.Service.TFLoan.Device
 {
@@ -57,7 +58,7 @@ namespace TFSMS.Admin.Service.TFLoan.Device
         CmnCompany GetByName(string name);
         List<CmnCompanyViewModel> GetClientByCompanyId(int companyId);
         //Added By Asad On 28.11.2023
-        Task<CmnCompany> GetSolutionProvider();
+        CmnCompany GetSolutionProvider();
         CmnCompany GetMainServiceOperator();
         Task<List<CmnCompany>> GetMainServiceOperators();
         List<CmnCompany> GetSecondLevelCompanies();
@@ -413,9 +414,9 @@ namespace TFSMS.Admin.Service.TFLoan.Device
         }
 
         
-        public async Task<CmnCompany> GetSolutionProvider()
+        public CmnCompany GetSolutionProvider()
         {
-            return await repository.GetSolutionProvider();
+            return repository.GetSolutionProvider();
         }
 
         public CmnCompany GetMainServiceOperator()

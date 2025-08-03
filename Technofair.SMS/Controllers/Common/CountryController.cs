@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Technofair.Data.Infrastructure;
-using Technofair.Data.Repository.Common;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.Common;
 using TFSMS.Admin.Model.Common;
-using Technofair.Service.Common;
+using TFSMS.Admin.Service.Common;
+
 
 namespace TFSMS.Admin.Controllers.Common
 {
@@ -16,8 +17,8 @@ namespace TFSMS.Admin.Controllers.Common
         private ICmnCountryService service;
         public CountryController()
         {
-            var dbFactory = new DatabaseFactory();
-            service = new CmnCountryService(new CmnCountryRepository(dbFactory), new UnitOfWork(dbFactory));
+            var dbFactory = new AdminDatabaseFactory();
+            service = new CmnCountryService(new CmnCountryRepository(dbFactory), new AdminUnitOfWork(dbFactory));
         }
 
         #region Country

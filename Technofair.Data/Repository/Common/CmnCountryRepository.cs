@@ -3,6 +3,7 @@ using TFSMS.Admin.Model.Common;
 //using Technofair.Data.Infrastructure;
 using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Data.Infrastructure;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 
 namespace TFSMS.Admin.Data.Repository.Common
 {
@@ -15,9 +16,9 @@ namespace TFSMS.Admin.Data.Repository.Common
         Task<bool> DelCountryById(int id);
 
     }
-    public class CmnCountryRepository : BaseRepository<CmnCountry>, ICmnCountryRepository
+    public class CmnCountryRepository : AdminBaseRepository<CmnCountry>, ICmnCountryRepository
     {
-        public CmnCountryRepository(IDatabaseFactory databaseFactory) : base(databaseFactory)
+        public CmnCountryRepository(IAdminDatabaseFactory databaseFactory) : base(databaseFactory)
         {
         }
 

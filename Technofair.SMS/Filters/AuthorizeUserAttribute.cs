@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Technofair.Data.Infrastructure;
-using Technofair.Data.Repository.Common;
-using Technofair.Service.Common;
-using System;
-using System.Data;
-using System.Web;
-using Technofair.Service.Security;
-using Technofair.Data.Repository.Security;
-using Technofair.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.Security;
+using TFSMS.Admin.Service.Security;
+
 
 namespace Technofair.SMS.Filters
 {

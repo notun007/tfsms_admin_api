@@ -1,45 +1,36 @@
-﻿using Technofair.Data.Infrastructure;
-using Technofair.Data.Repository.HRM;
-using Technofair.Data.Repository.Security;
+﻿
 using Technofair.Lib.Model;
-using TFSMS.Admin.Model.HRM;
+
 using TFSMS.Admin.Model.Security;
-using TFSMS.Admin.Model.ViewModel.Common;
+
 using TFSMS.Admin.Model.ViewModel.Security;
-using Technofair.Service.HRM;
-using Technofair.Service.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+
+
 using Microsoft.AspNetCore.Mvc;
 using TFSMS.Admin.Model.Common;
-using Technofair.SMS;
+
 using Microsoft.Extensions.Options;
-using TFSMS.Admin.Models;
-using Technofair.Lib.Utilities;
-using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
+
 using Technofair.Utiity.Security;
-using Technofair.Service.TFAdmin;
-using Technofair.Data.Repository.TFAdmin;
-using Technofair.Data.Infrastructure.TFAdmin;
-using TFSMS.Admin.Controllers.Security;
-using Technofair.Service.Common;
-using Technofair.Data.Repository.Common;
 using TFSMS.Admin.Model.TFAdmin;
 using Technofair.Utiity.Http;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Security.Claims;
-using Serilog;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.JsonWebTokens;
-using Newtonsoft.Json.Linq;
+using TFSMS.Admin.Data.Repository.TFAdmin;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Hosting.Internal;
+
 using Technofair.Utiity.Log;
-using Technofair.Service.TFLoan.Device;
+
 using Technofair.Data.Repository.TFLoan.Device;
+using TFSMS.Admin.Service.Security;
+using TFSMS.Admin.Service.HRM;
+using TFSMS.Admin.Service.TFAdmin;
+using TFSMS.Admin.Service.TFLoan.Device;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.Security;
+using TFSMS.Admin.Data.Repository.HRM;
 
 
 [Route("Security/[Controller]")]
@@ -51,7 +42,6 @@ public class UserController : ControllerBase
     private ISecUserRoleService serviceUserRole;
     private ISecCompanyUserService serviceComUser;
     private IHrmEmployeeService serviceEmployee;
-    //private ISecUserVisitorService serviceUserVisitor;
     private ITFAClientServerInfoService serviceClientServerInfo;
     private ICmnAppSettingService serviceAppSetting;
     private ITFACompanyCustomerService serviceCompanyCustomerService;

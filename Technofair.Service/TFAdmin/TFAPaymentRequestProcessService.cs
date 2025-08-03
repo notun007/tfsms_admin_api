@@ -3,11 +3,11 @@ using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Lib.Model;
 
 using TFSMS.Admin.Model.TFAdmin;
-using Technofair.Service.TFLoan.Device;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 using TFSMS.Admin.Data.Repository.Accounts;
 using TFSMS.Admin.Data.Repository.TFAdmin;
+using TFSMS.Admin.Service.Accounts;
 
 
 

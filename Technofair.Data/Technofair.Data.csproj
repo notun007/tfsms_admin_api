@@ -20,6 +20,8 @@
     <Compile Remove="Repository\Common\CmnAppSettingRepository.cs" />
     <Compile Remove="Repository\Subscription\ScpDeviceAssignRepository.cs" />
     <Compile Remove="Repository\Subscription\ScpSubscriberPackageRepository.cs" />
+    <Compile Remove="Repository\TFLoan\Device\AnFFinancialServiceProviderRepository.cs" />
+    <Compile Remove="Repository\TFLoan\Device\CmnCompanyRepository.cs" />
   </ItemGroup>
 
   

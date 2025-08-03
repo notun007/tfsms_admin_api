@@ -1,7 +1,6 @@
 ﻿using Technofair.Lib.Utilities;
 using TFSMS.Admin.Model.HRM;
-using Technofair.Model.ViewModel.HRM;
-using Technofair.Model.ViewModel.HRM.Reports;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,6 +13,8 @@ using TFSMS.Admin.Model.Common;
 using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Model.ViewModel.HRM;
+using TFSMS.Admin.Model.ViewModel.HRM.Reports;
 
 
 namespace TFSMS.Admin.Data.Repository.HRM

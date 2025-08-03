@@ -2,12 +2,11 @@
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
-using Technofair.Data.Infrastructure;
-using Technofair.Data.Infrastructure.TFAdmin;
-using Technofair.Data.Repository.Common;
-using Technofair.Data.Repository.Security;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.Security;
 using TFSMS.Admin.Model.Common;
-using Technofair.Service.Security;
+using TFSMS.Admin.Service.Security;
+
 
 namespace TFSMS.Admin
 {

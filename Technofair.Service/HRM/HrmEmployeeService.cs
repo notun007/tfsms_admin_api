@@ -2,15 +2,16 @@
 using System;
 using System.Collections.Generic;
 using TFSMS.Admin.Model.HRM;
-using Technofair.Model.ViewModel.HRM;
+
 using System.Data;
 using Technofair.Lib.Utilities;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Technofair.Model.ViewModel.HRM.Reports;
 using TFSMS.Admin.Data.Repository.HRM;
 using TFSMS.Admin.Data.Infrastructure;
 using Technofair.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Model.ViewModel.HRM;
+using TFSMS.Admin.Model.ViewModel.HRM.Reports;
 
 
 namespace TFSMS.Admin.Service.HRM

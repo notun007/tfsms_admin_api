@@ -1,22 +1,21 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+
 using Microsoft.AspNetCore.Mvc;
-using Technofair.Data.Infrastructure;
-using Technofair.Data.Infrastructure.TFAdmin;
-using Technofair.Data.Repository.TFLoan.Device;
-
-
-//using Technofair.Data.Repository.Common;
-//using Technofair.Data.Repository.Loan.Device;
 using Technofair.Lib.Model;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.Common;
+using TFSMS.Admin.Data.Repository.TFLoan.Device;
 using TFSMS.Admin.Model.TFLoan.Device;
-
-//using Technofair.Model.Loan.Device;
 using TFSMS.Admin.Model.Utility;
 using TFSMS.Admin.Model.ViewModel.TFLoan;
-using Technofair.Service.TFLoan.Device;
-//using Technofair.Service.Common;
-//using Technofair.Service.Loan.Device;
+using TFSMS.Admin.Service.Common;
+using TFSMS.Admin.Service.TFLoan.Device;
+//using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+
+//using TFSMS.Admin.Model.Utility;
+//using TFSMS.Admin.Model.ViewModel.TFLoan;
+//using TFSMS.Admin.Service.TFLoan.Device;
+
 
 namespace TFSMS.Admin.Controllers.TFLoan.Device
 {
@@ -36,9 +35,6 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             service = new LnDeviceLoanCollectionService(new LnDeviceLoanCollectionRepository(dbfactory), new AdminUnitOfWork(dbfactory));
             serviceCompany = new CmnCompanyService(new CmnCompanyRepository(dbfactory), new AdminUnitOfWork(dbfactory));
 
-            //var dbfactory = new DatabaseFactory();
-            //service = new LnDeviceLoanCollectionService(new LnDeviceLoanCollectionRepository(dbfactory), new UnitOfWork(dbfactory));
-            //serviceCompany = new CmnCompanyService(new CmnCompanyRepository(dbfactory), new UnitOfWork(dbfactory));
         }
 
         [HttpPost("GetAll")]

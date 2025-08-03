@@ -40,12 +40,12 @@ namespace TFSMS.Admin.Service.Security
     public class SecMenuService : ISecMenuService
     {
         private ISecMenuRepository repository;
-        private ISecModuleRepository _moduleRepo;
+        //private ISecModuleRepository _moduleRepo;
         private IAdminUnitOfWork _UnitOfWork;
-        public SecMenuService(ISecMenuRepository menuRepository, ISecModuleRepository moduleRepo,IAdminUnitOfWork unitOfWork)
+        public SecMenuService(ISecMenuRepository menuRepository, IAdminUnitOfWork unitOfWork)
         {
             this.repository = menuRepository;
-            this._moduleRepo = moduleRepo;
+           // this._moduleRepo = moduleRepo;
             this._UnitOfWork = unitOfWork;       
         }
 

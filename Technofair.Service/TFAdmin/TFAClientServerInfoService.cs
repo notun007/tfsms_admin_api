@@ -21,11 +21,6 @@ namespace TFSMS.Admin.Service.TFAdmin
         Operation Delete(TFAClientServerInfo obj);
         List<TFAClientServerInfo> GetAll();
         TFAClientServerInfo GetById(int id);
-
-        //Task<TFAClientServerInfo> GetStoredClientServerInfoByAppKey(string appKey);
-
-        //Task<TFAClientServerInfo> GetClientServerInfoByCustomerCompanyId(int Id);
-        //Task<bool> IsValidServer(TFAClientServerInfo obj);
         TFAClientServerInfoViewModel ReadServerInfo();
         string GetWin32_ProcessorId();
         string GetWin32_NetworkAdapterId();

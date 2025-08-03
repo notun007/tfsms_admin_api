@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using TFSMS.Admin.Data.Repository.Security;
 using TFSMS.Admin.Data.Infrastructure;
 using Technofair.Data.Infrastructure.TFAdmin;
+using TFSMS.Model.ViewModel.Security;
 
 namespace TFSMS.Admin.Service.Security
 {

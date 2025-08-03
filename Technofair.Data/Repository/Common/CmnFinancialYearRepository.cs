@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TFSMS.Admin.Data.Infrastructure;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 
 namespace TFSMS.Admin.Data.Repository.Common
 {
@@ -19,9 +20,9 @@ namespace TFSMS.Admin.Data.Repository.Common
 
     #endregion
 
-    public class CmnFinancialYearRepository : BaseRepository<CmnFinancialYear>, ICmnFinancialYearRepository
+    public class CmnFinancialYearRepository : AdminBaseRepository<CmnFinancialYear>, ICmnFinancialYearRepository
     {
-        public CmnFinancialYearRepository(IDatabaseFactory databaseFactory)
+        public CmnFinancialYearRepository(IAdminDatabaseFactory databaseFactory)
             : base(databaseFactory)
         {
 

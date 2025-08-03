@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Technofair.Data.Infrastructure;
 using Technofair.Data.Repository.Accounts;
 using Technofair.Lib.Model;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Model.ViewModel.Accounts;
-using Technofair.Service.Accounts;
+using TFSMS.Admin.Service.Accounts;
+
 
 namespace TFSMS.Admin.Controllers.Accounts
 {
@@ -17,8 +19,8 @@ namespace TFSMS.Admin.Controllers.Accounts
 
         public PaymentChannelController()
         {
-            var dbfactory = new DatabaseFactory();
-            service = new AnFPaymentChannelService(new AnFPaymentChannelRepository(dbfactory), new UnitOfWork(dbfactory));
+            var dbfactory = new AdminDatabaseFactory();
+            service = new AnFPaymentChannelService(new AnFPaymentChannelRepository(dbfactory), new AdminUnitOfWork(dbfactory));
         }
 
         [HttpPost("GetAll")]

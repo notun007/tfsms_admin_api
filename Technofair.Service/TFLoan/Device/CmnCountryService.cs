@@ -5,6 +5,7 @@ using Technofair.Data.Repository.TFLoan.Device;
 using Technofair.Lib.Model;
 using TFSMS.Admin.Model.Common;
 using TFSMS.Admin.Data.Repository.Common;
+using Technofair.Data.Infrastructure.TFAdmin;
 
 namespace TFSMS.Admin.Service.TFLoan.Device
 {

@@ -10,9 +10,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Technofair.Service.TFLoan.Device;
-using Technofair.Data.Repository.TFLoan.Device;
-using Technofair.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Service.Accounts;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.Accounts;
 
 namespace TFSMS.Admin.Controllers.TFLoan.Device
 {

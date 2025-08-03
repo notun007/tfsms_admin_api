@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Technofair.Data.Repository.Common;
+using TFSMS.Admin.Data.Repository.Common;
 using TFSMS.Admin.Model.Common;
 
 namespace TFSMS.Admin.Controllers.Common

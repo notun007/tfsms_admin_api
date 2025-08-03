@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Lib.Model;
-using TFSMS.Admin.Model.TFAdmin;
-using TFSMS.Admin.Model.ViewModel.Common;
 using TFSMS.Admin.Model.ViewModel.TFAdmin;
-using Technofair.Service.TFAdmin;
-using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Repository.TFAdmin;
 
 namespace TFSMS.Admin.Service.TFAdmin

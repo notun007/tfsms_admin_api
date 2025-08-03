@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Technofair.Data.Infrastructure;
-using Technofair.Data.Infrastructure.TFAdmin;
-using Technofair.Data.Repository.Common;
+
 using Technofair.Data.Repository.TFLoan.Device;
 using Technofair.Lib.Model;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.TFLoan.Device;
 using TFSMS.Admin.Model.Common;
 using TFSMS.Admin.Model.ViewModel.Common;
-using Technofair.Service.Common;
-using Technofair.Service.TFLoan.Device;
-//using Technofair.Service.TFLoan.Device;
+
+using TFSMS.Admin.Service.TFLoan.Device;
 
 
 namespace TFSMS.Admin.Controllers.Common

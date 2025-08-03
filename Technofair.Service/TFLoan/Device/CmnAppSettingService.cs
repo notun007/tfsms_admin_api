@@ -4,6 +4,7 @@
 //using System.Text;
 //using System.Threading.Tasks;
 using Technofair.Data.Infrastructure;
+using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Data.Repository.TFLoan.Device;
 
 //using Technofair.Data.Repository.Common;
