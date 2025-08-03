@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TFSMS.Admin.Model.Common;
 using TFSMS.Admin.Data.Infrastructure;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 //using Technofair.Data.Infrastructure;
 
 namespace TFSMS.Admin.Data.Repository.Common
@@ -14,9 +15,9 @@ namespace TFSMS.Admin.Data.Repository.Common
         Task<bool> DelDistrictById(int id);
 
     }
-    public class CmnDistrictRepository : BaseRepository<CmnDistrict>, IDistrictRepository
+    public class CmnDistrictRepository : AdminBaseRepository<CmnDistrict>, IDistrictRepository
     {
-        public CmnDistrictRepository(IDatabaseFactory databaseFactory) : base(databaseFactory)
+        public CmnDistrictRepository(IAdminDatabaseFactory databaseFactory) : base(databaseFactory)
         {
         }
 

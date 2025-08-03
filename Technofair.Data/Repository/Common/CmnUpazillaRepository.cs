@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TFSMS.Admin.Model.Common;
 using TFSMS.Admin.Data.Infrastructure;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 //using Technofair.Data.Infrastructure;
 
 namespace TFSMS.Admin.Data.Repository.Common
@@ -18,9 +19,9 @@ namespace TFSMS.Admin.Data.Repository.Common
         Task<List<CmnUpazilla>> GetUpazilaList();
         Task<bool> DelUpazillaById(int id);
     }
-    public class CmnUpazillaRepository : BaseRepository<CmnUpazilla>, IUpazillaRepository
+    public class CmnUpazillaRepository : AdminBaseRepository<CmnUpazilla>, IUpazillaRepository
     {
-        public CmnUpazillaRepository(IDatabaseFactory databaseFactory)
+        public CmnUpazillaRepository(IAdminDatabaseFactory databaseFactory)
             : base(databaseFactory)
         {
 

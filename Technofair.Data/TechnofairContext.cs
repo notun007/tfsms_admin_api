@@ -55,43 +55,10 @@ namespace TFSMS.Admin.Data
             //modelBuilder.Entity<ScpPackagePeriodPermission>().HasIndex(x => x.CmnCompanyId).IsUnique();//.HasKey(account
         }
 
-
-        public DbSet<AnFPaymentChannel> AnFPaymentChannels { get; set; }
-
-
-        public DbSet<AnFPaymentMethod> AnFPaymentMethods { get; set; }
-              
-        public DbSet<AnFFinancialServiceProviderType> AnFFinancialServiceProviderTypes { get; set; }
-        public DbSet<AnFFinancialServiceProvider> AnFFinancialServiceProviders { get; set; } 
-        public DbSet<CmnDivision> CmnDivisions { get; set; }
-        public DbSet<CmnDistrict> CmnDistricts { get; set; }
-        public DbSet<CmnUpazilla> CmnUpazillas { get; set; }
-        public DbSet<CmnUnion> CmnUnions { get; set; }
-        public DbSet<CmnCompanyType> CmnCompanyTypes { get; set; }
-        public DbSet<CmnCompany> CmnCompanies { get; set; }
-        //public DbSet<CmnFinancialYear> CmnFinancialYears { get; set; }
-        public DbSet<CmnCountry> CmnCountries { get; set; }
-        //public DbSet<SecCompanyModule> SecCompanyModules { get; set; }
-        //public DbSet<SecCompanyUser> SecCompanyUsers { get; set; }
-       // public DbSet<SecModule> SecModules { get; set; }
-        //public DbSet<SecMenu> SecMenus { get; set; }
-       // public DbSet<SecMenuPermission> SecMenuPermissions { get; set; }
-        //public DbSet<SecRole> SecRoles { get; set; }
-        //public DbSet<SecUserRole> SecUserRoles { get; set; }
-        //public DbSet<SecUserType> SecUserTypes { get; set; }
-        //public DbSet<SecUser> SecUsers { get; set; }
         public DbSet<SecDashboard> SecDashboards { get; set; }
         public DbSet<SecDashboardPermission> SecDashboardPermissions { get; set; }
         public DbSet<SecUserVisitor> SecUserVisitors { get; set; }
         public DbSet<SecWebsiteVisitor> SecWebsiteVisitors { get; set; }
-    
-        //public DbSet<HrmDesignation> HrmDesignations { get; set; }
-        //public DbSet<HrmEmployee> HrmEmployees { get; set; }
-               
-        //public DbSet<ScpDeviceAssign> ScpDeviceAssigns { get; set; }
-      
-        //public DbSet<ScpSubscriberPackage> ScpSubscriberPackages { get; set; }        
-      
-        public DbSet<CmnAppSetting> CmnAppSettings { get; set; }        
+
     }
 }

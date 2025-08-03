@@ -3,6 +3,7 @@ using TFSMS.Admin.Model.Common;
 //using Technofair.Data.Infrastructure;
 using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Data.Infrastructure;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 
 namespace TFSMS.Admin.Data.Repository.Common
 {
@@ -10,9 +11,9 @@ namespace TFSMS.Admin.Data.Repository.Common
     {
         int AddEntity(CmnDivision obj);
     }
-    public class CmnDivisionRepository : BaseRepository<CmnDivision>, ICmnDivisionRepository
+    public class CmnDivisionRepository : AdminBaseRepository<CmnDivision>, ICmnDivisionRepository
     {
-        public CmnDivisionRepository(IDatabaseFactory databaseFactory): base(databaseFactory)
+        public CmnDivisionRepository(IAdminDatabaseFactory databaseFactory): base(databaseFactory)
         {
 
         }

@@ -134,5 +134,14 @@ namespace TFSMS.Admin.Data
         public DbSet<LnTenure> LnTenures { get; set; }
         #endregion
 
+
+        #region From SMSContext                   
+        //public DbSet<SecDashboard> SecDashboards { get; set; }
+        //public DbSet<SecDashboardPermission> SecDashboardPermissions { get; set; }
+        //public DbSet<SecUserVisitor> SecUserVisitors { get; set; }
+        //public DbSet<SecWebsiteVisitor> SecWebsiteVisitors { get; set; } 
+
+        #endregion
+
     }
 }

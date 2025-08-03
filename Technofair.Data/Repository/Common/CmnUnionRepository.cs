@@ -8,6 +8,7 @@ using TFSMS.Admin.Model.Common;
 //using Technofair.Data.Infrastructure;
 using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Data.Infrastructure;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 
 namespace TFSMS.Admin.Data.Repository.Common
 {
@@ -20,9 +21,9 @@ namespace TFSMS.Admin.Data.Repository.Common
         Task<bool> DelUnionById(int id);
 
     }
-    public class CmnUnionRepository : BaseRepository<CmnUnion>, IUnionRepository
+    public class CmnUnionRepository : AdminBaseRepository<CmnUnion>, IUnionRepository
     {
-        public CmnUnionRepository(IDatabaseFactory databaseFactory)
+        public CmnUnionRepository(IAdminDatabaseFactory databaseFactory)
             : base(databaseFactory)
         {
 
