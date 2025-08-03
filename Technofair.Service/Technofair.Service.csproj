@@ -25,6 +25,7 @@
     <Compile Remove="Security\SecResourceService.cs" />
     <Compile Remove="Subscription\ScpDeviceAssignService.cs" />
     <Compile Remove="Subscription\ScpSubscriberPackageService.cs" />
+    <Compile Remove="TFLoan\Device\CmnCompanyService.cs" />
   </ItemGroup>
 
   <ItemGroup>
