@@ -81,71 +81,71 @@ public class UserController : ControllerBase
         this._logger = logger;
     }
 
-    [AllowAnonymous]
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] AuthenticateUser obj)
-    {
-        //LoginResponse response = new LoginResponse();
-        var appSettings = await serviceAppSetting.GetCmnAppSetting();
-        var response = await service.Authenticate(obj, _appSettings.Secret);//
-        // Validate user credentials (e.g., check against a database)
-        if (obj.Username == "woahiduzzaman17@gmail.com" && obj.UserPassword == "123")
-        {
+    //[AllowAnonymous]
+    //[HttpPost("login")]
+    //public async Task<IActionResult> Login([FromBody] AuthenticateUser obj)
+    //{
+    //    //LoginResponse response = new LoginResponse();
+    //    var appSettings = await serviceAppSetting.GetCmnAppSetting();
+    //    var response = await service.Authenticate(obj, _appSettings.Secret);//
+    //    // Validate user credentials (e.g., check against a database)
+    //    if (obj.Username == "woahiduzzaman17@gmail.com" && obj.UserPassword == "123")
+    //    {
 
-            //New
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(configuration["Jwt:Key"]);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
+    //        //New
+    //        var tokenHandler = new JwtSecurityTokenHandler();
+    //        var key = Encoding.ASCII.GetBytes(configuration["Jwt:Key"]);
+    //        var tokenDescriptor = new SecurityTokenDescriptor
+    //        {
 
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, obj.Username),
-                    new Claim("UserId", response.UserName), // Custom 
+    //            Subject = new ClaimsIdentity(new Claim[]
+    //            {
+    //                new Claim(ClaimTypes.Name, obj.Username),
+    //                new Claim("UserId", response.UserName), // Custom 
 
-                    new Claim("UserName", response.UserName), 
-                    //new Claim("UserId", Convert.ToString(response.UserId)),
-                    new Claim("UserLevel", Convert.ToString(response.UserLevel)),
-                    new Claim("PhotoUrl", response.PhotoUrl),
-                    new Claim("RoleId", Convert.ToString(response.RoleId)),
-                    new Claim("CompanyId", Convert.ToString(response.CompanyId)),
-                    new Claim("CompanyTypeShortName", Convert.ToString(response.CompanyTypeShortName)),
-                    new Claim("DistrictId", Convert.ToString(response.DistrictId)),
-                    new Claim("UpazilaId", Convert.ToString(response.UpazilaId)),
-                    new Claim("UnionId", Convert.ToString(response.UnionId)),
+    //                new Claim("UserName", response.UserName), 
+    //                //new Claim("UserId", Convert.ToString(response.UserId)),
+    //                new Claim("UserLevel", Convert.ToString(response.UserLevel)),
+    //                new Claim("PhotoUrl", response.PhotoUrl),
+    //                new Claim("RoleId", Convert.ToString(response.RoleId)),
+    //                new Claim("CompanyId", Convert.ToString(response.CompanyId)),
+    //                new Claim("CompanyTypeShortName", Convert.ToString(response.CompanyTypeShortName)),
+    //                new Claim("DistrictId", Convert.ToString(response.DistrictId)),
+    //                new Claim("UpazilaId", Convert.ToString(response.UpazilaId)),
+    //                new Claim("UnionId", Convert.ToString(response.UnionId)),
 
-                    //AppSetting
-                    new Claim("ApplicationId", Convert.ToString(response.CmnAppSetting.ApplicationId)),
-                    new Claim("AllowAutoSubscriberNumber", response.CmnAppSetting.AllowAutoSubscriberNumber == true ? "YES" : "NO"),
-                    new Claim("SubscriberNumberLength", Convert.ToString(response.CmnAppSetting.SubscriberNumberLength)),
+    //                //AppSetting
+    //                new Claim("ApplicationId", Convert.ToString(response.CmnAppSetting.ApplicationId)),
+    //                new Claim("AllowAutoSubscriberNumber", response.CmnAppSetting.AllowAutoSubscriberNumber == true ? "YES" : "NO"),
+    //                new Claim("SubscriberNumberLength", Convert.ToString(response.CmnAppSetting.SubscriberNumberLength)),
 
-                    new Claim("AllowPurchase", response.CmnAppSetting.AllowPurchase == true ? "YES" : "NO"),
-                    new Claim("AllowSale", response.CmnAppSetting.AllowSale == true ? "YES" : "NO"),
-                    new Claim("AllowRenewableArrear", response.CmnAppSetting.AllowRenewableArrear == true ? "YES" : "NO"),
-                    new Claim("AllowMigration", response.CmnAppSetting.AllowMigration == true ? "YES" : "NO"),
-                    new Claim("IsProduction", response.CmnAppSetting.IsProduction == true ? "YES" : "NO"),
-                    new Claim("AppKey", response.CmnAppSetting.AppKey),
-                    //AppSettings
+    //                new Claim("AllowPurchase", response.CmnAppSetting.AllowPurchase == true ? "YES" : "NO"),
+    //                new Claim("AllowSale", response.CmnAppSetting.AllowSale == true ? "YES" : "NO"),
+    //                new Claim("AllowRenewableArrear", response.CmnAppSetting.AllowRenewableArrear == true ? "YES" : "NO"),
+    //                new Claim("AllowMigration", response.CmnAppSetting.AllowMigration == true ? "YES" : "NO"),
+    //                new Claim("IsProduction", response.CmnAppSetting.IsProduction == true ? "YES" : "NO"),
+    //                new Claim("AppKey", response.CmnAppSetting.AppKey),
+    //                //AppSettings
 
-                    //Result
-                    new Claim("IsAuhentic", Convert.ToString(response.IsAuhentic)),
-                    new Claim("Message", response.Message)
+    //                //Result
+    //                new Claim("IsAuhentic", Convert.ToString(response.IsAuhentic)),
+    //                new Claim("Message", response.Message)
 
-                }),
+    //            }),
 
-                Expires = DateTime.Now.AddDays(10),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes("YourSecretKeyHereYourSecretKeyHere")), SecurityAlgorithms.HmacSha256),
-                Issuer = "http://localhost:5269/",
-                Audience = "http://localhost:5269/"
-            };
+    //            Expires = DateTime.Now.AddDays(10),
+    //            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes("YourSecretKeyHereYourSecretKeyHere")), SecurityAlgorithms.HmacSha256),
+    //            Issuer = "http://localhost:5269/",
+    //            Audience = "http://localhost:5269/"
+    //        };
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
-            return Ok(new { Token = tokenString });
+    //        var token = tokenHandler.CreateToken(tokenDescriptor);
+    //        var tokenString = tokenHandler.WriteToken(token);
+    //        return Ok(new { Token = tokenString });
                         
-        }
-        return Unauthorized();
-    }
+    //    }
+    //    return Unauthorized();
+    //}
 
   
     [AllowAnonymous]
@@ -157,86 +157,23 @@ public class UserController : ControllerBase
 
         try
         {
-            var text = "Data Source=103.183.116.14\\MSSQLSERVER02;Initial Catalog=tfsmsdb_dev;Persist Security Info=True;User ID=sa;Password=smSdBTf@25;MultipleActiveResultSets=True";
 
-            //var connectionString = "Server=Server=103.118.78.242;Database=tfsmsdb_dev;Persist Security Info=True;User ID=sa;Password=tfsunsms;MultipleActiveResultSets=True;TrustServerCertificate=True;";
-            //var connectionString = "Server=103.183.116.14\\MSSQLSERVER02;Database=tfadmindb_live;Persist Security Info=True;User ID=sa;Password=smSdBTf@25;MultipleActiveResultSets=True;TrustServerCertificate=True;";
-            var connectionString = "Server=103.183.116.14\\MSSQLSERVER02;Database=tfsmsdb_madbor_v3;Persist Security Info=True;User ID=sa;Password=smSdBTf@25;MultipleActiveResultSets=True;TrustServerCertificate=True;";
-
+            #region Generate Connection String for Production
+            //var connectionString = "Server=103.183.116.14\\MSSQLSERVER02;Database=tfsmsdb_madbor_v3;Persist Security Info=True;User ID=sa;Password=smSdBTf@25;MultipleActiveResultSets=True;TrustServerCertificate=True;";
             //var connectionString = "Server=103.118.76.238;Database=tfsmsdb_sun;Persist Security Info=True;User ID=sa;Password=tfsunsms;MultipleActiveResultSets=True;TrustServerCertificate=True;";
-
-
-            var encrptText = AES.GetEncryptedText(connectionString);
-            var plainText = AES.GetPlainText(encrptText);
+            //var encrptText = AES.GetEncryptedText(connectionString);
+            //var plainText = AES.GetPlainText(encrptText);
+            #endregion
 
             _logger.LogError("Logged In User: " + obj.Username);           
             obj.Username = obj.Username.Trim();
             obj.UserPassword = obj.UserPassword.Trim();
-                        
-            //var ip = HttpContext.Connection.LocalIpAddress?.ToString();
-            //_logger.LogError("Remote IP Address: " + ip);
-
+                                    
             var appSettings = await serviceAppSetting.GetCmnAppSetting();
 
             if (appSettings.IsProduction)
             {
-                if (appSettings.ApplicationId == 2) //1: TFAdmin; 2: SMS
-                {
-                    var adminUrl = TFAdminBaseUrl + "api/TFAClientPaymentDetail/VerifyClientPackageByAppKey?appKey=" + appSettings.AppKey;
-
-                    var objPaymentDetail = await Request<Operation, Operation>.GetObject(adminUrl);
-
-                    if (objPaymentDetail == null)
-                    {                      
-                        return Ok(new
-                        {
-                            IsAuhentic = false,
-                            Message = "Something went wrong, Failed verying client information, please try again later",
-                            Token = string.Empty
-                        });
-                    }
-
-                    if (objPaymentDetail.Success == false)
-                    {
-                        return Ok(new
-                        {
-                            IsAuhentic = false,
-                            Message = objPaymentDetail.Message,
-                            Token = string.Empty
-                        });
-                    }
-
-                    if (!objPaymentDetail.Success)
-                    {                        
-                        return Ok(new
-                        {
-                            IsAuhentic = false,
-                            Message = objPaymentDetail.Message,
-                            Token = string.Empty
-                        });
-                    }
-
-                   var clientServerInfo = serviceClientServerInfo.ReadServerInfo();
-                    
-                   adminUrl = TFAdminBaseUrl + "api/TFACompanyCustomer/GetCompanyCustomerByAppKey?appKey=" + appSettings.AppKey;
-
-                    var objCompanyCustomer = await Request<TFACompanyCustomer, TFACompanyCustomer>.GetObject(adminUrl);
-                                        
-                    bool serverIPExists = Array.Exists(clientServerInfo.ServerIPList, element => element == objCompanyCustomer.ServerIP);
-                    bool motherBoardExists = Array.Exists(clientServerInfo.MotherBoardList, element => element == objCompanyCustomer.MotherBoardId);
-                    bool networkAdapterExists = Array.Exists(clientServerInfo.NetworkAdapterList, element => element == objCompanyCustomer.NetworkAdapterId);
-
-                    if (!(serverIPExists && motherBoardExists && networkAdapterExists))
-                    {
-                     return Ok(new
-                      {
-                       IsAuhentic = false,
-                       Message = "Could not find Server Information",
-                       Token = string.Empty
-                      });
-
-                    }
-                }
+                
             }
            
         }
@@ -263,11 +200,7 @@ public class UserController : ControllerBase
 
 
         #endregion
-        //Old: Login Process
-
-        //try
-        //{
-
+        
             var response = await service.Authenticate(obj, _appSettings.Secret);
 
             if (response != null)
@@ -303,16 +236,7 @@ public class UserController : ControllerBase
                     Token = string.Empty
                 });
             }
-        //}
-        //catch(Exception exp)
-        //{
-        //    return Ok(new
-        //    {
-        //        IsAuhentic = false,
-        //        Message = exp.Message,
-        //        Token = string.Empty
-        //    });
-        //}
+       
     }
         
     private string GenerateJwtToken(LoginResponse response)
