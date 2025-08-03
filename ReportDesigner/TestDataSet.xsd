@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="TestDataSet" targetNamespace="http://tempuri.org/TestDataSet.xsd" xmlns:mstns="http://tempuri.org/TestDataSet.xsd" xmlns="http://tempuri.org/TestDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="TestDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="TestDataSet" msprop:Generator_UserDSName="TestDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="TestReport" msprop:Generator_TableClassName="TestReportDataTable" msprop:Generator_TableVarName="tableTestReport" msprop:Generator_TablePropName="TestReport" msprop:Generator_RowDeletingName="TestReportRowDeleting" msprop:Generator_RowChangingName="TestReportRowChanging" msprop:Generator_RowEvHandlerName="TestReportRowChangeEventHandler" msprop:Generator_RowDeletedName="TestReportRowDeleted" msprop:Generator_UserTableName="TestReport" msprop:Generator_RowChangedName="TestReportRowChanged" msprop:Generator_RowEvArgName="TestReportRowChangeEvent" msprop:Generator_RowClassName="TestReportRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="menuName" msprop:Generator_ColumnVarNameInTable="columnmenuName" msprop:Generator_ColumnPropNameInRow="menuName" msprop:Generator_ColumnPropNameInTable="menuNameColumn" msprop:Generator_UserColumnName="menuName" type="xs:string" minOccurs="0" />
+              <xs:element name="parentName" msprop:Generator_ColumnVarNameInTable="columnparentName" msprop:Generator_ColumnPropNameInRow="parentName" msprop:Generator_ColumnPropNameInTable="parentNameColumn" msprop:Generator_UserColumnName="parentName" type="xs:string" minOccurs="0" />
+              <xs:element name="subParentName" msprop:Generator_ColumnVarNameInTable="columnsubParentName" msprop:Generator_ColumnPropNameInRow="subParentName" msprop:Generator_ColumnPropNameInTable="subParentNameColumn" msprop:Generator_UserColumnName="subParentName" type="xs:string" minOccurs="0" />
+              <xs:element name="menuSequence" msprop:Generator_ColumnVarNameInTable="columnmenuSequence" msprop:Generator_ColumnPropNameInRow="menuSequence" msprop:Generator_ColumnPropNameInTable="menuSequenceColumn" msprop:Generator_UserColumnName="menuSequence" type="xs:string" minOccurs="0" />
+              <xs:element name="menuPath" msprop:Generator_ColumnVarNameInTable="columnmenuPath" msprop:Generator_ColumnPropNameInRow="menuPath" msprop:Generator_ColumnPropNameInTable="menuPathColumn" msprop:Generator_UserColumnName="menuPath" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

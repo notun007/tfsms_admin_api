@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="PaymentGateway\**" />
+    <EmbeddedResource Remove="PaymentGateway\**" />
+    <None Remove="PaymentGateway\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Accounts\AnFDepriciationRateService.cs" />
+    <Compile Remove="Accounts\AnFMeasurementUnitService.cs" />
+    <Compile Remove="Accounts\AnFMonthLockService.cs" />
+    <Compile Remove="Accounts\AnFPaymentMethodDetailService.cs" />
+    <Compile Remove="Accounts\AnFPaymentTermService.cs" />
+    <Compile Remove="Common\CmnAppSettingService.cs" />
+    <Compile Remove="Common\CmnManufacturerService.cs" />
+    <Compile Remove="Common\SecResourceService.cs" />
+    <Compile Remove="Common\SecUserService.cs" />
+    <Compile Remove="Security\SecResourceService.cs" />
+    <Compile Remove="Subscription\ScpDeviceAssignService.cs" />
+    <Compile Remove="Subscription\ScpSubscriberPackageService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Management" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Technofair.Data\Technofair.Data.csproj" />
+    <ProjectReference Include="..\Technofair.Lib\Technofair.Lib.csproj" />
+    <ProjectReference Include="..\Technofair.Model\Technofair.Model.csproj" />
+    <ProjectReference Include="..\Technofair.Utiity\Technofair.Utiity.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Subscription\" />
+  </ItemGroup>
+
+</Project>

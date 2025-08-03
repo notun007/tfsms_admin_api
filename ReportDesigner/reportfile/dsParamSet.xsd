@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsParamSet" targetNamespace="http://tempuri.org/dsParamSet.xsd" xmlns:mstns="http://tempuri.org/dsParamSet.xsd" xmlns="http://tempuri.org/dsParamSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsParamSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="dsParamSet" msprop:Generator_DataSetName="dsParamSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Dt_ParamSet" msprop:Generator_RowEvHandlerName="Dt_ParamSetRowChangeEventHandler" msprop:Generator_RowDeletedName="Dt_ParamSetRowDeleted" msprop:Generator_RowDeletingName="Dt_ParamSetRowDeleting" msprop:Generator_RowEvArgName="Dt_ParamSetRowChangeEvent" msprop:Generator_TablePropName="Dt_ParamSet" msprop:Generator_RowChangedName="Dt_ParamSetRowChanged" msprop:Generator_RowChangingName="Dt_ParamSetRowChanging" msprop:Generator_TableClassName="Dt_ParamSetDataTable" msprop:Generator_RowClassName="Dt_ParamSetRow" msprop:Generator_TableVarName="tableDt_ParamSet" msprop:Generator_UserTableName="Dt_ParamSet">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="FromDate" msprop:Generator_ColumnPropNameInRow="FromDate" msprop:Generator_ColumnPropNameInTable="FromDateColumn" msprop:Generator_ColumnVarNameInTable="columnFromDate" msprop:Generator_UserColumnName="FromDate" type="xs:string" minOccurs="0" />
+              <xs:element name="ToDate" msprop:Generator_ColumnPropNameInRow="ToDate" msprop:Generator_ColumnPropNameInTable="ToDateColumn" msprop:Generator_ColumnVarNameInTable="columnToDate" msprop:Generator_UserColumnName="ToDate" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

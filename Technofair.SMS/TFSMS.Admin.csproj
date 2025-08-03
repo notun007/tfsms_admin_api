@@ -1,0 +1,226 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\Bank\**" />
+    <Content Remove="Controllers\Bank\**" />
+    <EmbeddedResource Remove="Controllers\Bank\**" />
+    <None Remove="Controllers\Bank\**" />
+  </ItemGroup>  
+
+  <ItemGroup>
+    <Compile Remove="Controllers\Accounts\ChequeBookController.cs" />
+    <Compile Remove="Controllers\Accounts\DashBoardController.cs" />
+    <Compile Remove="Controllers\Accounts\DeliveryMethodController.cs" />
+    <Compile Remove="Controllers\Accounts\DepriciationRateController.cs" />
+    <Compile Remove="Controllers\Accounts\IndexController.cs" />
+    <Compile Remove="Controllers\Accounts\MonthLockController.cs" />
+    <Compile Remove="Controllers\Accounts\PaymentMethodDetailController.cs" />
+    <Compile Remove="Controllers\Accounts\PaymentTermController.cs" />
+    <Compile Remove="Controllers\Accounts\VoucherApprovalController.cs" />
+    <Compile Remove="Controllers\APIInformationController.cs" />
+    <Compile Remove="Controllers\Common\ApprovalController.cs" />
+    <Compile Remove="Controllers\Common\ApprovalProcessController.cs" />
+    <Compile Remove="Controllers\Common\ApprovalProcessLevelController.cs" />
+    <Compile Remove="Controllers\Common\ApprovalUserPermissionController.cs" />
+    <Compile Remove="Controllers\Common\BloodGroupController.cs" />
+    <Compile Remove="Controllers\Common\BrandController.cs" />
+    <Compile Remove="Controllers\Common\CurrencyController.cs" />
+    <Compile Remove="Controllers\Common\NotificationController.cs" />
+    <Compile Remove="Controllers\Common\ProcessLevelController.cs" />
+    <Compile Remove="Controllers\Common\QueryController.cs" />
+    <Compile Remove="Controllers\Common\SliderController.cs" />
+    <Compile Remove="Controllers\CurrencyController.cs" />
+    <Compile Remove="Controllers\GeneralServicesController.cs" />
+    <Compile Remove="Controllers\GeneralSettingController.cs" />
+    <Compile Remove="Controllers\HRM\AcademicQualificationController.cs" />
+    <Compile Remove="Controllers\HRM\ActionController.cs" />
+    <Compile Remove="Controllers\HRM\AttendanceBonusEmployeeController.cs" />
+    <Compile Remove="Controllers\HRM\AttendanceCardController.cs" />
+    <Compile Remove="Controllers\HRM\AttendanceController.cs" />
+    <Compile Remove="Controllers\HRM\AttendanceRemarkController.cs" />
+    <Compile Remove="Controllers\HRM\BonusDeclarationController.cs" />
+    <Compile Remove="Controllers\HRM\CalendarController.cs" />
+    <Compile Remove="Controllers\HRM\ContractController.cs" />
+    <Compile Remove="Controllers\HRM\DisciplinaryMeasurementController.cs" />
+    <Compile Remove="Controllers\HRM\DivisionController.cs" />
+    <Compile Remove="Controllers\HRM\DrivingLicenseController.cs" />
+    <Compile Remove="Controllers\HRM\EarlyOutPolicyController.cs" />
+    <Compile Remove="Controllers\HRM\EmployeeBenefitController.cs" />
+    <Compile Remove="Controllers\HRM\EmployeeInsuranceController.cs" />
+    <Compile Remove="Controllers\HRM\EmployeeLateController.cs" />
+    <Compile Remove="Controllers\HRM\EmployeeOvertimeController.cs" />
+    <Compile Remove="Controllers\HRM\EmployeeSeparationController.cs" />
+    <Compile Remove="Controllers\HRM\EmployeeShiftController.cs" />
+    <Compile Remove="Controllers\HRM\EmployeeTypeController.cs" />
+    <Compile Remove="Controllers\HRM\EvaluationCategoryController.cs" />
+    <Compile Remove="Controllers\HRM\EvaluationCategoryCriteriaController.cs" />
+    <Compile Remove="Controllers\HRM\EvaluationController.cs" />
+    <Compile Remove="Controllers\HRM\EvaluationCriteriaController.cs" />
+    <Compile Remove="Controllers\HRM\ExperienceController.cs" />
+    <Compile Remove="Controllers\HRM\GradeController.cs" />
+    <Compile Remove="Controllers\HRM\IncrementController.cs" />
+    <Compile Remove="Controllers\HRM\IncrementTypeController.cs" />
+    <Compile Remove="Controllers\HRM\IndexController.cs" />
+    <Compile Remove="Controllers\HRM\LanguageController.cs" />
+    <Compile Remove="Controllers\HRM\LanguageProficiencyController.cs" />
+    <Compile Remove="Controllers\HRM\LeaveAdjustmentController.cs" />
+    <Compile Remove="Controllers\HRM\LeaveApplicationController.cs" />
+    <Compile Remove="Controllers\HRM\LeaveApprovalController.cs" />
+    <Compile Remove="Controllers\HRM\LeaveBalanceController.cs" />
+    <Compile Remove="Controllers\HRM\LeaveTypeController.cs" />
+    <Compile Remove="Controllers\HRM\LetterTypeController.cs" />
+    <Compile Remove="Controllers\HRM\ManualAttendenceReasonController.cs" />
+    <Compile Remove="Controllers\HRM\MovementApprovalController.cs" />
+    <Compile Remove="Controllers\HRM\MovementController.cs" />
+    <Compile Remove="Controllers\HRM\MovementReasonController.cs" />
+    <Compile Remove="Controllers\HRM\NomineeController.cs" />
+    <Compile Remove="Controllers\HRM\OffDayAdjustmentController.cs" />
+    <Compile Remove="Controllers\HRM\OfficeTimeController.cs" />
+    <Compile Remove="Controllers\HRM\OfficeTypeController.cs" />
+    <Compile Remove="Controllers\HRM\OtherActivityController.cs" />
+    <Compile Remove="Controllers\HRM\OtherSkillController.cs" />
+    <Compile Remove="Controllers\HRM\OvertimePolicyController.cs" />
+    <Compile Remove="Controllers\HRM\PassingYearController.cs" />
+    <Compile Remove="Controllers\HRM\PassportController.cs" />
+    <Compile Remove="Controllers\HRM\ProfessionalTrainingController.cs" />
+    <Compile Remove="Controllers\HRM\ProficiencyController.cs" />
+    <Compile Remove="Controllers\HRM\PromotionController.cs" />
+    <Compile Remove="Controllers\HRM\QualificationController.cs" />
+    <Compile Remove="Controllers\HRM\RelationTypeController.cs" />
+    <Compile Remove="Controllers\HRM\ReportController.cs" />
+    <Compile Remove="Controllers\HRM\RequisitionController.cs" />
+    <Compile Remove="Controllers\HRM\RosterDutyController.cs" />
+    <Compile Remove="Controllers\HRM\ScheduleController.cs" />
+    <Compile Remove="Controllers\HRM\SectionController.cs" />
+    <Compile Remove="Controllers\HRM\ShiftController.cs" />
+    <Compile Remove="Controllers\HRM\TaskController.cs" />
+    <Compile Remove="Controllers\HRM\TaskStatusTypeController.cs" />
+    <Compile Remove="Controllers\HRM\TourApprovalController.cs" />
+    <Compile Remove="Controllers\HRM\TourController.cs" />
+    <Compile Remove="Controllers\HRM\TourExpenseTypeController.cs" />
+    <Compile Remove="Controllers\HRM\TrainerController.cs" />
+    <Compile Remove="Controllers\HRM\TrainingController.cs" />
+    <Compile Remove="Controllers\HRM\TrainingNeedController.cs" />
+    <Compile Remove="Controllers\HRM\TrainingRecordController.cs" />
+    <Compile Remove="Controllers\HRM\TransferController.cs" />
+    <Compile Remove="Controllers\HRM\WitnessController.cs" />
+    <Compile Remove="Controllers\ItemController.cs" />
+    <Compile Remove="Controllers\ItemModelController.cs" />
+    <Compile Remove="Controllers\ItemReturnReasonController.cs" />
+    <Compile Remove="Controllers\ItemStockController.cs" />
+    <Compile Remove="Controllers\ItemTransferHistoryController.cs" />
+    <Compile Remove="Controllers\ItemTypeController.cs" />
+    <Compile Remove="Controllers\PartyController.cs" />
+    <Compile Remove="Controllers\PartyTypeController.cs" />
+    <Compile Remove="Controllers\PurchasedController.cs" />
+    <Compile Remove="Controllers\Report\reportviewer\reportviewerController.cs" />
+    <Compile Remove="Controllers\ReturnReasonController.cs" />
+    <Compile Remove="Controllers\SalesOrderController.cs" />
+    <Compile Remove="Controllers\Security\CompanyModuleController.cs" />
+    <Compile Remove="Controllers\Security\RolesBaseMenuController.cs" />
+    <Compile Remove="Controllers\ServiceTypeController.cs" />
+    <Compile Remove="Controllers\Subscription\CardTypeController.cs" />
+    <Compile Remove="Controllers\Subscription\ChargeConfigController.cs" />
+    <Compile Remove="Controllers\Subscription\DashboardController.cs" />
+    <Compile Remove="Controllers\Subscription\DeviceAssignController.cs" />
+    <Compile Remove="Controllers\Subscription\ReportController.cs" />
+    <Compile Remove="Controllers\Subscription\SubscriberPackageController.cs" />
+    <Compile Remove="Filters\CustomHandleErrorAttribute.cs" />
+    <Compile Remove="Helper\CrystalReport.cs" />
+    <Compile Remove="Helper\CrystalReportResult.cs" />
+    <Compile Remove="Helper\SessionFactory.cs" />
+    <Compile Remove="Helper\SessionValueProvider.cs" />
+    <Compile Remove="Models\CasNetwork.cs" />
+    <Compile Remove="Models\HttpRequestManager.cs" />
+    <Compile Remove="Models\IntegratorCustomerInfo.cs" />
+    <Compile Remove="Models\PackageResponse.cs" />
+    <Compile Remove="Models\SSLCommerz - Copy.cs" />
+    <Compile Remove="Models\SubscriptionResponse.cs" />
+  </ItemGroup>  
+
+  <ItemGroup>
+    <Content Remove="wwwroot\reportfile\report\PurchaseLedger.rdlc" />
+    <Content Remove="wwwroot\reportfile\report\RechargeHistory.rdlc" />
+    <Content Remove="wwwroot\reportfile\report\SubscriberBillPos.rdlc" />
+    <Content Remove="wwwroot\reportfile\TFAClientPaymentInvoice\GetClientPaymentInvoice.Designer.cs" />
+    <Content Remove="wwwroot\reportfile\TFAClientPaymentInvoice\GetClientPaymentInvoice.xsc" />
+    <Content Remove="wwwroot\reportfile\TFAClientPaymentInvoice\GetClientPaymentInvoice.xsd" />
+    <Content Remove="wwwroot\reportfile\TFAClientPaymentInvoice\GetClientPaymentInvoice.xss" />
+    <Content Remove="wwwroot\reportfile\TFAClientPaymentInvoice\TFAClientPaymentInvoice.rdlc" />
+  </ItemGroup>  
+
+  <ItemGroup>
+    <Compile Include="wwwroot\reportfile\TFAClientPaymentInvoice\GetClientPaymentInvoice.Designer.cs">
+      <DependentUpon>GetClientPaymentInvoice.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.33" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="RestSharp" Version="110.2.1-alpha.0.16" />
+    <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
+    <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
+    <PackageReference Include="Serilog.Enrichers.Process" Version="2.0.2" />
+    <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Technofair.BGService\Technofair.BGService.csproj" />
+    <ProjectReference Include="..\Technofair.Data\Technofair.Data.csproj" />
+    <ProjectReference Include="..\Technofair.Lib\Technofair.Lib.csproj" />
+    <ProjectReference Include="..\Technofair.Model\Technofair.Model.csproj" />
+    <ProjectReference Include="..\Technofair.Service\Technofair.Service.csproj" />
+    <ProjectReference Include="..\Technofair.Utiity\Technofair.Utiity.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\Report\reportviewer\" />
+    <Folder Include="Controllers\Subscription\" />
+    <Folder Include="wwwroot\puchaseOrderExcel\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\reportfile\Inventory\rptTestReport.rdlc" />
+    <None Include="wwwroot\reportfile\report\PurchaseLedger.rdlc" />
+    <None Include="wwwroot\reportfile\report\RechargeHistory.rdlc" />
+    <None Include="wwwroot\reportfile\report\SubscriberBillPos.rdlc" />
+    <None Include="wwwroot\reportfile\TFAClientPaymentInvoice\GetClientPaymentInvoice.xsc" />
+    <None Include="wwwroot\reportfile\TFAClientPaymentInvoice\GetClientPaymentInvoice.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>GetClientPaymentInvoice.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
+    <None Include="wwwroot\reportfile\TFAClientPaymentInvoice\GetClientPaymentInvoice.xss" />
+    <None Include="wwwroot\reportfile\TFAClientPaymentInvoice\TFAClientPaymentInvoice.rdlc" />
+  </ItemGroup>
+
+</Project>
+
+

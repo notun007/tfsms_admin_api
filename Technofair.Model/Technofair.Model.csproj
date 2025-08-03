@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Campaign\**" />
+    <Compile Remove="CustomerCare\**" />
+    <Compile Remove="PackagePro\**" />
+    <Compile Remove="SMSManager\**" />
+    <Compile Remove="ViewModel\PaymentGateway\**" />
+    <EmbeddedResource Remove="Campaign\**" />
+    <EmbeddedResource Remove="CustomerCare\**" />
+    <EmbeddedResource Remove="PackagePro\**" />
+    <EmbeddedResource Remove="SMSManager\**" />
+    <EmbeddedResource Remove="ViewModel\PaymentGateway\**" />
+    <None Remove="Campaign\**" />
+    <None Remove="CustomerCare\**" />
+    <None Remove="PackagePro\**" />
+    <None Remove="SMSManager\**" />
+    <None Remove="ViewModel\PaymentGateway\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Accounts\AnFPaymentMethodDetail.cs" />
+    <Compile Remove="GeneralSetting\BoxTypeViewModel.cs" />
+    <Compile Remove="GeneralSetting\BrandForViewModel.cs" />
+    <Compile Remove="GeneralSetting\BrandViewModel.cs" />
+    <Compile Remove="GeneralSetting\CASTypeViewModel.cs" />
+    <Compile Remove="GeneralSetting\ModelViewModel.cs" />
+    <Compile Remove="GeneralSetting\ServiceTypeViewModel.cs" />
+    <Compile Remove="GeneralSetting\STBListModel.cs" />
+    <Compile Remove="GeneralSetting\STBTypeViewModel.cs" />
+    <Compile Remove="GeneralSetting\STBViewModel.cs" />
+    <Compile Remove="GeneralSetting\WarehouseViewModel.cs" />
+    <Compile Remove="GeneralSetting\WarrantyViewModel.cs" />
+    <Compile Remove="Subscription\PackageAssign.cs" />
+    <Compile Remove="Subscription\ScpDeviceAssign.cs" />
+    <Compile Remove="Subscription\ScpSubscriberPackage.cs" />
+    <Compile Remove="ViewModel\Accounts\AnFPaymentMethodDetailViewModel.cs" />
+    <Compile Remove="ViewModel\Common\ModelViewModel.cs" />
+    <Compile Remove="ViewModel\Common\SecUserViewModel.cs" />
+    <Compile Remove="ViewModel\Subscription\CASTypeViewModel.cs" />
+    <Compile Remove="ViewModel\Subscription\ServiceTypeViewModel.cs" />
+    <Compile Remove="ViewModel\Subscription\STBListModel.cs" />
+    <Compile Remove="ViewModel\Subscription\STBTypeViewModel.cs" />
+    <Compile Remove="ViewModel\Subscription\STBViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Subscription\" />
+    <Folder Include="ViewModel\Report\" />
+  </ItemGroup>
+
+</Project>

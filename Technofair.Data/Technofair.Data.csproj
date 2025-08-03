@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Repository\CRM\**" />
+    <Compile Remove="Repository\PaymentGateway\**" />
+    <EmbeddedResource Remove="Repository\CRM\**" />
+    <EmbeddedResource Remove="Repository\PaymentGateway\**" />
+    <None Remove="Repository\CRM\**" />
+    <None Remove="Repository\PaymentGateway\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Repository\Accounts\AnFPaymentMethodDetailRepository.cs" />
+    <Compile Remove="Repository\Common\CmnAppSettingRepository.cs" />
+    <Compile Remove="Repository\Subscription\ScpDeviceAssignRepository.cs" />
+    <Compile Remove="Repository\Subscription\ScpSubscriberPackageRepository.cs" />
+  </ItemGroup>
+
+  
+
+  <ItemGroup>
+    <None Remove="Repository\Subscription\ScpSubscriberRepository.cs~RF871430de.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
+
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.5" />
+
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
+
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.4.0" />
+    <PackageReference Include="System.Security.Permissions" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Technofair.Lib\Technofair.Lib.csproj" />
+    <ProjectReference Include="..\Technofair.Model\Technofair.Model.csproj" />
+    <ProjectReference Include="..\Technofair.Utiity\Technofair.Utiity.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Repository\Subscription\" />
+  </ItemGroup>
+
+</Project>
