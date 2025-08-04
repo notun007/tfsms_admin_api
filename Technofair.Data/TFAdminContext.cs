@@ -82,6 +82,7 @@ namespace TFSMS.Admin.Data
         public DbSet<SecUserRole> SecUserRoles { get; set; }
         public DbSet<SecMenuPermission> SecMenuPermissions { get; set; }
 
+        public DbSet<HrmFileCategory> HrmFileCategories { get; set; }
         public DbSet<HrmDesignation> HrmDesignations { get; set; }
         public DbSet<HrmEmployee> HrmEmployees { get; set; }
         public DbSet<SecCompanyUser> SecCompanyUsers { get; set; }
