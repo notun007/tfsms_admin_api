@@ -120,9 +120,9 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
         [Authorize]
         [HttpPost("GetLoanCollection")]
-        public async Task<List<LnDeviceLoanCollectionViewModel>> GetLoanCollection([FromBody] LnDeviceLoanCollectionViewModel obj)
+        public List<LnDeviceLoanCollectionViewModel> GetLoanCollection(int lenderId, int loaneeId)
         {
-            List<LnDeviceLoanCollectionViewModel> list = await service.GetLoanCollection(obj);
+            List<LnDeviceLoanCollectionViewModel> list = service.GetLoanCollection(lenderId, loaneeId);
             return list;
         }
 

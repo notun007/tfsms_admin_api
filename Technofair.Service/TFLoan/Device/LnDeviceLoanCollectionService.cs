@@ -28,7 +28,7 @@ namespace TFSMS.Admin.Service.TFLoan.Device
         LnDeviceLoanCollection GetById(Int64 id);
         Task AddDeviceLoanCollectionAsync(LnDeviceLoanCollection obj);
         Task AddRangeDeviceLoanCollectionAsync(List<LnDeviceLoanCollection> objList);
-        Task<List<LnDeviceLoanCollectionViewModel>> GetLoanCollection(LnDeviceLoanCollectionViewModel obj);
+        List<LnDeviceLoanCollectionViewModel> GetLoanCollection(int lenderId, int loaneeId);
         DeviceLoanInfoViewModel GetDeviceLoanInfo(int lenderId, int loaneeId);
         DeviceLoanInfoViewModel GetDeviceLoanInfoByAppKey(string appKey);
     }
@@ -130,9 +130,9 @@ namespace TFSMS.Admin.Service.TFLoan.Device
             }
         }
 
-        public async Task<List<LnDeviceLoanCollectionViewModel>> GetLoanCollection(LnDeviceLoanCollectionViewModel obj)
+        public List<LnDeviceLoanCollectionViewModel> GetLoanCollection(int lenderId, int loaneeId)
         {
-            return await repository.GetLoanCollection(obj);
+            return repository.GetLoanCollection(lenderId, loaneeId);
         }
 
         public DeviceLoanInfoViewModel GetDeviceLoanInfo(int lenderId, int loaneeId)

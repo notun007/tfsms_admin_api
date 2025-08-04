@@ -25,7 +25,7 @@ namespace TFSMS.Admin.Data.Repository.TFLoan.Device
     {
         Int64 AddEntity(LnDeviceLoanCollection obj);
         Task<Int64> AddEntityAsync(LnDeviceLoanCollection obj);
-        Task<List<LnDeviceLoanCollectionViewModel>> GetLoanCollection(LnDeviceLoanCollectionViewModel obj);
+        List<LnDeviceLoanCollectionViewModel> GetLoanCollection(int lenderId, int loaneeId);
         Task AddDeviceLoanCollectionAsync(LnDeviceLoanCollection obj);
         Task AddRangeDeviceLoanCollectionAsync(List<LnDeviceLoanCollection> objList);
         DeviceLoanInfoViewModel GetDeviceLoanInfo(int lenderId, int loaneeId);
@@ -147,7 +147,7 @@ namespace TFSMS.Admin.Data.Repository.TFLoan.Device
             }
         }
 
-        public async Task<List<LnDeviceLoanCollectionViewModel>> GetLoanCollection(LnDeviceLoanCollectionViewModel obj)
+        public List<LnDeviceLoanCollectionViewModel> GetLoanCollection(int lenderId, int loaneeId)
         {
             List<LnDeviceLoanCollectionViewModel> list = new List<LnDeviceLoanCollectionViewModel>();
 
@@ -156,9 +156,12 @@ namespace TFSMS.Admin.Data.Repository.TFLoan.Device
 
                 DataTable dt = new DataTable();
 
-                SqlParameter[] paramsToStore = new SqlParameter[0];
+                SqlParameter[] param = new SqlParameter[2];
 
-                dt = Helper.ExecuteDataset(DataContext.Database.GetDbConnection().ConnectionString, CommandType.StoredProcedure, SPList.SubscriberSP.GetLoanCollection, paramsToStore).Tables[0];
+                param[0] = new SqlParameter("@lenderId", lenderId);
+                param[1] = new SqlParameter("@loaneeId", loaneeId);
+
+                dt = Helper.ExecuteDataset(DataContext.Database.GetDbConnection().ConnectionString, CommandType.StoredProcedure, SPList.SubscriberSP.GetLoanCollection, param).Tables[0];
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     foreach (DataRow row in dt.Rows)
