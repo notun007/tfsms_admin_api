@@ -221,6 +221,14 @@ namespace TFSMS.Admin.Controllers.Common
             return await service.GetCompanyByCompanyTypeId(companyTypeId);
         }
 
+        [Authorize(Policy = "Authenticated")]
+        [HttpPost(("GetAllCompanyTypeByCompanyId"))]
+        public async Task<List<CmnCompanyType>> GetAllCompanyTypeByCompanyId([FromBody] int? companyId)
+        {
+            List<CmnCompanyType> list = await service.GetAllCompanyType();
+            return list;
+        }
+
         [Authorize(Policy = "Authenticated")] //SP, MSO, LSO, SLSO
         [HttpPost(("GetCompanyByCompanyTypeShortName"))]
         public async Task<List<CmnCompany>> GetCompanyByCompanyTypeShortName(string shortName)
