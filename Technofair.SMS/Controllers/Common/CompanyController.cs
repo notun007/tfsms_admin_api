@@ -367,6 +367,20 @@ namespace TFSMS.Admin.Controllers.Common
                 }
             }
         }
+        [Authorize(Policy = "Authenticated")]
+        [HttpPost(("GetClientByCompanyIdForAdmin/{companyId:int}"))]
+        public async Task<List<CmnCompanyViewModel>> GetClientByCompanyIdForAdmin(int companyId)
+        {
+            List<CmnCompanyViewModel> list = service.GetClientByCompanyId(companyId);
+            if (list != null)
+            {
+                foreach (var item in list)
+                {
+                    item.Name = item.Name + " (" + item.CompanyType + ")";
+                }
+            }
+            return list;
+        }
         public class RequestObject
         {
             public int comId { get; set; }
