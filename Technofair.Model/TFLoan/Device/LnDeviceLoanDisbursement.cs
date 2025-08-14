@@ -38,7 +38,7 @@ namespace TFSMS.Admin.Model.TFLoan.Device
         public Int16? LnTenureId { get; set; }
         public LnTenure LnTenure { get; set; }
         #endregion
-
+        public bool? IsClosed { get; set; }
         public string? Remarks { get; set; }
         public int? CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }

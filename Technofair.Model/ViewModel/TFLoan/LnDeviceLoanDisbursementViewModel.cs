@@ -33,6 +33,7 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
         public Int16? LnTenureId { get; set; }
         public decimal? MonthlyInstallment { get; set; }
         #endregion
+        public bool? IsClosed { get; set; }
 
         //[Column(TypeName = "decimal(12, 2)")]
         //public decimal? DownPaymentAmount { get; set; }
