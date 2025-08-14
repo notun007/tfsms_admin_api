@@ -62,6 +62,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 objLnDeviceLoanDisbursement.DownPaymentAmount = obj.DownPaymentAmount;
                 objLnDeviceLoanDisbursement.LoanAmount = obj.LoanAmount;
                 objLnDeviceLoanDisbursement.LnTenureId = obj.LnTenureId;
+                objLnDeviceLoanDisbursement.MonthlyInstallment = obj.MonthlyInstallment;
 
                 objLnDeviceLoanDisbursement.Remarks = obj.Remarks;
 
@@ -83,7 +84,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 objLnDeviceLoanDisbursement.DownPaymentAmount = obj.DownPaymentAmount;
                 objLnDeviceLoanDisbursement.LoanAmount = obj.LoanAmount;
                 objLnDeviceLoanDisbursement.LnTenureId = obj.LnTenureId;
-
+                objLnDeviceLoanDisbursement.MonthlyInstallment = obj.MonthlyInstallment;
                 objExit.Remarks = obj.Remarks;
                 objExit.ModifiedBy = obj.ModifiedBy;
                 objExit.ModifiedDate = DateTime.Now;
