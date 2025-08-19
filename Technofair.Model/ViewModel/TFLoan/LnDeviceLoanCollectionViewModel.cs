@@ -12,7 +12,8 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
     public class LnDeviceLoanCollectionViewModel
     {
         public int Id { get; set; }
-        public Int64? ScpSubscriberInvoiceDetailId { get; set; }
+        public Int64 LoanId { get; set; }
+        //public Int64? ScpSubscriberInvoiceDetailId { get; set; }
         public Int16 LnLoanCollectionTypeId { get; set; }       
         public string? CollectionType { get; set; }
         public int LenderId { get; set; }

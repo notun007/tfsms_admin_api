@@ -16,7 +16,9 @@ namespace TFSMS.Admin.Model.TFLoan.Device
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Int64 Id { get; set; }
-        public Int64? ScpSubscriberInvoiceDetailId { get; set; }
+        public Int64 LoanId { get; set; }
+        public LnDeviceLoanDisbursement Loan { get; set; }
+        // public Int64? ScpSubscriberInvoiceDetailId { get; set; }
         //public ScpSubscriberInvoiceDetail ScpSubscriberInvoiceDetail { get; set; }
 
         public Int16 LnLoanCollectionTypeId { get; set; }

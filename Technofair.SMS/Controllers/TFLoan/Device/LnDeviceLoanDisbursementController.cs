@@ -79,7 +79,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 objPayload.MonthlyInstallment = obj.MonthlyInstallment;
 
                 objPayload.Remarks = obj.Remarks;
-
+                objPayload.IsClosed = false;
                 objPayload.CreatedBy = obj.CreatedBy;
                 objPayload.CreatedDate = DateTime.Now;
 
