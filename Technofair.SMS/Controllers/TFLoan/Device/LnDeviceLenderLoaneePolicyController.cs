@@ -54,17 +54,16 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         public async Task<Operation> SaveDeviceLenderLoaneePolicy([FromBody] LnDeviceLenderLoaneePolicyViewModel obj)
         {
             Operation objOperation = new Operation();
-                       
-            
-            LnDeviceLenderLoaneePolicy objPolicy = new LnDeviceLenderLoaneePolicy();
 
+            //LnDeviceLoanDisbursement/SaveLoanDisbursement
+            LnDeviceLenderLoaneePolicy objPolicy = new LnDeviceLenderLoaneePolicy();
 
             var objPolicyExit = service.GetById(obj.Id);
                       
 
             if (objPolicyExit == null)
             {
-                #region Save To SMS
+                #region Save To SMS Database by SMS Api
 
                 LnDeviceLenderLoaneePolicyViewModel objPayload = new LnDeviceLenderLoaneePolicyViewModel();
 
@@ -89,6 +88,8 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 #endregion
             }
 
+
+            //Save In Admin Database
             if (objOperation.Success == true)
             {
 
