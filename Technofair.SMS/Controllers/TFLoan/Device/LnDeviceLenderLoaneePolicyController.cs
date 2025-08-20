@@ -70,7 +70,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 objPayload.Id = obj.Id;
                 objPayload.LenderId = obj.LenderId;
                 objPayload.LoaneeId = obj.LoaneeId;           
-                objPayload.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
+                //objPayload.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
                 objPayload.PerRechargeInstallmentAmount = obj.PerRechargeInstallmentAmount;
                 objPayload.IsActive = obj.IsActive;
                 objPayload.CreatedBy = obj.CreatedBy;
@@ -98,7 +98,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                     objPolicy.Id = obj.Id;
                     objPolicy.LenderId = obj.LenderId;
                     objPolicy.LoaneeId = obj.LoaneeId;
-                    objPolicy.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
+                    //objPolicy.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
                     objPolicy.PerRechargeInstallmentAmount = obj.PerRechargeInstallmentAmount;
                     objPolicy.IsActive = obj.IsActive;
                     objPolicy.CreatedBy = obj.CreatedBy;
@@ -108,7 +108,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 }
                 if (objPolicyExit != null)
                 {
-                    objPolicyExit.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
+                    //objPolicyExit.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
                     objPolicyExit.PerRechargeInstallmentAmount = obj.PerRechargeInstallmentAmount;
                     objPolicyExit.IsActive = obj.IsActive;
                     objPolicyExit.ModifiedBy = obj.ModifiedBy;
@@ -139,7 +139,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 objLnDeviceLenderLoaneePolicy.Id = obj.Id;
                 objLnDeviceLenderLoaneePolicy.LenderId = obj.LenderId;
                 objLnDeviceLenderLoaneePolicy.LoaneeId = obj.LoaneeId;
-                objLnDeviceLenderLoaneePolicy.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
+                //objLnDeviceLenderLoaneePolicy.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
                 objLnDeviceLenderLoaneePolicy.PerRechargeInstallmentAmount = obj.PerRechargeInstallmentAmount;
                 objLnDeviceLenderLoaneePolicy.IsActive = obj.IsActive;
                 objLnDeviceLenderLoaneePolicy.CreatedBy = obj.CreatedBy;
@@ -149,7 +149,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             }
             if (objExit != null)
             {
-                objExit.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
+                //objExit.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
                 objExit.PerRechargeInstallmentAmount = obj.PerRechargeInstallmentAmount;
                 objExit.IsActive = obj.IsActive;
                 objExit.ModifiedBy = obj.ModifiedBy;

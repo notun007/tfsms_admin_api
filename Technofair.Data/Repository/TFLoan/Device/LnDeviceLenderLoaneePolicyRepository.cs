@@ -63,7 +63,7 @@ namespace Technofair.Data.Repository.TFLoan.Device
                              Id = dd.Id,
                              LenderId = dd.LenderId,
                              LoaneeId = dd.LoaneeId,
-                             MonthlyInstallmentAmount = dd.MonthlyInstallmentAmount,
+                             //MonthlyInstallmentAmount = dd.MonthlyInstallmentAmount,
                              PerRechargeInstallmentAmount = dd.PerRechargeInstallmentAmount,
                              IsActive = dd.IsActive,
                              LenderName = lender.Name,

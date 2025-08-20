@@ -31,12 +31,10 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
         [Column(TypeName = "decimal(12, 2)")]
         public decimal LoanAmount { get; set; } // Not nullable
         public Int16? LnTenureId { get; set; }
-        public decimal? MonthlyInstallment { get; set; }
+        [Column(TypeName = "decimal(12, 2)")]
+        public decimal? MonthlyInstallmentAmount { get; set; }
         #endregion
         public bool? IsClosed { get; set; }
-
-        //[Column(TypeName = "decimal(12, 2)")]
-        //public decimal? DownPaymentAmount { get; set; }
         public string? Remarks { get; set; }
         public int? CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }

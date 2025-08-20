@@ -33,10 +33,11 @@ namespace TFSMS.Admin.Model.TFLoan.Device
         public decimal? DownPaymentAmount { get; set; }
         [Column(TypeName = "decimal(12, 2)")]
         public decimal LoanAmount { get; set; } // Not nullable
-        [Column(TypeName = "decimal(12, 2)")]
-        public decimal? MonthlyInstallment { get; set; }
+        
         public Int16? LnTenureId { get; set; }
         public LnTenure LnTenure { get; set; }
+        [Column(TypeName = "decimal(12, 2)")]
+        public decimal? MonthlyInstallmentAmount { get; set; }
         #endregion
         public bool? IsClosed { get; set; }
         public string? Remarks { get; set; }

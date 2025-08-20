@@ -12,9 +12,8 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
         public Int16 Id { get; set; }
         public int LenderId { get; set; }       
         public int LoaneeId { get; set; }
-        public decimal MonthlyInstallmentAmount { get; set; }
+        //public decimal MonthlyInstallmentAmount { get; set; }
         public decimal PerRechargeInstallmentAmount { get; set; }
-        //public bool IsLoanRecoveryAgent { get; set; }
         public bool IsActive { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

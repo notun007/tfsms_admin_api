@@ -15,9 +15,8 @@ namespace TFSMS.Admin.Model.TFLoan.Device
         public CmnCompany Lender { get; set; }
         public int LoaneeId { get; set; }
         public CmnCompany Loanee { get; set; }
-        public decimal MonthlyInstallmentAmount { get; set; }
+        //public decimal MonthlyInstallmentAmount { get; set; }
         public decimal PerRechargeInstallmentAmount { get; set; }
-       // public bool IsLoanRecoveryAgent { get; set; }   
         public bool IsActive { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
