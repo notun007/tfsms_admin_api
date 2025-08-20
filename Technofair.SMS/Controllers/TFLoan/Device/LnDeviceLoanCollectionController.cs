@@ -90,7 +90,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             if (objCollectionExit == null)
             {
                 objPayload.Id = obj.Id;
-                objPayload.LoanId = 1; ////
+                objPayload.LoanId = obj.LoanId; ////
                 objPayload.LnLoanCollectionTypeId = obj.LnLoanCollectionTypeId;
                 objPayload.AnFPaymentMethodId = obj.AnFPaymentMethodId;
                 
@@ -126,7 +126,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 {
 
                     objDeviceLoanCollection.Id = obj.Id;
-                    objDeviceLoanCollection.LoanId = 1;
+                    objDeviceLoanCollection.LoanId = obj.LoanId;
                     //objDeviceLoanCollection.ScpSubscriberInvoiceDetailId = null;
                     objDeviceLoanCollection.LnLoanCollectionTypeId = obj.LnLoanCollectionTypeId;
                     objDeviceLoanCollection.AnFPaymentMethodId = obj.AnFPaymentMethodId;

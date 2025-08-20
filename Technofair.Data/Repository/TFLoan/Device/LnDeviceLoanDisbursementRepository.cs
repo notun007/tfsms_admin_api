@@ -12,6 +12,7 @@ using TFSMS.Admin.Model.TFLoan.Device;
 using TFSMS.Admin.Model.ViewModel.TFLoan;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using Technofair.Data.Repository.TFLoan.Device;
 
 
 namespace TFSMS.Admin.Data.Repository.TFLoan.Device
@@ -22,6 +23,7 @@ namespace TFSMS.Admin.Data.Repository.TFLoan.Device
         Task<LnDeviceLoanDisbursement> AddEntityAsync(LnDeviceLoanDisbursement obj);
         Task<List<LnDeviceLoanDisbursementViewModel>> GetDeviceLoanDisbursement();
         DataTable NextLoanNo();
+        Task<List<LnDeviceLoanDisbursementDdlViewModel>> GetLoanDisbursementByLoaneeId(int loaneeId);
         Task<List<string>> GetLoanNoByLoaneeId(int loaneeId);
 
     }
@@ -95,7 +97,21 @@ namespace TFSMS.Admin.Data.Repository.TFLoan.Device
                 throw ex;
             }
         }
+        //Asad
+        public async Task<List<LnDeviceLoanDisbursementDdlViewModel>> GetLoanDisbursementByLoaneeId(int loaneeId)
+        {
+            var loans = await DataContext.LnDeviceLoanDisbursements
+                .Where(d => d.LoaneeId == loaneeId)
+                .Select (x=> new LnDeviceLoanDisbursementDdlViewModel
+                {
+                    LoanId = x.Id,
+                    LoanNo = x.LoanNo
+                }).ToListAsync();
 
+           return loans;
+        }
+
+        //Farida
         public async Task<List<string>> GetLoanNoByLoaneeId(int loaneeId)
         {
             var loanNos = await DataContext.LnDeviceLoanDisbursements

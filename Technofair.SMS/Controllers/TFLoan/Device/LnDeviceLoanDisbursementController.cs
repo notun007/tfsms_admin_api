@@ -43,6 +43,14 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             return list;
         }
 
+        //Asad
+        [HttpPost("GetLoanDisbursementByLoaneeId")]
+        public async Task<List<LnDeviceLoanDisbursementDdlViewModel>> GetLoanDisbursementByLoaneeId(int loaneeId)
+        {
+            return await service.GetLoanDisbursementByLoaneeId(loaneeId);
+        }
+
+        //Farida
         [HttpPost("GetLoanNoByLoaneeId")]
         public async Task<List<string>> GetLoanNoByLoaneeId(int loaneeId)
         {
@@ -126,9 +134,10 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                     objLnDeviceLoanDisbursement.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
 
                     objLnDeviceLoanDisbursement.Remarks = obj.Remarks;
+                    objLnDeviceLoanDisbursement.IsClosed = false;
 
                     objLnDeviceLoanDisbursement.CreatedBy = obj.CreatedBy;
-                    objLnDeviceLoanDisbursement.CreatedDate = DateTime.Now;
+                    objLnDeviceLoanDisbursement.CreatedDate = DateTime.Now;    
                     objOperation = await service.Save(objLnDeviceLoanDisbursement);
                     objOperation.Message = "Device Loan Disbursement Created Successfully.";
                 }
