@@ -28,6 +28,7 @@ namespace TFSMS.Admin.Service.TFLoan.Device
         LnDeviceLoanDisbursement GetById(Int64 id);
         Task<List<LnDeviceLoanDisbursementViewModel>> GetDeviceLoanDisbursement();
         string NextLoanNo();
+        Task<List<string>> GetLoanNoByLoaneeId(int loaneeId);
 
     }
     public class LnDeviceLoanDisbursementService : ILnDeviceLoanDisbursementService
@@ -145,6 +146,11 @@ namespace TFSMS.Admin.Service.TFLoan.Device
             {
             }
             return nextSl;
+        }
+
+        public async Task<List<string>> GetLoanNoByLoaneeId(int loaneeId)
+        {
+            return await repository.GetLoanNoByLoaneeId(loaneeId);
         }
     }
 }

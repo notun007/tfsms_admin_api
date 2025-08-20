@@ -43,6 +43,12 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             return list;
         }
 
+        [HttpPost("GetLoanNoByLoaneeId")]
+        public async Task<List<string>> GetLoanNoByLoaneeId(int loaneeId)
+        {
+            return await service.GetLoanNoByLoaneeId(loaneeId);
+        }
+
         [HttpPost("Save")]
         public async Task<Operation> Save([FromBody] LnDeviceLoanDisbursementViewModel obj)
         {

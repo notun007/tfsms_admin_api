@@ -22,6 +22,7 @@ namespace TFSMS.Admin.Data.Repository.TFLoan.Device
         Task<LnDeviceLoanDisbursement> AddEntityAsync(LnDeviceLoanDisbursement obj);
         Task<List<LnDeviceLoanDisbursementViewModel>> GetDeviceLoanDisbursement();
         DataTable NextLoanNo();
+        Task<List<string>> GetLoanNoByLoaneeId(int loaneeId);
 
     }
     public class LnDeviceLoanDisbursementRepository : AdminBaseRepository<LnDeviceLoanDisbursement>, ILnDeviceLoanDisbursementRepository
@@ -94,6 +95,39 @@ namespace TFSMS.Admin.Data.Repository.TFLoan.Device
                 throw ex;
             }
         }
+
+        public async Task<List<string>> GetLoanNoByLoaneeId(int loaneeId)
+        {
+            var loanNos = await DataContext.LnDeviceLoanDisbursements
+                .Where(d => d.LoaneeId == loaneeId && d.LoanNo != null)
+                .Select(d => d.LoanNo!)
+                .ToListAsync();
+
+            return loanNos;
+        }
+
+
+        //public async Task<List<LnDeviceLoanDisbursementViewModel>> GetLoanNoByLoaneeId(int loaneeId)
+        //{
+        //    var result = from dd in DataContext.LnDeviceLoanDisbursements
+        //                 join lender in DataContext.CmnCompanies on dd.LenderId equals lender.Id
+        //                 join loanee in DataContext.TFACompanyCustomers on dd.LoaneeId equals loanee.Id
+        //                 where dd.LoaneeId == loaneeId
+        //                 select new LnDeviceLoanDisbursementViewModel
+        //                 {
+        //                     LenderId = lender.Id,
+        //                     LoaneeId = loanee.Id,
+        //                     NumberOfDevice = dd.NumberOfDevice,
+        //                     Rate = dd.Rate,
+        //                     LoanAmount = dd.LoanAmount,
+        //                     Remarks = dd.Remarks,
+        //                     LenderName = lender.Name,
+        //                     LoaneeName = loanee.Name
+        //                 };
+
+        //    return await result.ToListAsync();
+        //}
+
 
     }
 }
