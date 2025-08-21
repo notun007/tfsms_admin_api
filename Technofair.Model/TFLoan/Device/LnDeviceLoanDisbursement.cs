@@ -40,6 +40,7 @@ namespace TFSMS.Admin.Model.TFLoan.Device
         public decimal? MonthlyInstallmentAmount { get; set; }
         #endregion
         public bool? IsClosed { get; set; }
+        public DateTime? InstallmentStartDate { get; set; }
         public string? Remarks { get; set; }
         public int? CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }

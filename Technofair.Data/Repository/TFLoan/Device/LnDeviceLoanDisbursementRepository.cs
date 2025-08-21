@@ -75,7 +75,9 @@ namespace TFSMS.Admin.Data.Repository.TFLoan.Device
                              LoanAmount = dd.LoanAmount,
                              Remarks = dd.Remarks,
                              LenderName = lender.Name,
-                             LoaneeName = loanee.Name
+                             LoaneeName = loanee.Name,
+                             InstallmentStartDate = dd.InstallmentStartDate
+
                          };
 
             return await result.ToListAsync();
