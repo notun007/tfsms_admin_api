@@ -43,6 +43,15 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             return list;
         }
 
+        //Asad-2
+        [HttpPost("GetLoanDisbursementDdlByLoaneeId")]
+        public async Task<List<LnDeviceLoanDisbursementDdlViewModel>> GetLoanDisbursementDdlByLoaneeId(int loaneeId)
+        {
+           var loans = await service.GetLoanDisbursementDdlByLoaneeId(loaneeId);
+            return loans;
+        }
+      
+
         //Asad
         [HttpPost("GetLoanDisbursementByLoaneeId")]
         public async Task<List<LnDeviceLoanDisbursementDdlViewModel>> GetLoanDisbursementByLoaneeId(int loaneeId)

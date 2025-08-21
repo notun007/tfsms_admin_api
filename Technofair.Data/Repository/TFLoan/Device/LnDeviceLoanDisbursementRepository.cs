@@ -100,15 +100,30 @@ namespace TFSMS.Admin.Data.Repository.TFLoan.Device
         //Asad
         public async Task<List<LnDeviceLoanDisbursementDdlViewModel>> GetLoanDisbursementByLoaneeId(int loaneeId)
         {
+
             var loans = await DataContext.LnDeviceLoanDisbursements
                 .Where(d => d.LoaneeId == loaneeId)
-                .Select (x=> new LnDeviceLoanDisbursementDdlViewModel
-                {
-                    LoanId = x.Id,
-                    LoanNo = x.LoanNo
-                }).ToListAsync();
+                .ToListAsync();
 
-           return loans;
+
+            //var loans = await DataContext.LnDeviceLoanDisbursements
+            //    .Where(d => d.LoaneeId == loaneeId)
+            //    .Select (x=> new LnDeviceLoanDisbursementDdlViewModel
+            //    {
+            //        LoanId = x.Id,
+            //        LoanNo = x.LoanNo
+            //    }).ToListAsync();
+
+
+            //var loanX =loans
+            //   .Select(x => new LnDeviceLoanDisbursementDdlViewModel
+            //   {
+            //       LoanId = x.Id,
+            //       LoanNo = x.LoanNo
+            //   }).ToListAsync();
+
+
+            return loans;
         }
 
         //Farida
