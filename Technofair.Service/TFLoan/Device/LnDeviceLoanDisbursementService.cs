@@ -29,9 +29,9 @@ namespace TFSMS.Admin.Service.TFLoan.Device
         Task<List<LnDeviceLoanDisbursementViewModel>> GetDeviceLoanDisbursement();
         string NextLoanNo();
         //Asad-1
-        Task<List<LnDeviceLoanDisbursementDdlViewModel>> GetLoanDisbursementDdlByLoaneeId(int loaneeId);
+        Task<List<DropDownViewModel>> GetLoanDisbursementDdlByLoaneeId(int loaneeId);
         //Asad
-        Task<List<LnDeviceLoanDisbursementDdlViewModel>> GetLoanDisbursementByLoaneeId(int loaneeId);
+        Task<List<LnDeviceLoanDisbursement>> GetLoanDisbursementByLoaneeId(int loaneeId);
         //Farida
         Task<List<string>> GetLoanNoByLoaneeId(int loaneeId);
 
@@ -154,23 +154,23 @@ namespace TFSMS.Admin.Service.TFLoan.Device
         }
 
         //Asad-2
-        public async Task<List<LnDeviceLoanDisbursementDdlViewModel>> GetLoanDisbursementDdlByLoaneeId(int loaneeId)
+        public async Task<List<DropDownViewModel>> GetLoanDisbursementDdlByLoaneeId(int loaneeId)
         {
-            var loanList = await service.GetLoanDisbursementByLoaneeId(loaneeId);
+            var loanList = await repository.GetLoanDisbursementByLoaneeId(loaneeId);
 
             var loans = loanList
-               .Select(x => new LnDeviceLoanDisbursementDdlViewModel
+               .Select(x => new DropDownViewModel
                {
-                   LoanId = x.Id,
-                   LoanNo = x.LoanNo
-               }).ToListAsync();
+                   Id = x.Id,
+                   Name = x.LoanNo
+               }).ToList();
 
             return loans;
         }
        
 
         //Asad
-        public async Task<List<LnDeviceLoanDisbursementDdlViewModel>> GetLoanDisbursementByLoaneeId(int loaneeId)
+        public async Task<List<LnDeviceLoanDisbursement>> GetLoanDisbursementByLoaneeId(int loaneeId)
         {
             return await repository.GetLoanDisbursementByLoaneeId(loaneeId);
         }

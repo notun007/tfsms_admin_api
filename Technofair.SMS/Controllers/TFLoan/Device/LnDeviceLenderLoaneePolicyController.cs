@@ -16,6 +16,7 @@ using TFSMS.Admin.Service.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 using TFSMS.Admin.Model.Common;
 using TFSMS.Admin.Model.ViewModel.Subscription;
+using Technofair.Model.ViewModel.TFLoan;
 
 
 namespace TFSMS.Admin.Controllers.TFLoan.Device
