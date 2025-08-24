@@ -14,6 +14,7 @@ using TFSMS.Admin.Data.Repository.TFLoan.Device;
 using Technofair.Utiity.Http;
 using TFSMS.Admin.Service.TFAdmin;
 using TFSMS.Admin.Data.Repository.TFAdmin;
+using Technofair.Model.ViewModel.TFLoan;
 
 namespace TFSMS.Admin.Controllers.TFLoan.Device
 {
@@ -181,6 +182,22 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         public Task<List<LnDeviceLoanDisbursementViewModel>> GetDeviceLoanDisbursement()
         {
             return service.GetDeviceLoanDisbursement();
+        }
+
+        [HttpPost("GenerateLoanSchedule")]
+        public async Task<Operation> GenerateLoanSchedule(LOanScheduleRequestViewModel objPayload)
+        {
+            //LnDeviceLoanDisbursementViewModel objPayload = new LnDeviceLoanDisbursementViewModel();
+                        
+            var objCompanyCustomer = serviceCompanyCustomer.GetById(objPayload.LoaneeId);
+
+            var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+
+            var url = smsApiBaseUrl + "/api/LnDeviceLoanDisbursement/GenerateLoanSchedule";
+
+           var objOperation = await Request<LOanScheduleRequestViewModel, Operation>.Post(url, objPayload);
+
+            return objOperation;
         }
     }
 }

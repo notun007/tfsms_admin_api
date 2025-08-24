@@ -9,8 +9,8 @@ namespace Technofair.Model.ViewModel.TFLoan
     public class LOanScheduleRequestViewModel
     {
         public int LoaneeId {get;set;}
-        public Int64 loanId { get; set; }
-        public int createdBy { get; set; }
+        public Int64 LoanId { get; set; }
+        public int CreatedBy { get; set; }
        
     }
 }

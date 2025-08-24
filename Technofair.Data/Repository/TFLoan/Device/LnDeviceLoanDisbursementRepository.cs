@@ -63,11 +63,12 @@ namespace TFSMS.Admin.Data.Repository.TFLoan.Device
 
         public async Task<List<LnDeviceLoanDisbursementViewModel>> GetDeviceLoanDisbursement()
         {
-            var result = from dd in DataContext.LnDeviceLoanDisbursements
+            var result = await (from dd in DataContext.LnDeviceLoanDisbursements
                          join lender in DataContext.CmnCompanies on dd.LenderId equals lender.Id
                          join loanee in DataContext.TFACompanyCustomers on dd.LoaneeId equals loanee.Id
                          select new LnDeviceLoanDisbursementViewModel
                          {
+                             Id = dd.Id,
                              LenderId = lender.Id,
                              LoaneeId = loanee.Id,
                              NumberOfDevice = dd.NumberOfDevice,
@@ -78,9 +79,9 @@ namespace TFSMS.Admin.Data.Repository.TFLoan.Device
                              LoaneeName = loanee.Name,
                              InstallmentStartDate = dd.InstallmentStartDate
 
-                         };
+                         }).ToListAsync();
 
-            return await result.ToListAsync();
+            return result;
         }
 
         public DataTable NextLoanNo()
