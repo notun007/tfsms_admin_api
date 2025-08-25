@@ -199,7 +199,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         }
 
         [HttpPost("GetDeviceLoanScheduleByLoanId")]
-        public async Task<List<LnDeviceLoanScheduleViewModel>> GetDeviceLoanScheduleByLoanId(int loaneeId, Int64 loanId)
+        public async Task<List<LnDeviceLoanScheduleCollectionViewModel>> GetDeviceLoanScheduleByLoanId(int loaneeId, Int64 loanId)
         {
             var objCompanyCustomer = serviceCompanyCustomer.GetById(loaneeId);
 
@@ -207,7 +207,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
             var url = smsApiBaseUrl + "/api/LnDeviceLoanSchedule/GetDeviceLoanScheduleByLoanId?loanId=" + loanId;
 
-            var list = await Request<LnDeviceLoanScheduleViewModel, LnDeviceLoanScheduleViewModel>.GetCollecttion(url);
+            var list = await Request<LnDeviceLoanScheduleCollectionViewModel, LnDeviceLoanScheduleCollectionViewModel>.GetCollecttion(url);
 
             return list;
 
