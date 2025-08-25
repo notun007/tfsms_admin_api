@@ -186,9 +186,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
         [HttpPost("GenerateLoanSchedule")]
         public async Task<Operation> GenerateLoanSchedule(LOanScheduleRequestViewModel objPayload)
-        {
-            //LnDeviceLoanDisbursementViewModel objPayload = new LnDeviceLoanDisbursementViewModel();
-                        
+        {                                    
             var objCompanyCustomer = serviceCompanyCustomer.GetById(objPayload.LoaneeId);
 
             var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
@@ -198,6 +196,21 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
            var objOperation = await Request<LOanScheduleRequestViewModel, Operation>.Post(url, objPayload);
 
             return objOperation;
+        }
+
+        [HttpPost("GetDeviceLoanScheduleByLoanId")]
+        public async Task<List<LnDeviceLoanScheduleViewModel>> GetDeviceLoanScheduleByLoanId(int loaneeId, Int64 loanId)
+        {
+            var objCompanyCustomer = serviceCompanyCustomer.GetById(loaneeId);
+
+            var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+
+            var url = smsApiBaseUrl + "/api/LnDeviceLoanSchedule/GetDeviceLoanScheduleByLoanId?loanId=" + loanId;
+
+            var list = await Request<LnDeviceLoanScheduleViewModel, LnDeviceLoanScheduleViewModel>.GetCollecttion(url);
+
+            return list;
+
         }
     }
 }

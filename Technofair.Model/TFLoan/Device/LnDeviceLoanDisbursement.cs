@@ -11,7 +11,7 @@ namespace TFSMS.Admin.Model.TFLoan.Device
     public class LnDeviceLoanDisbursement
     {
         public Int64 Id { get; set; }
-        public string? LoanNo { get; set; }
+        public string LoanNo { get; set; }
         public int LenderId { get; set; }
         public CmnCompany Lender { get; set; }
         public int LoaneeId { get; set; }

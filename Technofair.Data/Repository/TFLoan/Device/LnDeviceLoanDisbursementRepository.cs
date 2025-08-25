@@ -64,22 +64,26 @@ namespace TFSMS.Admin.Data.Repository.TFLoan.Device
         public async Task<List<LnDeviceLoanDisbursementViewModel>> GetDeviceLoanDisbursement()
         {
             var result = await (from dd in DataContext.LnDeviceLoanDisbursements
-                         join lender in DataContext.CmnCompanies on dd.LenderId equals lender.Id
-                         join loanee in DataContext.TFACompanyCustomers on dd.LoaneeId equals loanee.Id
-                         select new LnDeviceLoanDisbursementViewModel
-                         {
-                             Id = dd.Id,
-                             LenderId = lender.Id,
-                             LoaneeId = loanee.Id,
-                             NumberOfDevice = dd.NumberOfDevice,
-                             Rate = dd.Rate,
-                             LoanAmount = dd.LoanAmount,
-                             Remarks = dd.Remarks,
-                             LenderName = lender.Name,
-                             LoaneeName = loanee.Name,
-                             InstallmentStartDate = dd.InstallmentStartDate
-
-                         }).ToListAsync();
+                                join lender in DataContext.CmnCompanies on dd.LenderId equals lender.Id
+                                join loanee in DataContext.TFACompanyCustomers on dd.LoaneeId equals loanee.Id
+                                select new LnDeviceLoanDisbursementViewModel
+                                {
+                                    Id = dd.Id,
+                                    LoanNo = dd.LoanNo,
+                                    LenderId = lender.Id,
+                                    LoaneeId = loanee.Id,
+                                    NumberOfDevice = dd.NumberOfDevice,
+                                    Rate = dd.Rate,
+                                    TotalAmount = dd.TotalAmount,
+                                    DownPaymentAmount = dd.DownPaymentAmount,
+                                    LoanAmount = dd.LoanAmount,
+                                    Remarks = dd.Remarks,
+                                    LenderName = lender.Name,
+                                    LoaneeName = loanee.Name,
+                                    CreatedDate = dd.CreatedDate,
+                                    InstallmentStartDate = dd.InstallmentStartDate
+                                    
+                                }).ToListAsync();
 
             return result;
         }
