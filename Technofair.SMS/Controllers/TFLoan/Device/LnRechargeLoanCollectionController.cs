@@ -60,11 +60,11 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                     objSmsAdminCollection.SmsPaymentCharge = objSmsRechargeCollection.PaymentCharge;
                     objSmsAdminCollection.AdminAmount = objAdminRechargeCollection.Amount;
                     objSmsAdminCollection.AdminPaymentCharge = objAdminRechargeCollection.PaymentCharge;
+                    objSmsAdminCollection.DuuAmount = (objSmsRechargeCollection.Amount - objSmsRechargeCollection.PaymentCharge) - (objAdminRechargeCollection.Amount - objAdminRechargeCollection.PaymentCharge);
                 }
             }
             catch(Exception exp)
             {
-
             }
            
             return objSmsAdminCollection;

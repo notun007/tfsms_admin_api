@@ -13,5 +13,6 @@ namespace Technofair.Model.ViewModel.TFLoan
         public decimal SmsPaymentCharge { get; set; }
         public decimal AdminAmount { get; set; }
         public decimal AdminPaymentCharge { get; set; }
+        public decimal DuuAmount { get; set; }
     }
 }
