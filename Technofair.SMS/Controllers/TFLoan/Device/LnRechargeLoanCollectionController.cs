@@ -33,6 +33,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             return list;
         }
 
+        
         [HttpGet("GetRechargeLoanCollectionByLoanNo")]
         public async Task<RechargeLoanCollectionSummaryViewModel> GetRechargeLoanCollectionByLoanNo(string appKey, string loanNo)
         {

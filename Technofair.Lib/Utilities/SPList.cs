@@ -714,6 +714,11 @@ namespace Technofair.Lib.Utilities
 
 
         }
-             
+          
+        public static class DeviceLoan
+        {
+            public static string GetRechargeLoanCollectionByLoanNo = "GetRechargeLoanCollectionByLoanNo";
+        }
+
     }
 }

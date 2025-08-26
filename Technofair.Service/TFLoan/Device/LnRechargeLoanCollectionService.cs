@@ -20,7 +20,7 @@ namespace Technofair.Service.TFLoan.Device
         Task<Operation> AddWithNoCommitAsync(LnRechargeLoanCollection obj);
         List<LnRechargeLoanCollection> GetAll();
         LnRechargeLoanCollection GetById(Int64 id);
-       // List<RechargeLoanCollectionSummaryViewModel> GetRechargeLoanCollectionByLoanNo(string loanNo);
+       RechargeLoanCollectionSummaryViewModel GetRechargeLoanCollectionByLoanNo(string loanNo);
 
     }
     public class LnRechargeLoanCollectionService : ILnRechargeLoanCollectionService
@@ -112,10 +112,10 @@ namespace Technofair.Service.TFLoan.Device
             }
         }
 
-        //public List<RechargeLoanCollectionSummaryViewModel> GetRechargeLoanCollectionByLoanNo(string loanNo)
-        //{
-        //    return repository.GetRechargeLoanCollectionByLoanNo(loanNo);
-        //}
+        public RechargeLoanCollectionSummaryViewModel GetRechargeLoanCollectionByLoanNo(string loanNo)
+        {
+            return repository.GetRechargeLoanCollectionByLoanNo(loanNo);
+        }
 
     }
 }

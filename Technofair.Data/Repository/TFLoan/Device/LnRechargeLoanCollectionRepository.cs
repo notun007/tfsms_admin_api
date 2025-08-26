@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +19,7 @@ namespace Technofair.Data.Repository.TFLoan.Device
     {
         Int64 AddEntity(LnRechargeLoanCollection obj);
         Task<Int64> AddEntityAsync(LnRechargeLoanCollection obj);
-        //List<RechargeLoanCollectionSummaryViewModel> GetRechargeLoanCollectionByLoanNo(string loanNo);
+        RechargeLoanCollectionSummaryViewModel GetRechargeLoanCollectionByLoanNo(string loanNo);
     }
     public class LnRechargeLoanCollectionRepository : AdminBaseRepository<LnRechargeLoanCollection>, ILnRechargeLoanCollectionRepository
     {
@@ -53,32 +55,32 @@ namespace Technofair.Data.Repository.TFLoan.Device
             return Id;
         }
 
-        //public List<RechargeLoanCollectionSummaryViewModel> GetRechargeLoanCollectionByLoanNo(string loanNo)
-        //{
+        public RechargeLoanCollectionSummaryViewModel GetRechargeLoanCollectionByLoanNo(string loanNo)
+        {
 
-        //    List<RechargeLoanCollectionSummaryViewModel> list = new List<RechargeLoanCollectionSummaryViewModel>();
+            List<RechargeLoanCollectionSummaryViewModel> list = new List<RechargeLoanCollectionSummaryViewModel>();
 
-        //    try
-        //    {
-        //        DataTable dt = new DataTable();
-        //        SqlParameter[] paramsToStore = new SqlParameter[1];
-        //        paramsToStore[0] = new SqlParameter("@loanNo", loanNo);
+            try
+            {
+                DataTable dt = new DataTable();
+                SqlParameter[] paramsToStore = new SqlParameter[1];
+                paramsToStore[0] = new SqlParameter("@loanNo", loanNo);
 
-        //        dt = Helper.ExecuteDataset(DataContext.Database.GetDbConnection().ConnectionString, CommandType.StoredProcedure, SPList.DeviceLoan.GetRechargeLoanCollectionByLoanNo, paramsToStore).Tables[0];
+                dt = Helper.ExecuteDataset(DataContext.Database.GetDbConnection().ConnectionString, CommandType.StoredProcedure, SPList.DeviceLoan.GetRechargeLoanCollectionByLoanNo, paramsToStore).Tables[0];
 
-        //        if (dt != null && dt.Rows.Count > 0)
-        //        {
-        //            foreach (DataRow row in dt.Rows)
-        //            {
-        //                list.Add(((RechargeLoanCollectionSummaryViewModel)Helper.FillTo(row, typeof(RechargeLoanCollectionSummaryViewModel))));
-        //            }
-        //        }
-        //    }
-        //    catch (Exception exp)
-        //    {
-        //        throw exp;
-        //    }
-        //    return list;
-        //}
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        list.Add(((RechargeLoanCollectionSummaryViewModel)Helper.FillTo(row, typeof(RechargeLoanCollectionSummaryViewModel))));
+                    }
+                }
+            }
+            catch (Exception exp)
+            {
+                throw exp;
+            }
+            return list;
+        }
     }
 }

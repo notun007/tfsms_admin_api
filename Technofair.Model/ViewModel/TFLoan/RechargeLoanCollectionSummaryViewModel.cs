@@ -8,7 +8,7 @@ namespace Technofair.Model.ViewModel.TFLoan
 {
     public class RechargeLoanCollectionSummaryViewModel
     {
-        public string LoanId { get; set; }
+        public Int64 LoanId { get; set; }
         public decimal Amount { get; set; }
         public decimal PaymentCharge { get; set; }
 
