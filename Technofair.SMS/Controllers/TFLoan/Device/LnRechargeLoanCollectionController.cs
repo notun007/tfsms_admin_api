@@ -34,7 +34,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         }
 
         [HttpGet("GetRechargeLoanCollectionByLoanNo")]
-        public async Task<List<RechargeLoanCollectionSummaryViewModel>> GetRechargeLoanCollectionByLoanNo(string appKey, string loanNo)
+        public async Task<RechargeLoanCollectionSummaryViewModel> GetRechargeLoanCollectionByLoanNo(string appKey, string loanNo)
         {
             var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByAppKey(appKey);
 
@@ -42,7 +42,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
             var url = smsApiBaseUrl + "/api/LnRechargeLoanCollection/GetRechargeLoanCollectionByLoanNo?loanNo=" + loanNo;
 
-            var list = await Request<RechargeLoanCollectionSummaryViewModel, RechargeLoanCollectionSummaryViewModel>.GetCollecttion(url);
+            var list = await Request<RechargeLoanCollectionSummaryViewModel, RechargeLoanCollectionSummaryViewModel>.GetObject(url);
 
             return list;
         }
