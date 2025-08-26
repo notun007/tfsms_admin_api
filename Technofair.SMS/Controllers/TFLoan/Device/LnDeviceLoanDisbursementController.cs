@@ -187,7 +187,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
         //New: 25082025
         [HttpPost("GetDeviceLoanDisbursementByAppKey")]
-        public async Task<List<LnDeviceLoanDisbursementViewModel>> GetDeviceLoanDisbursementByLoaneeId(string appKey)
+        public async Task<List<LnDeviceLoanDisbursementViewModel>> GetDeviceLoanDisbursementByAppKey(string appKey)
         {
             var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByAppKey(appKey);
 
