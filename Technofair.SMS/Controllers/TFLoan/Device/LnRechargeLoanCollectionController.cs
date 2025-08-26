@@ -35,17 +35,39 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
         
         [HttpGet("GetRechargeLoanCollectionByLoanNo")]
-        public async Task<RechargeLoanCollectionSummaryViewModel> GetRechargeLoanCollectionByLoanNo(string appKey, string loanNo)
+        public async Task<SmsAdminRechargeLoanCollectionSummaryViewModel> GetRechargeLoanCollectionByLoanNo(string appKey, string loanNo)
         {
-            var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByAppKey(appKey);
 
-            var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+            SmsAdminRechargeLoanCollectionSummaryViewModel objSmsAdminCollection = new SmsAdminRechargeLoanCollectionSummaryViewModel();
 
-            var url = smsApiBaseUrl + "/api/LnRechargeLoanCollection/GetRechargeLoanCollectionByLoanNo?loanNo=" + loanNo;
+            try
+            {
+                #region Admin
+                var objAdminRechargeCollection = service.GetRechargeLoanCollectionByLoanNo(loanNo);
+                #endregion
 
-            var list = await Request<RechargeLoanCollectionSummaryViewModel, RechargeLoanCollectionSummaryViewModel>.GetObject(url);
+                #region Sms
+                var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByAppKey(appKey);
+                var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+                var url = smsApiBaseUrl + "/api/LnRechargeLoanCollection/GetRechargeLoanCollectionByLoanNo?loanNo=" + loanNo;
+                var objSmsRechargeCollection = await Request<RechargeLoanCollectionSummaryViewModel, RechargeLoanCollectionSummaryViewModel>.GetObject(url);
+                #endregion
 
-            return list;
+                if (objSmsRechargeCollection != null && objAdminRechargeCollection != null)
+                {
+                    objSmsAdminCollection.LoanId = objSmsRechargeCollection.LoanId;
+                    objSmsAdminCollection.SmsAmount = objSmsRechargeCollection.Amount;
+                    objSmsAdminCollection.SmsPaymentCharge = objSmsRechargeCollection.PaymentCharge;
+                    objSmsAdminCollection.AdminAmount = objAdminRechargeCollection.Amount;
+                    objSmsAdminCollection.AdminPaymentCharge = objAdminRechargeCollection.PaymentCharge;
+                }
+            }
+            catch(Exception exp)
+            {
+
+            }
+           
+            return objSmsAdminCollection;
         }
     }
 }
