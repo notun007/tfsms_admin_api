@@ -80,7 +80,7 @@ namespace Technofair.Data.Repository.TFLoan.Device
             {
                 throw exp;
             }
-            return list;
+            return list.SingleOrDefault();
         }
     }
 }
