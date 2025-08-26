@@ -16,6 +16,7 @@ using TFSMS.Admin.Model.Security;
 using TFSMS.Admin.Model.TFAdmin;
 using TFSMS.Admin.Model.TFLoan.Device;
 using Technofair.Utiity.Helper;
+using Technofair.Model.TFLoan.Device;
 
 namespace TFSMS.Admin.Data
 {
@@ -127,6 +128,8 @@ namespace TFSMS.Admin.Data
 
 
         public DbSet<LnDeviceLoanCollection> LnDeviceLoanCollections { get; set; }
+
+        public DbSet<LnRechargeLoanCollection> LnRechargeLoanCollections { get; set; }
 
         public DbSet<LnLoanCollectionType> LnLoanCollectionTypes { get; set; }
         public DbSet<LnDeviceLenderType> LnDeviceLenderTypes { get; set; }
