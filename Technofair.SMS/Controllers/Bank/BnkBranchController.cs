@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace OneZeroERP.Web.Areas.Bank.Controllers
 {
-    public class  BnkBranchController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class  BnkBranchController : ControllerBase
     {
       
-
         private IBnkBranchService service;
-
-       
+               
         public BnkBranchController()
         {
             var dbfactory = new AdminDatabaseFactory();
