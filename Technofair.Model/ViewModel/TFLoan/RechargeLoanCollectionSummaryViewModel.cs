@@ -14,6 +14,8 @@ namespace Technofair.Model.ViewModel.TFLoan
         public decimal Amount { get; set; }
         [Column(TypeName = "decimal(12, 2)")]
         public decimal PaymentCharge { get; set; }
+        [Column(TypeName = "decimal(12, 2)")]
+        public decimal NetAmount { get; set; }
 
     }
 }

@@ -46,7 +46,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
         
         [HttpGet("GetRechargeLoanCollectionByLoanNo")]
-        public List<LnRechargeLoanCollectionViewModel> GetRechargeLoanCollectionByLoanNo(string appKey, string loanNo)
+        public List<LnRechargeLoanCollectionViewModel> GetRechargeLoanCollectionByLoanNo( string loanNo)
         {
 
             List<LnRechargeLoanCollectionViewModel> objCollection = new List<LnRechargeLoanCollectionViewModel>();
@@ -112,11 +112,16 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 if (objSmsRechargeCollection != null && objAdminRechargeCollection != null)
                 {
                     objSmsAdminCollection.LoanId = objSmsRechargeCollection.LoanId;
+                    objSmsAdminCollection.LoanNo = loanNo;
                     objSmsAdminCollection.SmsAmount = objSmsRechargeCollection.Amount;
                     objSmsAdminCollection.SmsPaymentCharge = objSmsRechargeCollection.PaymentCharge;
+                    objSmsAdminCollection.SmsNetAmount = objSmsRechargeCollection.NetAmount;
                     objSmsAdminCollection.AdminAmount = objAdminRechargeCollection.Amount;
                     objSmsAdminCollection.AdminPaymentCharge = objAdminRechargeCollection.PaymentCharge;
-                    objSmsAdminCollection.DueAmount = (objSmsRechargeCollection.Amount - objSmsRechargeCollection.PaymentCharge) - (objAdminRechargeCollection.Amount - objAdminRechargeCollection.PaymentCharge);
+                    objSmsAdminCollection.AdminNetAmount = objAdminRechargeCollection.NetAmount;
+
+                    objSmsAdminCollection.DueAmount = objSmsRechargeCollection.Amount - objAdminRechargeCollection.Amount;
+                    objSmsAdminCollection.NetDueAmount = objSmsRechargeCollection.NetAmount - objAdminRechargeCollection.NetAmount;
                 }
             }
             catch(Exception exp)
