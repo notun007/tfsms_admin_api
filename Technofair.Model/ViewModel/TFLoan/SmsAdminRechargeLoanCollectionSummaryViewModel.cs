@@ -19,10 +19,10 @@ namespace Technofair.Model.ViewModel.TFLoan
         [Column(TypeName = "decimal(12, 2)")]
         public decimal SmsNetAmount { get; set; }
 
-        [Column(TypeName = "decimal(12, 2)")]
-        public decimal AdminAmount { get; set; }
-        [Column(TypeName = "decimal(12, 2)")]
-        public decimal AdminPaymentCharge { get; set; }
+        //[Column(TypeName = "decimal(12, 2)")]
+        //public decimal AdminAmount { get; set; }
+        //[Column(TypeName = "decimal(12, 2)")]
+        //public decimal AdminPaymentCharge { get; set; }
 
         [Column(TypeName = "decimal(12, 2)")]
         public decimal AdminNetAmount { get; set; }

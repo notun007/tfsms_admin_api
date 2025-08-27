@@ -69,9 +69,9 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                             AnFPaymentMethodId = collection.AnFPaymentMethodId,
 
-                            Amount = collection.Amount,
-                            PaymentChargePercent = collection.PaymentChargePercent,
-                            PaymentCharge = collection.PaymentCharge,
+                            NetAmount = collection.NetAmount,
+                            //PaymentChargePercent = collection.PaymentChargePercent,
+                            //PaymentCharge = collection.PaymentCharge,
 
                             CollectionDate = collection.CollectionDate,
                             TransactionId = collection.TransactionId,
@@ -113,14 +113,16 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 {
                     objSmsAdminCollection.LoanId = objSmsRechargeCollection.LoanId;
                     objSmsAdminCollection.LoanNo = loanNo;
-                    objSmsAdminCollection.SmsAmount = objSmsRechargeCollection.Amount;
-                    objSmsAdminCollection.SmsPaymentCharge = objSmsRechargeCollection.PaymentCharge;
+                    //objSmsAdminCollection.SmsAmount = objSmsRechargeCollection.Amount;
+                    //objSmsAdminCollection.SmsPaymentCharge = objSmsRechargeCollection.PaymentCharge;
                     objSmsAdminCollection.SmsNetAmount = objSmsRechargeCollection.NetAmount;
-                    objSmsAdminCollection.AdminAmount = objAdminRechargeCollection.Amount;
-                    objSmsAdminCollection.AdminPaymentCharge = objAdminRechargeCollection.PaymentCharge;
+
+                    //objSmsAdminCollection.AdminAmount = objAdminRechargeCollection.Amount;
+                    //objSmsAdminCollection.AdminPaymentCharge = objAdminRechargeCollection.PaymentCharge;
                     objSmsAdminCollection.AdminNetAmount = objAdminRechargeCollection.NetAmount;
 
-                    objSmsAdminCollection.DueAmount = objSmsRechargeCollection.Amount - objAdminRechargeCollection.Amount;
+                    //objSmsAdminCollection.DueAmount = objSmsRechargeCollection.NetAmount - objAdminRechargeCollection.NetAmount;
+
                     objSmsAdminCollection.NetDueAmount = objSmsRechargeCollection.NetAmount - objAdminRechargeCollection.NetAmount;
                 }
             }

@@ -9,6 +9,7 @@ namespace Technofair.Model.Bank
     {
         public int Id { get; set; }
         public int BnkBankId { get; set; }
+        public BnkBank BnkBank { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
         public string Phone { get; set; }

@@ -19,12 +19,12 @@ namespace Technofair.Model.ViewModel.TFLoan
         public int LenderId { get; set; }
         public int LoaneeId { get; set; }
         public short AnFPaymentMethodId { get; set; }
-        [Column(TypeName = "decimal(12, 2)")]
-        public decimal Amount { get; set; }
-        [Column(TypeName = "decimal(12, 2)")]
-        public decimal? PaymentChargePercent { get; set; }
-        [Column(TypeName = "decimal(12, 2)")]
-        public decimal? PaymentCharge { get; set; }
+        //[Column(TypeName = "decimal(12, 2)")]
+        //public decimal Amount { get; set; }
+        //[Column(TypeName = "decimal(12, 2)")]
+        //public decimal? PaymentChargePercent { get; set; }
+        //[Column(TypeName = "decimal(12, 2)")]
+        //public decimal? PaymentCharge { get; set; }
         [Column(TypeName = "decimal(12, 2)")]
         public decimal NetAmount { get; set; }
         public string? Remarks { get; set; }

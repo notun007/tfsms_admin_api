@@ -10,10 +10,10 @@ namespace Technofair.Model.ViewModel.TFLoan
     public class RechargeLoanCollectionSummaryViewModel
     {
         public Int64 LoanId { get; set; }
-        [Column(TypeName = "decimal(12, 2)")]
-        public decimal Amount { get; set; }
-        [Column(TypeName = "decimal(12, 2)")]
-        public decimal PaymentCharge { get; set; }
+        //[Column(TypeName = "decimal(12, 2)")]
+        //public decimal Amount { get; set; }
+        //[Column(TypeName = "decimal(12, 2)")]
+        //public decimal PaymentCharge { get; set; }
         [Column(TypeName = "decimal(12, 2)")]
         public decimal NetAmount { get; set; }
 

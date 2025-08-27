@@ -17,6 +17,7 @@ using TFSMS.Admin.Model.TFAdmin;
 using TFSMS.Admin.Model.TFLoan.Device;
 using Technofair.Utiity.Helper;
 using Technofair.Model.TFLoan.Device;
+using Technofair.Model.Bank;
 
 namespace TFSMS.Admin.Data
 {
@@ -72,6 +73,10 @@ namespace TFSMS.Admin.Data
             //modelBuilder.Entity<UserInformation>().HasIndex(x => x.MobileNo).IsUnique();
            
         }
+
+        public DbSet<BnkAccountInfo> BnkAccountInfos { get; set; }
+        public DbSet<BnkBank> BnkBanks { get; set; }
+        public DbSet<BnkBranch> BnkBranches { get; set; }
 
         public DbSet<CmnFinancialYear> CmnFinancialYears { get; set; }
         public DbSet<SecCompanyModule> SecCompanyModules { get; set; }

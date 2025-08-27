@@ -17,9 +17,7 @@ namespace Technofair.Model.TFLoan.Device
         public long Id { get; set; }
         public long LoanId { get; set; }
         public LnDeviceLoanDisbursement Loan { get; set; }
-        //public Int64 LnDeviceLoanScheduleId { get; set; }
-        //public LnDeviceLoanSchedule LnDeviceLoanSchedule { get; set; }
-
+     
         [ForeignKey(nameof(Lender))]
         public int LenderId { get; set; }
         public CmnCompany Lender { get; set; }
@@ -33,13 +31,13 @@ namespace Technofair.Model.TFLoan.Device
         public AnFPaymentMethod AnFPaymentMethod { get; set; }
 
         [Column(TypeName = "decimal(12, 2)")]
-        public decimal Amount { get; set; }
+        public decimal NetAmount { get; set; }
 
-        [Column(TypeName = "decimal(12, 2)")]
-        public decimal? PaymentChargePercent { get; set; }
+        //[Column(TypeName = "decimal(12, 2)")]
+        //public decimal? PaymentChargePercent { get; set; }
 
-        [Column(TypeName = "decimal(12, 3)")]
-        public decimal? PaymentCharge { get; set; }
+        //[Column(TypeName = "decimal(12, 3)")]
+        //public decimal? PaymentCharge { get; set; }
 
         [MaxLength(100)]
         public string? Remarks { get; set; }
