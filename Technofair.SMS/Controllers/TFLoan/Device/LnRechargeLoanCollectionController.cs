@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Technofair.Data.Repository.TFLoan.Device;
+using Technofair.Lib.Model;
 using Technofair.Model.TFLoan.Device;
 using Technofair.Model.ViewModel.TFLoan;
 using Technofair.Service.TFLoan.Device;
@@ -8,6 +9,7 @@ using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 using TFSMS.Admin.Data.Repository.TFAdmin;
 using TFSMS.Admin.Data.Repository.TFLoan.Device;
+using TFSMS.Admin.Model.TFLoan.Device;
 using TFSMS.Admin.Model.ViewModel.TFLoan;
 using TFSMS.Admin.Service.TFAdmin;
 using TFSMS.Admin.Service.TFLoan.Device;
@@ -32,9 +34,42 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         }
 
         [HttpPost("SaveRechargeLoanCollection")]
-        public void SaveRechargeLoanCollection(LnRechargeLoanCollection obj)
+        public async Task<Operation> SaveRechargeLoanCollection(LnRechargeLoanCollectionViewModel obj)
         {
-            
+            Operation objOperation = new Operation();
+
+            try
+            {
+                LnRechargeLoanCollection objCollection = new LnRechargeLoanCollection();
+
+                objCollection.LoanId = obj.LoanId;
+                objCollection.LenderId = obj.LenderId;
+                objCollection.LoaneeId = obj.LoaneeId;
+
+                objCollection.NetAmount = obj.NetAmount;
+                objCollection.Remarks = obj.Remarks;
+                objCollection.CollectionDate = obj.CollectionDate;
+
+                objCollection.TransactionId = obj.TransactionId;
+                objCollection.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
+                objCollection.BnkBankId = obj.BnkBankId;
+
+                objCollection.BnkBranchId = obj.BnkBranchId;
+                objCollection.BnkAccountInfoId = obj.BnkAccountInfoId;
+                objCollection.IsCancel = false;
+
+                objCollection.CreatedBy = obj.CreatedBy;
+                objCollection.CreatedDate = DateTime.Now;
+                objOperation = await service.Save(objCollection);
+                objOperation.Message = "Withdrawan Successfull.";
+            }
+            catch(Exception exp)
+            {
+                objOperation.Success = false;
+                objOperation.Message = "Unable to Withdraw";
+            }
+
+            return objOperation;
         }
 
         [HttpPost("GetAll")]
