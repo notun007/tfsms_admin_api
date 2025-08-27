@@ -4,6 +4,7 @@ using Technofair.Data.Repository.Bank;
 using Technofair.Lib.Model;
 using Technofair.Model.Bank;
 using Technofair.Model.ViewModel.Bank;
+using TFSMS.Admin.Model.Common;
 
 namespace Technofair.Service.Bank
 {
@@ -16,7 +17,8 @@ namespace Technofair.Service.Bank
         Operation Delete(BnkAccountInfo obj);
         //List<BnkAccountInfo> GetByCompanyId(int companyId);
         BnkAccountInfo GetById(long Id);
-       // List<BnkAccountInfoViewModel> BankAccountInfoByCompanyId(int companyId);
+        List<BnkAccountInfo> GetAll();
+        // List<BnkAccountInfoViewModel> BankAccountInfoByCompanyId(int companyId);
     }
     #endregion
 
@@ -109,7 +111,12 @@ namespace Technofair.Service.Bank
             
         }
 
-       
+        public List<BnkAccountInfo> GetAll()
+        {
+            return repository.GetAll().ToList();
+        }
+
+
     }
 
     #endregion

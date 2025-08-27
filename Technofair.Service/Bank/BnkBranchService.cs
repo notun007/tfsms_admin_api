@@ -5,6 +5,7 @@ using Technofair.Lib.Model;
 
 using Technofair.Model.Bank;
 using Technofair.Model.ViewModel.Bank;
+using TFSMS.Admin.Model.Common;
 
 
 namespace Technofair.Service.Bank
@@ -15,6 +16,7 @@ namespace Technofair.Service.Bank
         Operation Save(BnkBranch obj);
         Operation Delete(BnkBranch obj);
         BnkBranch GetById(int Id);
+        List<BnkBranch> GetAll();
         Operation Update(BnkBranch obj);
         List<BnkBranchViewModel> GetBranchByBankId(int bankId);
     }
@@ -40,6 +42,11 @@ namespace Technofair.Service.Bank
         {
             BnkBranch obj = repository.GetById(Id);
             return obj;
+        }
+
+        public List<BnkBranch> GetAll()
+        {
+            return repository.GetAll().ToList();
         }
         public Operation Update(BnkBranch obj)
         {
