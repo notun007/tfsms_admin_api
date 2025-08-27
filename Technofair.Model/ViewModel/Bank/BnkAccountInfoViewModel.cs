@@ -36,8 +36,8 @@ namespace Technofair.Model.ViewModel.Bank
         public DateTime? ModifiedDate { get; set; }
 
 
-        public int BnkBankId { get; set; }
-        public string BankName { get; set; }
-        public string BranchName { get; set; }
+        //public int BnkBankId { get; set; }
+        //public string BankName { get; set; }
+        //public string BranchName { get; set; }
     }
 }

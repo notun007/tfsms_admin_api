@@ -1,9 +1,4 @@
-﻿using OneZeroERP.Data.Infrastructure;
-using OneZeroERP.Data.Repository.Sales;
-using OneZeroERP.Data.Repository.Bank;
-using OneZeroERP.Lib.Model;
-using OneZeroERP.Model.Sales;
-
+﻿
 using Technofair.Service.Bank;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 using Technofair.Data.Repository.Bank;
