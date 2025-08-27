@@ -14,11 +14,10 @@ namespace Technofair.Model.Bank
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        public int BnkBankId { get; set; }
+        public BnkBank BnkBank { get; set; }
         public int BnkBranchId { get; set; }
         public BnkBranch BnkBranch { get; set; }
-
-        public int? BnkBankId { get; set; }
 
         [Required]
         [MaxLength(128)]
