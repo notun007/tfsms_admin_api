@@ -29,7 +29,7 @@ namespace Technofair.Model.ViewModel.TFLoan
         public decimal NetAmount { get; set; }
         public string? Remarks { get; set; }
         public DateTime CollectionDate { get; set; }
-        public string TransactionId { get; set; }
+        public string? TransactionId { get; set; }
 
         public Int16 AnFFinancialServiceProviderTypeId { get; set; }
         public int? BnkBankId { get; set; }
