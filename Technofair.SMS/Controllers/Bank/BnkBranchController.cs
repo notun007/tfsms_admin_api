@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace OneZeroERP.Web.Areas.Bank.Controllers
 {
-    public class  BranchController : Controller
+    public class  BnkBranchController : Controller
     {
       
 
         private IBnkBranchService service;
 
        
-        public BranchController()
+        public BnkBranchController()
         {
             var dbfactory = new AdminDatabaseFactory();
             service = new BnkBranchService(new BnkBranchRepository(dbfactory), new AdminUnitOfWork(dbfactory));
@@ -24,6 +24,13 @@ namespace OneZeroERP.Web.Areas.Bank.Controllers
         public List<BnkBranch> GetAll()
         {
             List<BnkBranch> list = service.GetAll();
+            return list;
+        }
+
+        [HttpPost("GetBranchByBankId")]
+        public List<BnkBranch> GetBranchByBankId(int bankId)
+        {
+            List<BnkBranch> list = service.GetAll().Where(x=>x.BnkBankId == bankId).ToList();
             return list;
         }
 
