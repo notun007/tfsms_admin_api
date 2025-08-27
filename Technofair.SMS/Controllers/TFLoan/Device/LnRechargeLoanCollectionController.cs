@@ -102,7 +102,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                             LoaneeId = collection.LoaneeId,
                             LenderId = collection.LenderId,
 
-                            AnFPaymentMethodId = collection.AnFPaymentMethodId,
+                            //AnFPaymentMethodId = collection.AnFPaymentMethodId,
 
                             NetAmount = collection.NetAmount,
                             //PaymentChargePercent = collection.PaymentChargePercent,
