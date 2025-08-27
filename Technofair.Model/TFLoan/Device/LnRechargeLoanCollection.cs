@@ -26,9 +26,9 @@ namespace Technofair.Model.TFLoan.Device
         public int LoaneeId { get; set; }
         public CmnCompany Loanee { get; set; }
 
-        [ForeignKey(nameof(AnFPaymentMethod))]
-        public short AnFPaymentMethodId { get; set; }
-        public AnFPaymentMethod AnFPaymentMethod { get; set; }
+        //[ForeignKey(nameof(AnFPaymentMethod))]
+        //public short AnFPaymentMethodId { get; set; }
+        //public AnFPaymentMethod AnFPaymentMethod { get; set; }
 
         [Column(TypeName = "decimal(12, 2)")]
         public decimal NetAmount { get; set; }
@@ -47,7 +47,10 @@ namespace Technofair.Model.TFLoan.Device
         [Required]
         [MaxLength(100)]
         public string TransactionId { get; set; }
-
+        public Int16 AnFFinancialServiceProviderTypeId { get; set; }
+        public int? BnkBankId { get; set; }
+        public int? BnkBranchId { get; set; }
+        public int? BnkAccountInfoId { get; set; }
         public bool IsCancel { get; set; }
 
         public int? CancelBy { get; set; }

@@ -18,7 +18,7 @@ namespace Technofair.Model.ViewModel.TFLoan
         public long LoanId { get; set; }
         public int LenderId { get; set; }
         public int LoaneeId { get; set; }
-        public short AnFPaymentMethodId { get; set; }
+        //public short AnFPaymentMethodId { get; set; }
         //[Column(TypeName = "decimal(12, 2)")]
         //public decimal Amount { get; set; }
         //[Column(TypeName = "decimal(12, 2)")]
@@ -30,6 +30,12 @@ namespace Technofair.Model.ViewModel.TFLoan
         public string? Remarks { get; set; }
         public DateTime CollectionDate { get; set; }
         public string TransactionId { get; set; }
+
+        public Int16 AnFFinancialServiceProviderTypeId { get; set; }
+        public int? BnkBankId { get; set; }
+        public int? BnkBranchId { get; set; }
+        public int? BnkAccountInfoId { get; set; }
+
         public bool IsCancel { get; set; }
         public int? CancelBy { get; set; }
         public DateTime? CancelDate { get; set; }
