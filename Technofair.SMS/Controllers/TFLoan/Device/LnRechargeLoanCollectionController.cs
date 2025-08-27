@@ -5,6 +5,7 @@ using Technofair.Model.TFLoan.Device;
 using Technofair.Model.ViewModel.TFLoan;
 using Technofair.Service.TFLoan.Device;
 using Technofair.Utiity.Http;
+using Technofair.Utiity.Key;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 using TFSMS.Admin.Data.Repository.TFAdmin;
@@ -50,7 +51,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 objCollection.Remarks = obj.Remarks;
                 objCollection.CollectionDate = obj.CollectionDate;
 
-                objCollection.TransactionId = obj.TransactionId;
+                objCollection.TransactionId = KeyGeneration.GenerateTimestamp();
                 objCollection.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
                 objCollection.BnkBankId = obj.BnkBankId;
 

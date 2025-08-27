@@ -26,26 +26,10 @@ namespace Technofair.Model.TFLoan.Device
         public int LoaneeId { get; set; }
         public CmnCompany Loanee { get; set; }
 
-        //[ForeignKey(nameof(AnFPaymentMethod))]
-        //public short AnFPaymentMethodId { get; set; }
-        //public AnFPaymentMethod AnFPaymentMethod { get; set; }
-
         [Column(TypeName = "decimal(12, 2)")]
         public decimal NetAmount { get; set; }
-
-        //[Column(TypeName = "decimal(12, 2)")]
-        //public decimal? PaymentChargePercent { get; set; }
-
-        //[Column(TypeName = "decimal(12, 3)")]
-        //public decimal? PaymentCharge { get; set; }
-
-        [MaxLength(100)]
         public string? Remarks { get; set; }
-
         public DateTime CollectionDate { get; set; }
-
-        [Required]
-        [MaxLength(100)]
         public string TransactionId { get; set; }
         public Int16 AnFFinancialServiceProviderTypeId { get; set; }
         public int? BnkBankId { get; set; }
