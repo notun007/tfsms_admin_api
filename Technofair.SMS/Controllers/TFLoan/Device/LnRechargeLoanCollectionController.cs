@@ -48,8 +48,9 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 objCollection.LoaneeId = obj.LoaneeId;
 
                 objCollection.NetAmount = obj.NetAmount;
-                objCollection.Remarks = obj.Remarks;
-                objCollection.CollectionDate = obj.CollectionDate;
+                objCollection.Remarks = obj.Remarks;  
+
+                objCollection.CollectionDate = obj.CollectionDate.Date + DateTime.Now.TimeOfDay;
 
                 objCollection.TransactionId = KeyGeneration.GenerateTimestamp();
                 objCollection.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
