@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Technofair.Lib.Model;
 using Technofair.Utiity.Http;
+using Technofair.Utiity.Key;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 using TFSMS.Admin.Data.Repository.Common;
 using TFSMS.Admin.Data.Repository.TFAdmin;
@@ -55,32 +56,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         {
             Operation objOperation = new Operation();
             LnDeviceLoanCollection objDeviceLoanCollection = new LnDeviceLoanCollection();
-
-
-            //Commented By Asad: 18082025
-            //Added By Farida: 27052025
-            //RevenueSubscription objRevSubscription = new RevenueSubscription();
-
-            //objRevSubscription.DistributorCompanyId = obj.LenderId;
-            //objRevSubscription.MSOCompanyId = obj.LoaneeId;
-
-            //var objLoanInfo = service.GetDeviceLoanInfo(Convert.ToInt32(objRevSubscription.DistributorCompanyId), Convert.ToInt32(objRevSubscription.MSOCompanyId));
-
-            //if (objLoanInfo.IsPaid == true || objLoanInfo.LoanBalance <= 0)
-            //{
-            //    objOperation.Success = false;
-            //    objOperation.Message = "All the loan is paid";
-            //    return (objOperation);
-            //}
-
-            //if (obj.Amount > objLoanInfo.LoanBalance)
-            //{   
-            //    objOperation.Success = false;
-            //    objOperation.Message = "Collection amount exceeds loan balance";
-            //    return (objOperation);
-            //}
-
-
+                      
             LnDeviceLoanCollectionViewModel objCollection = new LnDeviceLoanCollectionViewModel();
 
             var objCollectionExit = service.GetById(obj.Id);
@@ -96,6 +72,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 
                 objPayload.LenderId = obj.LenderId;
                 objPayload.LoaneeId = obj.LoaneeId;
+                objPayload.loanNo = obj.loanNo;
                 objPayload.Amount = obj.Amount;
                 objPayload.Remarks = obj.Remarks;
                 objPayload.CollectionDate = obj.CollectionDate;
@@ -127,7 +104,6 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                     objDeviceLoanCollection.Id = obj.Id;
                     objDeviceLoanCollection.LoanId = obj.LoanId;
-                    //objDeviceLoanCollection.ScpSubscriberInvoiceDetailId = null;
                     objDeviceLoanCollection.LnLoanCollectionTypeId = obj.LnLoanCollectionTypeId;
                     objDeviceLoanCollection.AnFPaymentMethodId = obj.AnFPaymentMethodId;
                     objDeviceLoanCollection.LenderId = obj.LenderId;
@@ -135,6 +111,15 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                     objDeviceLoanCollection.Amount = obj.Amount;
                     objDeviceLoanCollection.Remarks = obj.Remarks;
                     objDeviceLoanCollection.CollectionDate = obj.CollectionDate;
+
+                    //objCollection.TransactionId = KeyGeneration.GenerateTimestamp();
+                    objDeviceLoanCollection.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
+                    objDeviceLoanCollection.BnkBankId = obj.BnkBankId;
+
+                    objDeviceLoanCollection.BnkBranchId = obj.BnkBranchId;
+                    objDeviceLoanCollection.BnkAccountInfoId = obj.BnkAccountInfoId;
+
+                   
                     objDeviceLoanCollection.IsCancel = obj.IsCancel;
                     objDeviceLoanCollection.CancelBy = obj.CancelBy;
                     objDeviceLoanCollection.CancelDate = obj.CancelDate;
@@ -142,7 +127,6 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                     objDeviceLoanCollection.CreatedBy = obj.CreatedBy;
                     objDeviceLoanCollection.CreatedDate = DateTime.Now;
                     objOperation = await service.Save(objDeviceLoanCollection);
-                    //await service.AddDeviceLoanCollectionAsync(objDeviceLoanCollection);
                     objOperation.Message = "Device Loan Collection Created Successfully.";
                 }
             }

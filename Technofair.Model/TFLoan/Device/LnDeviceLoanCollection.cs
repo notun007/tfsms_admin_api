@@ -18,9 +18,7 @@ namespace TFSMS.Admin.Model.TFLoan.Device
         public Int64 Id { get; set; }
         public Int64 LoanId { get; set; }
         public LnDeviceLoanDisbursement Loan { get; set; }
-        // public Int64? ScpSubscriberInvoiceDetailId { get; set; }
-        //public ScpSubscriberInvoiceDetail ScpSubscriberInvoiceDetail { get; set; }
-
+    
         public Int16 LnLoanCollectionTypeId { get; set; }
         public LnLoanCollectionType LnLoanCollectionType { get; set; }
         public int LenderId { get; set; }
@@ -40,6 +38,14 @@ namespace TFSMS.Admin.Model.TFLoan.Device
         public string? Remarks { get; set; }
 
         public DateTime CollectionDate { get; set; }
+
+        #region New
+        public Int16? AnFFinancialServiceProviderTypeId { get; set; }
+        public int? BnkBankId { get; set; }
+        public int? BnkBranchId { get; set; }
+        public int? BnkAccountInfoId { get; set; }
+        #endregion
+
 
         public bool IsCancel { get; set; }
         public int? CancelBy { get; set; }

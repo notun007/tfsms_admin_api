@@ -122,18 +122,19 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 {
                     objSmsAdminCollection.LoanId = objSmsRechargeCollection.LoanId;
                     objSmsAdminCollection.LoanNo = loanNo;
-                    //objSmsAdminCollection.SmsAmount = objSmsRechargeCollection.Amount;
-                    //objSmsAdminCollection.SmsPaymentCharge = objSmsRechargeCollection.PaymentCharge;
                     objSmsAdminCollection.SmsNetAmount = objSmsRechargeCollection.NetAmount;
-
-                    //objSmsAdminCollection.AdminAmount = objAdminRechargeCollection.Amount;
-                    //objSmsAdminCollection.AdminPaymentCharge = objAdminRechargeCollection.PaymentCharge;
                     objSmsAdminCollection.AdminNetAmount = objAdminRechargeCollection.NetAmount;
-
-                    //objSmsAdminCollection.DueAmount = objSmsRechargeCollection.NetAmount - objAdminRechargeCollection.NetAmount;
-
                     objSmsAdminCollection.NetDueAmount = objSmsRechargeCollection.NetAmount - objAdminRechargeCollection.NetAmount;
                 }
+
+                if (objSmsRechargeCollection != null && objAdminRechargeCollection == null)
+                {
+                    objSmsAdminCollection.LoanId = objSmsRechargeCollection.LoanId;
+                    objSmsAdminCollection.LoanNo = loanNo;
+                    objSmsAdminCollection.SmsNetAmount = objSmsRechargeCollection.NetAmount;
+                    objSmsAdminCollection.AdminNetAmount = 0;
+                    objSmsAdminCollection.NetDueAmount = objSmsRechargeCollection.NetAmount - 0;
+                }      
             }
             catch(Exception exp)
             {

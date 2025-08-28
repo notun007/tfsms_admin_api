@@ -27,6 +27,15 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
         public decimal? PaymentCharge { get; set; }
         public string? Remarks { get; set; }
         public DateTime CollectionDate { get; set; }
+
+
+        #region New
+        public Int16? AnFFinancialServiceProviderTypeId { get; set; }
+        public int? BnkBankId { get; set; }
+        public int? BnkBranchId { get; set; }
+        public int? BnkAccountInfoId { get; set; }
+        #endregion
+
         public bool IsCancel { get; set; }
         public int? CancelBy { get; set; }
         public DateTime? CancelDate { get; set; }
@@ -34,5 +43,6 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
         public DateTime CreatedDate { get; set; }
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
+        public string loanNo { get; set; }
     }
 }
