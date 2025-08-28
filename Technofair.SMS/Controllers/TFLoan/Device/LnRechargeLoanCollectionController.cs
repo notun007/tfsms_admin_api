@@ -82,42 +82,14 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
         
         [HttpGet("GetRechargeLoanCollectionByLoanNo")]
-        public List<LnRechargeLoanCollectionViewModel> GetRechargeLoanCollectionByLoanNo( string loanNo)
+        public List<LnRechargeLoanCollectionGridViewModel> GetRechargeLoanCollectionByLoanNo( string loanNo)
         {
 
-            List<LnRechargeLoanCollectionViewModel> objCollection = new List<LnRechargeLoanCollectionViewModel>();
+            List<LnRechargeLoanCollectionGridViewModel> objCollection = new List<LnRechargeLoanCollectionGridViewModel>();
 
             try
             {
-               var objLoan = serviceDisbursement.GetAll().Where(x => x.LoanNo == loanNo).SingleOrDefault();
-
-                if (objLoan != null)
-                {
-                    List<LnRechargeLoanCollection> objCollectionList = service.GetAll().Where(x => x.LoanId == objLoan.Id).ToList();
-
-                    foreach(var collection in objCollectionList)
-                    {
-                        objCollection.Add(new LnRechargeLoanCollectionViewModel
-                        {
-                            Id = collection.Id,
-                            LoaneeId = collection.LoaneeId,
-                            LenderId = collection.LenderId,
-
-                            //AnFPaymentMethodId = collection.AnFPaymentMethodId,
-
-                            NetAmount = collection.NetAmount,
-                            //PaymentChargePercent = collection.PaymentChargePercent,
-                            //PaymentCharge = collection.PaymentCharge,
-
-                            CollectionDate = collection.CollectionDate,
-                            TransactionId = collection.TransactionId,
-                            CreatedBy = collection.CreatedBy,
-                            CreatedDate = collection.CreatedDate
-                        });
-                    }
-
-                }
-               // return objCollection;
+                objCollection = service.GetRechargeLoanCollectionByLoanNo(loanNo);
             }
             catch (Exception exp)
             {
@@ -135,7 +107,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             try
             {
                 #region Admin
-                var objAdminRechargeCollection = service.GetRechargeLoanCollectionByLoanNo(loanNo);
+                var objAdminRechargeCollection = service.GetRechargeLoanCollectionSummaryByLoanNo(loanNo);
                 #endregion
 
                 #region Sms

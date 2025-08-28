@@ -19,7 +19,8 @@ namespace Technofair.Data.Repository.TFLoan.Device
     {
         Int64 AddEntity(LnRechargeLoanCollection obj);
         Task<Int64> AddEntityAsync(LnRechargeLoanCollection obj);
-        RechargeLoanCollectionSummaryViewModel GetRechargeLoanCollectionByLoanNo(string loanNo);
+        List<LnRechargeLoanCollectionGridViewModel> GetRechargeLoanCollectionByLoanNo(string loanNo);
+        RechargeLoanCollectionSummaryViewModel GetRechargeLoanCollectionSummaryByLoanNo(string loanNo);
     }
     public class LnRechargeLoanCollectionRepository : AdminBaseRepository<LnRechargeLoanCollection>, ILnRechargeLoanCollectionRepository
     {
@@ -55,7 +56,35 @@ namespace Technofair.Data.Repository.TFLoan.Device
             return Id;
         }
 
-        public RechargeLoanCollectionSummaryViewModel GetRechargeLoanCollectionByLoanNo(string loanNo)
+        public List<LnRechargeLoanCollectionGridViewModel> GetRechargeLoanCollectionByLoanNo(string loanNo)
+        {
+
+            List<LnRechargeLoanCollectionGridViewModel> list = new List<LnRechargeLoanCollectionGridViewModel>();
+
+            try
+            {
+                DataTable dt = new DataTable();
+                SqlParameter[] paramsToStore = new SqlParameter[1];
+                paramsToStore[0] = new SqlParameter("@loanNo", loanNo);
+
+                dt = Helper.ExecuteDataset(DataContext.Database.GetDbConnection().ConnectionString, CommandType.StoredProcedure, SPList.DeviceLoan.GetRechargeLoanCollectionByLoanNo, paramsToStore).Tables[0];
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        list.Add(((LnRechargeLoanCollectionGridViewModel)Helper.FillTo(row, typeof(LnRechargeLoanCollectionGridViewModel))));
+                    }
+                }
+            }
+            catch (Exception exp)
+            {
+                throw exp;
+            }
+            return list;
+        }
+
+        public RechargeLoanCollectionSummaryViewModel GetRechargeLoanCollectionSummaryByLoanNo(string loanNo)
         {
 
             List<RechargeLoanCollectionSummaryViewModel> list = new List<RechargeLoanCollectionSummaryViewModel>();
@@ -66,7 +95,7 @@ namespace Technofair.Data.Repository.TFLoan.Device
                 SqlParameter[] paramsToStore = new SqlParameter[1];
                 paramsToStore[0] = new SqlParameter("@loanNo", loanNo);
 
-                dt = Helper.ExecuteDataset(DataContext.Database.GetDbConnection().ConnectionString, CommandType.StoredProcedure, SPList.DeviceLoan.GetRechargeLoanCollectionByLoanNo, paramsToStore).Tables[0];
+                dt = Helper.ExecuteDataset(DataContext.Database.GetDbConnection().ConnectionString, CommandType.StoredProcedure, SPList.DeviceLoan.GetRechargeLoanCollectionSummaryByLoanNo, paramsToStore).Tables[0];
 
                 if (dt != null && dt.Rows.Count > 0)
                 {
