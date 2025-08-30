@@ -11,7 +11,7 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
     public class LnDeviceLoanDisbursementViewModel
     {
         public Int64 Id { get; set; }
-        public string? LoanNo { get; set; }
+        public string LoanNo { get; set; }
         public int LenderId { get; set; }       
         public int LoaneeId { get; set; }
         public Int16 NumberOfDevice { get; set; }

@@ -89,7 +89,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 
 
                 objPayload.Id = obj.Id;
-                objPayload.LoanNo = service.NextLoanNo();
+                objPayload.LoanNo = obj.LoanNo; //service.NextLoanNo();
                 objPayload.LenderId = obj.LenderId;
                 objPayload.LoaneeId = obj.LoaneeId;
                 objPayload.NumberOfDevice = obj.NumberOfDevice;
