@@ -42,5 +42,6 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
         public DateTime? ModifiedDate { get; set; }
         public string? LenderName {  get; set; }
         public string? LoaneeName {  get; set; }
+        public bool? IsScheduled { get; set; }
     }
 }
