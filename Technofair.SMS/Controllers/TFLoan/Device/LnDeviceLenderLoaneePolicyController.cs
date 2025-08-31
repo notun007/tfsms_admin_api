@@ -130,47 +130,82 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         public async Task<Operation> Save([FromBody] LnDeviceLenderLoaneePolicyViewModel obj)
         {
             Operation objOperation = new Operation();
+            Operation objAdminOperation = new Operation();
+            Operation objSmsOperation = new Operation();
+
             LnDeviceLenderLoaneePolicy objLnDeviceLenderLoaneePolicy = new LnDeviceLenderLoaneePolicy();
 
-
-            var objExit = service.GetById(obj.Id);
-
-            if (objExit == null)
+            try
             {
-                objLnDeviceLenderLoaneePolicy.Id = obj.Id;
-                objLnDeviceLenderLoaneePolicy.LenderId = obj.LenderId;
-                objLnDeviceLenderLoaneePolicy.LoaneeId = obj.LoaneeId;
-                //objLnDeviceLenderLoaneePolicy.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
-                objLnDeviceLenderLoaneePolicy.PerRechargeInstallmentAmount = obj.PerRechargeInstallmentAmount;
-                objLnDeviceLenderLoaneePolicy.IsActive = obj.IsActive;
-                objLnDeviceLenderLoaneePolicy.CreatedBy = obj.CreatedBy;
-                objLnDeviceLenderLoaneePolicy.CreatedDate = DateTime.Now;
-                objOperation = await service.Save(objLnDeviceLenderLoaneePolicy);
-                objOperation.Message = "Device Lender Loanee Policy Created Successfully.";
+
+                var objPolicyList = service.GetAll();
+
+                if (objPolicyList.Count() == 0)
+                {
+                    objLnDeviceLenderLoaneePolicy.Id = obj.Id;
+                    objLnDeviceLenderLoaneePolicy.LenderId = obj.LenderId;
+                    objLnDeviceLenderLoaneePolicy.LoaneeId = obj.LoaneeId;
+                    objLnDeviceLenderLoaneePolicy.PerRechargeInstallmentAmount = obj.PerRechargeInstallmentAmount;
+                    objLnDeviceLenderLoaneePolicy.IsActive = obj.IsActive;
+                    objLnDeviceLenderLoaneePolicy.CreatedBy = obj.CreatedBy;
+                    objLnDeviceLenderLoaneePolicy.CreatedDate = DateTime.Now;
+                    objAdminOperation = await service.Save(objLnDeviceLenderLoaneePolicy);
+                    objAdminOperation.Message = "Loan Policy Created Successfully.";
+                }
+                else
+                {
+                    var objExit = service.GetById(obj.Id);
+
+                    if (objExit != null)
+                    {
+                        objExit.PerRechargeInstallmentAmount = obj.PerRechargeInstallmentAmount;
+                        objExit.IsActive = obj.IsActive;
+                        objExit.ModifiedBy = obj.ModifiedBy;
+                        objExit.ModifiedDate = DateTime.Now;
+                        objAdminOperation = service.Update(objExit);
+                        objAdminOperation.Message = "Loan Policy Updated Successfully.";
+                    }
+                }
             }
-            if (objExit != null)
+            catch(Exception exp)
             {
-                //objExit.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
-                objExit.PerRechargeInstallmentAmount = obj.PerRechargeInstallmentAmount;
-                objExit.IsActive = obj.IsActive;
-                objExit.ModifiedBy = obj.ModifiedBy;
-                objExit.ModifiedDate = DateTime.Now;
-                objOperation = service.Update(objExit);
-                objOperation.Message = "Device Lender Loanee Policy Updated Successfully.";
+                objAdminOperation.Success = false;
+                objAdminOperation.Message = "Unable to create policy in Admin side";
             }
 
+            try
+            {
+                if (objAdminOperation.Success == true)
+                {
+                    var objCompanyCustomer = serviceCompanyCustomer.GetById(obj.LoaneeId);
+                    var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+                    var url = smsApiBaseUrl + "/api/LnDeviceLenderLoaneePolicy/SaveLenderLoaneePolicyToSms";
+                    objSmsOperation = await Request<LnDeviceLenderLoaneePolicyViewModel, Operation>.Post(url, obj);
+                }
+            }
+            catch(Exception exp)
+            {
+                objSmsOperation.Success = false;
+                objSmsOperation.Message = "Unable to create policy in Admin side";
+            }
+            
+            if(objAdminOperation.Success == true && objSmsOperation.Success == false)
+            {
+                objOperation.Success = true;
+                objOperation.Message = "Policy Created in admin db successflly and failed in sms db";
+            }
 
-            var objCompanyCustomer = serviceCompanyCustomer.GetById(obj.LoaneeId);
+            if (objAdminOperation.Success == false && objSmsOperation.Success == false)
+            {
+                objOperation.Success = false;
+                objOperation.Message = "Unable to create policy";
+            }
 
-            var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
-
-            var url = smsApiBaseUrl + "/api/LnDeviceLenderLoaneePolicy/SaveLenderLoaneePolicyToSms";
-
-            var objSubscriptionInfo = await Request<LnDeviceLenderLoaneePolicyViewModel, Operation>.Post(url, obj);
-
-
-
-            //await serviceCompanyCustomer.GetCompanyCustomerByAppKey(appKey);
+            if (objAdminOperation.Success == true && objSmsOperation.Success == true)
+            {
+                objOperation.Success = true;
+                objOperation.Message = "Policy Created Successfully";
+            }
 
             return objOperation;
         }
