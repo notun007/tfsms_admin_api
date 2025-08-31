@@ -16,6 +16,8 @@ using TFSMS.Admin.Service.TFAdmin;
 using TFSMS.Admin.Data.Repository.TFAdmin;
 using Technofair.Model.ViewModel.TFLoan;
 using Technofair.Utiity.Enums;
+using Technofair.Utiity.Log;
+using System.Security.Policy;
 
 namespace TFSMS.Admin.Controllers.TFLoan.Device
 {
@@ -27,12 +29,15 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         private ITFACompanyCustomerService serviceCompanyCustomer;
         private IWebHostEnvironment _hostingEnvironment;
 
-        public LnDeviceLoanDisbursementController()
+        private readonly ITFLogger _logger;
+        public LnDeviceLoanDisbursementController(ITFLogger logger)
         {
             //New:28072025
             var dbfactory = new AdminDatabaseFactory();
             service = new LnDeviceLoanDisbursementService(new LnDeviceLoanDisbursementRepository(dbfactory), new AdminUnitOfWork(dbfactory));
             serviceCompanyCustomer = new TFACompanyCustomerService(new TFACompanyCustomerRepository(dbfactory), new AdminUnitOfWork(dbfactory));
+
+            this._logger = logger;
 
             //var dbfactory = new DatabaseFactory();
             //service = new LnDeviceLoanDisbursementService(new LnDeviceLoanDisbursementRepository(dbfactory), new UnitOfWork(dbfactory));
@@ -189,6 +194,8 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         [HttpPost("GetDeviceLoanDisbursementByAppKey")]
         public async Task<List<LnDeviceLoanDisbursementViewModel>> GetDeviceLoanDisbursementByAppKey(string appKey)
         {
+            _logger.LogError("AppKey: " + appKey);
+
             var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByAppKey(appKey);
 
             var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
@@ -214,18 +221,34 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             return objOperation;
         }
 
-        [HttpPost("GetDeviceLoanScheduleByLoanId")]
+        [HttpGet("GetDeviceLoanScheduleByLoanId")]
         public async Task<List<LnDeviceLoanScheduleCollectionViewModel>> GetDeviceLoanScheduleByLoanId(int loaneeId, Int64 loanId)
         {
-            var objCompanyCustomer = serviceCompanyCustomer.GetById(loaneeId);
+            try
+            {
+                _logger.LogError("loaneeId: " + loaneeId.ToString() + "loanId: " + loanId.ToString());
 
-            var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
 
-            var url = smsApiBaseUrl + "/api/LnDeviceLoanSchedule/GetDeviceLoanScheduleByLoanId?loanId=" + loanId;
+                var objCompanyCustomer = serviceCompanyCustomer.GetById(loaneeId);
 
-            var list = await Request<LnDeviceLoanScheduleCollectionViewModel, LnDeviceLoanScheduleCollectionViewModel>.GetCollecttion(url);
+                var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
 
-            return list;
+                _logger.LogError("smsApiBaseUrl: " + smsApiBaseUrl);
+
+                var url = smsApiBaseUrl + "/api/LnDeviceLoanSchedule/GetDeviceLoanScheduleByLoanId?loanId=" + loanId;
+
+                _logger.LogError("url: " + url);
+
+                var list = await Request<LnDeviceLoanScheduleCollectionViewModel, LnDeviceLoanScheduleCollectionViewModel>.GetCollecttion(url);
+                return list;
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError("Exception: " + ex.Message);
+                throw ex.InnerException;
+            }
+                        
 
         }
     }

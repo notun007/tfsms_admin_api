@@ -31,6 +31,8 @@ using TFSMS.Admin.Service.TFLoan.Device;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 using TFSMS.Admin.Data.Repository.Security;
 using TFSMS.Admin.Data.Repository.HRM;
+using Technofair.Utiity.Enums;
+using Technofair.Utiity.Helper;
 
 
 [Route("Security/[Controller]")]
@@ -164,6 +166,8 @@ public class UserController : ControllerBase
             //var encrptText = AES.GetEncryptedText(connectionString);
             //var plainText = AES.GetPlainText(encrptText);
             #endregion
+
+            _logger.LogError("Logged In Database: " + ProgramConfigaration.ConnectionString);
 
             _logger.LogError("Logged In User: " + obj.Username);           
             obj.Username = obj.Username.Trim();

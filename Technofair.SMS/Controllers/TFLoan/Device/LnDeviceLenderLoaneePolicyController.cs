@@ -165,6 +165,11 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                         objAdminOperation = service.Update(objExit);
                         objAdminOperation.Message = "Loan Policy Updated Successfully.";
                     }
+                    else
+                    {
+                        objOperation.Success = false;
+                        objOperation.Message = "You are permitted to update only.";
+                    }
                 }
             }
             catch(Exception exp)
