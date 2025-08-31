@@ -95,7 +95,7 @@ namespace TFSMS.Admin.Controllers.TFAdmin
                             objExist.CmnCurrencyId = obj.CmnCurrencyId;
                             objExist.BIN = obj.BIN;
                             objExist.Web = obj.Web;
-
+                            objExist.GraceDay = obj.GraceDay;
 
                             objExist.AppKey = obj.AppKey;
                             objExist.ServerIP = obj.ServerIP;
@@ -134,6 +134,7 @@ namespace TFSMS.Admin.Controllers.TFAdmin
                         objCompanyCustomerLog.BIN = obj.BIN;
                         objCompanyCustomerLog.Web = obj.Web;
 
+                        objCompanyCustomerLog.GraceDay = obj.GraceDay;
                         objCompanyCustomerLog.AppKey = obj.AppKey;
                         objCompanyCustomerLog.ServerIP = obj.ServerIP;
                         objCompanyCustomerLog.SmsApiBaseUrl = obj.SmsApiBaseUrl;

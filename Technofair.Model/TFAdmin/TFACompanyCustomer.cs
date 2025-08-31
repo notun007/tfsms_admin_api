@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace TFSMS.Admin.Model.TFAdmin
         public string? BIN { get; set; }
         public string? Web { get; set; }
         public string? Logo { get; set; }
+
+        public Int16? GraceDay { get; set; }
         public string? AppKey { get; set; }
         public string? ServerIP { get; set; }
         public string? MotherBoardId { get; set; }
