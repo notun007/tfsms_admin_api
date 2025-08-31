@@ -128,16 +128,17 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                     objSmsAdminCollection.NetDueAmount = objSmsRechargeCollection.NetAmount - objAdminRechargeCollection.NetAmount;
                     objSmsAdminCollection.IsClosed = objSmsRechargeCollection.IsClosed;
                     objSmsAdminCollection.LoanStatus = objSmsRechargeCollection.LoanStatus;
+                    objSmsAdminCollection.InstallmentStatus = objSmsRechargeCollection.InstallmentStatus;
                 }
 
-                if (objSmsRechargeCollection != null && objAdminRechargeCollection == null)
-                {
-                    objSmsAdminCollection.LoanId = objSmsRechargeCollection.LoanId;
-                    objSmsAdminCollection.LoanNo = loanNo;
-                    objSmsAdminCollection.SmsNetAmount = objSmsRechargeCollection.NetAmount;
-                    objSmsAdminCollection.AdminNetAmount = 0;
-                    objSmsAdminCollection.NetDueAmount = objSmsRechargeCollection.NetAmount - 0;
-                }      
+                //if (objSmsRechargeCollection != null && objAdminRechargeCollection == null)
+                //{
+                //    objSmsAdminCollection.LoanId = objSmsRechargeCollection.LoanId;
+                //    objSmsAdminCollection.LoanNo = loanNo;
+                //    objSmsAdminCollection.SmsNetAmount = objSmsRechargeCollection.NetAmount;
+                //    objSmsAdminCollection.AdminNetAmount = 0;
+                //    objSmsAdminCollection.NetDueAmount = objSmsRechargeCollection.NetAmount - 0;
+                //}      
             }
             catch(Exception exp)
             {

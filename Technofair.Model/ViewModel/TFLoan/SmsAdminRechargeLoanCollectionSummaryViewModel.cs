@@ -35,5 +35,6 @@ namespace Technofair.Model.ViewModel.TFLoan
 
         public bool IsClosed { get; set; }
         public string LoanStatus { get; set; }
+        public string InstallmentStatus { get; set; }
     }
 }
