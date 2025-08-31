@@ -10,7 +10,7 @@ namespace TFSMS.Admin.Model.TFLoan.Device
     {
         public Int16 Id { get; set; }
         public string Name { get; set; }
-        public Int16? NumberOfMonth { get; set; }
+        public Int16 NumberOfMonth { get; set; }
         public bool IsActive { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

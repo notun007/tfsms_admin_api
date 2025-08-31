@@ -122,9 +122,12 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 {
                     objSmsAdminCollection.LoanId = objSmsRechargeCollection.LoanId;
                     objSmsAdminCollection.LoanNo = loanNo;
+                    objSmsAdminCollection.LoanAmount = objAdminRechargeCollection.LoanAmount;
                     objSmsAdminCollection.SmsNetAmount = objSmsRechargeCollection.NetAmount;
                     objSmsAdminCollection.AdminNetAmount = objAdminRechargeCollection.NetAmount;
                     objSmsAdminCollection.NetDueAmount = objSmsRechargeCollection.NetAmount - objAdminRechargeCollection.NetAmount;
+                    objSmsAdminCollection.IsClosed = objSmsRechargeCollection.IsClosed;
+                    objSmsAdminCollection.LoanStatus = objSmsRechargeCollection.LoanStatus;
                 }
 
                 if (objSmsRechargeCollection != null && objAdminRechargeCollection == null)
