@@ -25,6 +25,8 @@ namespace Technofair.Model.TFLoan.Device
         [ForeignKey(nameof(Loanee))]
         public int LoaneeId { get; set; }
         public CmnCompany Loanee { get; set; }
+        public string? LenderCode { get; set; }
+        public string? LoaneeCode { get; set; }
 
         [Column(TypeName = "decimal(12, 2)")]
         public decimal NetAmount { get; set; }

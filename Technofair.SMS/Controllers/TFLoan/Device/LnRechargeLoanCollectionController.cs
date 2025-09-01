@@ -47,6 +47,9 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 objCollection.LenderId = obj.LenderId;
                 objCollection.LoaneeId = obj.LoaneeId;
 
+                objCollection.LenderCode = obj.LenderCode;
+                objCollection.LoaneeCode = obj.LoaneeCode;
+
                 objCollection.NetAmount = obj.NetAmount;
                 objCollection.Remarks = obj.Remarks;  
 

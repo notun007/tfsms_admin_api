@@ -13,13 +13,14 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
     {
         public int Id { get; set; }
         public Int64 LoanId { get; set; }
-        //public Int64? ScpSubscriberInvoiceDetailId { get; set; }
         public Int16 LnLoanCollectionTypeId { get; set; }       
         public string? CollectionType { get; set; }
         public int LenderId { get; set; }
         public string? Lender { get; set; }
         public int LoaneeId { get; set; }
         public string? Loanee { get; set; }
+        public string? LenderCode { get; set; }
+        public string? LoaneeCode { get; set; }
         public Int16 AnFPaymentMethodId { get; set; }
         public string? PaymentMethod { get; set; }
         public decimal Amount { get; set; }

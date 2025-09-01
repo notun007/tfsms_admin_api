@@ -25,6 +25,8 @@ namespace TFSMS.Admin.Model.TFLoan.Device
         public CmnCompany Lender { get; set; }
         public int LoaneeId { get; set; }
         public CmnCompany Loanee { get; set; }
+        public string? LenderCode { get; set; }
+        public string? LoaneeCode { get; set; }
         public Int16 AnFPaymentMethodId { get; set; }
         public AnFPaymentMethod AnFPaymentMethod { get; set; }
 

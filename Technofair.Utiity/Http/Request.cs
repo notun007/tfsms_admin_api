@@ -40,15 +40,24 @@ namespace Technofair.Utiity.Http
         public static async Task<List<T>> GetCollecttion(string url)
         {
             List<T> result = null;
-            using (var httpClient = new HttpClient())
-            {
-                //New: 01.08.2024
-                var response = await httpClient.GetAsync(new Uri(url));
-                response.EnsureSuccessStatusCode();
-                var respnseData = await response.Content.ReadAsStringAsync();
-                result = JsonConvert.DeserializeObject<List<T>>(respnseData);
-            }
 
+            try
+            {
+
+                using (var httpClient = new HttpClient())
+                {
+                    //New: 01.08.2024
+                    var response = await httpClient.GetAsync(new Uri(url));
+                    response.EnsureSuccessStatusCode();
+                    var respnseData = await response.Content.ReadAsStringAsync();
+                    result = JsonConvert.DeserializeObject<List<T>>(respnseData);
+                    
+                }
+            }
+            catch(Exception exp)
+            {
+                throw exp;
+            }
             return result;
         }
 

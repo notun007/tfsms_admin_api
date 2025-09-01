@@ -180,6 +180,7 @@ namespace TFSMS.Admin.Controllers.Common
             return list;
         }
 
+
         [Authorize(Policy = "Authenticated")]
         [HttpPost("GetCompanyList")]
         public  List<CmnCompanyViewModel> cmnCompanyViewList()

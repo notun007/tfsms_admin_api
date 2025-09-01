@@ -81,7 +81,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
 
             //LnDeviceLoanDisbursement/SaveLoanDisbursement
-            LnDeviceLoanDisbursementViewModel objPolicy = new LnDeviceLoanDisbursementViewModel();
+           // LnDeviceLoanDisbursementViewModel objPolicy = new LnDeviceLoanDisbursementViewModel();
 
             var objDisbursementExit = service.GetById(obj.Id);
 
@@ -97,6 +97,10 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 objPayload.LoanNo = obj.LoanNo; //service.NextLoanNo();
                 objPayload.LenderId = obj.LenderId;
                 objPayload.LoaneeId = obj.LoaneeId;
+
+                objPayload.LenderCode = obj.LenderCode;
+                objPayload.LoaneeCode = obj.LoaneeCode;
+
                 objPayload.NumberOfDevice = obj.NumberOfDevice;
                 objPayload.Rate = obj.Rate;
 
@@ -139,6 +143,10 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                     objLnDeviceLoanDisbursement.LoanNo = objPayload.LoanNo;
                     objLnDeviceLoanDisbursement.LenderId = obj.LenderId;
                     objLnDeviceLoanDisbursement.LoaneeId = obj.LoaneeId;
+
+                    objLnDeviceLoanDisbursement.LenderCode = obj.LenderCode;
+                    objLnDeviceLoanDisbursement.LoaneeCode = obj.LoaneeCode;
+ 
                     objLnDeviceLoanDisbursement.NumberOfDevice = obj.NumberOfDevice;
                     objLnDeviceLoanDisbursement.Rate = obj.Rate;
 
