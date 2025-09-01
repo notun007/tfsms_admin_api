@@ -205,6 +205,25 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             return service.GetDeviceLoanDisbursement();
         }
 
+
+        //New: Farida- 01092025
+
+        [HttpPost("GetDeviceLoanDisbursementByLoaneeCode")]
+        public async Task<List<LnDeviceLoanDisbursementViewModel>> GetDeviceLoanDisbursementByLoaneeCode(string loaneeCode)
+        {
+            _logger.LogError("loaneeCode: " + loaneeCode);
+
+            var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(loaneeCode);
+
+            var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+
+            var url = smsApiBaseUrl + "/api/LnDeviceLoanDisbursement/GetDeviceLoanDisbursementByLoaneeCode?appKey=" + loaneeCode;
+
+            var list = await Request<LnDeviceLoanDisbursementViewModel, LnDeviceLoanDisbursementViewModel>.GetCollecttion(url);
+
+            return list;
+        }
+
         //New: 25082025
         [HttpPost("GetDeviceLoanDisbursementByAppKey")]
         public async Task<List<LnDeviceLoanDisbursementViewModel>> GetDeviceLoanDisbursementByAppKey(string appKey)

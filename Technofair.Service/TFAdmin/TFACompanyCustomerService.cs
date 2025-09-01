@@ -24,6 +24,7 @@ namespace TFSMS.Admin.Service.TFAdmin
         TFACompanyCustomer GetClientByDomain(string domain);
         TFACompanyCustomer GetByCode(string code);
         Task<TFACompanyCustomer> GetCompanyCustomerByAppKey(string appKey);
+        Task<TFACompanyCustomer> GetCompanyCustomerByLoaneeCode(string loaneeCode);
         string GetLastCode();
         List<CompanyCustomerWithClientPackageViewModel> GetActiveCompanyCustomerWithClientPackage(int monthId, int year);
     }
@@ -42,6 +43,11 @@ namespace TFSMS.Admin.Service.TFAdmin
         public async Task<TFACompanyCustomer> GetCompanyCustomerByAppKey(string appKey)
         {
             return await repository.GetCompanyCustomerByAppKey(appKey);
+        }
+
+        public async Task<TFACompanyCustomer> GetCompanyCustomerByLoaneeCode(string loaneeCode)
+        {
+            return await repository.GetCompanyCustomerByLoaneeCode(loaneeCode);
         }
 
         public string GetLastCode()

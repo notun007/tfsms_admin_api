@@ -24,6 +24,8 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
     {
         Task<int> AddEntityAsync(TFACompanyCustomer obj);
         Task<TFACompanyCustomer> GetCompanyCustomerByAppKey(string appKey);
+        Task<TFACompanyCustomer> GetCompanyCustomerByLoaneeCode(string loaneeCode);
+       
         string GetLastCode();
         List<CompanyCustomerWithClientPackageViewModel> GetActiveCompanyCustomerWithClientPackage(int monthId, int yearId);
     }
@@ -62,6 +64,11 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
         public async Task<TFACompanyCustomer> GetCompanyCustomerByAppKey(string appKey)
         {
             return await DataContext.TFACompanyCustomers.Where(x => x.AppKey == appKey).SingleOrDefaultAsync();
+        }
+
+        public async Task<TFACompanyCustomer> GetCompanyCustomerByLoaneeCode(string loaneeCode)
+        {
+            return await DataContext.TFACompanyCustomers.Where(x => x.Code == loaneeCode).SingleOrDefaultAsync();
         }
 
         public string GetLastCode()
