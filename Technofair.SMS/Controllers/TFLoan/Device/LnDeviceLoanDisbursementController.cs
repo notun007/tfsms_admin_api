@@ -217,7 +217,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
             var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
 
-            var url = smsApiBaseUrl + "/api/LnDeviceLoanDisbursement/GetDeviceLoanDisbursementByLoaneeCode?appKey=" + loaneeCode;
+            var url = smsApiBaseUrl + "/api/LnDeviceLoanDisbursement/GetDeviceLoanDisbursementByLoaneeCode?loaneeCode=" + loaneeCode;
 
             var list = await Request<LnDeviceLoanDisbursementViewModel, LnDeviceLoanDisbursementViewModel>.GetCollecttion(url);
 
@@ -244,7 +244,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         [HttpPost("GenerateLoanSchedule")]
         public async Task<Operation> GenerateLoanSchedule(LOanScheduleRequestViewModel objPayload)
         {                                    
-            var objCompanyCustomer = serviceCompanyCustomer.GetById(objPayload.LoaneeId);
+            var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(objPayload.LoaneeCode);
 
             var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
 
@@ -255,21 +255,21 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             return objOperation;
         }
 
-        [HttpGet("GetDeviceLoanScheduleByLoanId")]
-        public async Task<List<LnDeviceLoanScheduleCollectionViewModel>> GetDeviceLoanScheduleByLoanId(int loaneeId, Int64 loanId)
+        [HttpGet("GetDeviceLoanScheduleByLoanNo")]
+        public async Task<List<LnDeviceLoanScheduleCollectionViewModel>> GetDeviceLoanScheduleByLoanId(string loaneeCode, string loanNo)
         {
             try
             {
-                _logger.LogError("loaneeId: " + loaneeId.ToString() + "loanId: " + loanId.ToString());
+                //_logger.LogError("loaneeId: " + loaneeId.ToString() + "loanId: " + loanId.ToString());
 
 
-                var objCompanyCustomer = serviceCompanyCustomer.GetById(loaneeId);
+                var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(loaneeCode);
 
                 var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
 
                 _logger.LogError("smsApiBaseUrl: " + smsApiBaseUrl);
 
-                var url = smsApiBaseUrl + "/api/LnDeviceLoanSchedule/GetDeviceLoanScheduleByLoanId?loanId=" + loanId;
+                var url = smsApiBaseUrl + "/api/LnDeviceLoanSchedule/GetDeviceLoanScheduleByLoanNo?loanNo=" + loanNo;
 
                 _logger.LogError("url: " + url);
 
