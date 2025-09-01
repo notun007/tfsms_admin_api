@@ -23,6 +23,7 @@ namespace TFSMS.Admin.Data.Repository.TFLoan.Device
         Task<LnDeviceLoanDisbursement> AddEntityAsync(LnDeviceLoanDisbursement obj);
         Task<List<LnDeviceLoanDisbursementViewModel>> GetDeviceLoanDisbursement();
         DataTable NextLoanNo();
+        Task<LnDeviceLoanDisbursement> GetLoanDisbursementByLoanNo(string loanNo);
         Task<List<LnDeviceLoanDisbursement>> GetLoanDisbursementByLoaneeId(int loaneeId);
         Task<List<string>> GetLoanNoByLoaneeId(int loaneeId);
 
@@ -104,6 +105,16 @@ namespace TFSMS.Admin.Data.Repository.TFLoan.Device
                 throw ex;
             }
         }
+
+        public async Task<LnDeviceLoanDisbursement> GetLoanDisbursementByLoanNo(string loanNo)
+        {
+            var loan = await DataContext.LnDeviceLoanDisbursements
+                .Where(d => d.LoanNo == loanNo)
+                 .SingleOrDefaultAsync();
+
+            return loan;
+        }
+
         //Asad
         public async Task<List<LnDeviceLoanDisbursement>> GetLoanDisbursementByLoaneeId(int loaneeId)
         {

@@ -30,6 +30,8 @@ namespace TFSMS.Admin.Service.TFLoan.Device
         string NextLoanNo();
         //Asad-1
         Task<List<DropDownViewModel>> GetLoanDisbursementDdlByLoaneeId(int loaneeId);
+
+        Task<LnDeviceLoanDisbursement> GetLoanDisbursementByLoanNo(string loanNo);
         //Asad
         Task<List<LnDeviceLoanDisbursement>> GetLoanDisbursementByLoaneeId(int loaneeId);
         //Farida
@@ -153,6 +155,11 @@ namespace TFSMS.Admin.Service.TFLoan.Device
             return nextSl;
         }
 
+        public async Task<LnDeviceLoanDisbursement> GetLoanDisbursementByLoanNo(string loanNo)
+        {
+            var loan = await repository.GetLoanDisbursementByLoanNo(loanNo);
+            return loan;
+        }
         //Asad-2
         public async Task<List<DropDownViewModel>> GetLoanDisbursementDdlByLoaneeId(int loaneeId)
         {
