@@ -72,6 +72,10 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 
                 objPayload.LenderId = obj.LenderId;
                 objPayload.LoaneeId = obj.LoaneeId;
+
+                objPayload.LenderCode = obj.LenderCode;
+                objPayload.LoaneeCode = obj.LoaneeCode;
+
                 objPayload.loanNo = obj.loanNo;
                 objPayload.Amount = obj.Amount;
                 objPayload.Remarks = obj.Remarks;
@@ -108,6 +112,10 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                     objDeviceLoanCollection.AnFPaymentMethodId = obj.AnFPaymentMethodId;
                     objDeviceLoanCollection.LenderId = obj.LenderId;
                     objDeviceLoanCollection.LoaneeId = obj.LoaneeId;
+
+                    objDeviceLoanCollection.LenderCode = obj.LenderCode;
+                    objDeviceLoanCollection.LoaneeCode = obj.LoaneeCode;
+
                     objDeviceLoanCollection.Amount = obj.Amount;
                     objDeviceLoanCollection.Remarks = obj.Remarks;
                     objDeviceLoanCollection.CollectionDate = obj.CollectionDate;
