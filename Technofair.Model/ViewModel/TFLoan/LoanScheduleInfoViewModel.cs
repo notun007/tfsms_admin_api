@@ -12,7 +12,7 @@ namespace Technofair.Model.ViewModel.TFLoan
         public Int64 LoanId { get; set; }
         public string LoanNo { get; set; }
         public Int64 LnDeviceLoanScheduleId { get; set; }
-        public string InstallmentNumber { get; set; }
+        public Int16 InstallmentNumber { get; set; }
 
         [Column(TypeName = "decimal(12,2)")]
         public decimal MonthlyInstallmentAmount { get; set; }
