@@ -16,6 +16,8 @@ namespace Technofair.Model.ViewModel.TFLoan
 
         public string MonthName { get; set; }
         public Int16 Year { get; set; }
+
+        public string MonthYear { get; set; }
         [Column(TypeName = "decimal(12,2)")]
         public decimal ScheduledPrincipal { get; set; }
 
