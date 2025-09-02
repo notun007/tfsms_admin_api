@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Technofair.Lib.Model;
+using Technofair.Model.ViewModel.TFLoan;
 using Technofair.Utiity.Http;
 using Technofair.Utiity.Key;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
@@ -167,9 +168,9 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
 
         [HttpGet("FetchCurrentLoanSchedule")]
-        public async Task<DeviceLoanInfoViewModel> FetchCurrentLoanSchedule(string lenderCode, string loaneeCode)
+        public async Task<LoanScheduleInfoViewModel> FetchCurrentLoanSchedule(string lenderCode, string loaneeCode)
         {
-            DeviceLoanInfoViewModel objDeviceLoanInfo = new DeviceLoanInfoViewModel();
+            LoanScheduleInfoViewModel objDeviceLoanInfo = new LoanScheduleInfoViewModel();
 
             try
             {
@@ -178,7 +179,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                 var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/FetchCurrentLoanSchedule?lenderCode=" + lenderCode + "&loaneeCode=" + loaneeCode;
 
-                objDeviceLoanInfo = await Request<DeviceLoanInfoViewModel, DeviceLoanInfoViewModel>.GetObject(url);
+                objDeviceLoanInfo = await Request<LoanScheduleInfoViewModel, LoanScheduleInfoViewModel>.GetObject(url);
             }
             catch(Exception exp)
             {
