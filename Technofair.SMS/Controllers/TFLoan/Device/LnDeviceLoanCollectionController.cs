@@ -165,5 +165,27 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             return loanInfo;
         }
 
+
+        [HttpGet("FetchCurrentLoanSchedule")]
+        public async Task<DeviceLoanInfoViewModel> FetchCurrentLoanSchedule(string lenderCode, string loaneeCode)
+        {
+            DeviceLoanInfoViewModel objDeviceLoanInfo = new DeviceLoanInfoViewModel();
+
+            try
+            {
+                var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(loaneeCode);
+                var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+
+                var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/FetchCurrentLoanSchedule?lenderCode=" + lenderCode + "&loaneeCode=" + loaneeCode;
+
+                objDeviceLoanInfo = await Request<DeviceLoanInfoViewModel, DeviceLoanInfoViewModel>.GetObject(url);
+            }
+            catch(Exception exp)
+            {
+                throw exp;
+            }
+
+            return objDeviceLoanInfo;
+        }
     }
 }
