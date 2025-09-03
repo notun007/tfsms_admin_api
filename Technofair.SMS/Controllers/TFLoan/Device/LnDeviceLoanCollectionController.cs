@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Technofair.Lib.Model;
 using Technofair.Model.ViewModel.TFLoan;
 using Technofair.Utiity.Http;
@@ -182,6 +183,50 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 objDeviceLoanInfo = await Request<LoanScheduleInfoViewModel, LoanScheduleInfoViewModel>.GetObject(url);
             }
             catch(Exception exp)
+            {
+                throw exp;
+            }
+
+            return objDeviceLoanInfo;
+        }
+
+        [HttpPost("RecoverScheduledLoan")]
+        public async Task<Operation> RecoverScheduledLoan(LnDeviceLoanCollectionViewModel objCollection)
+        {
+            Operation objDeviceLoanInfo = new Operation();
+
+            try
+            {
+                var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(objCollection.LoaneeCode);
+
+                var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+
+                var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/RecoverScheduledLoan";
+
+                objDeviceLoanInfo = await Request<LnDeviceLoanCollectionViewModel, Operation>.Post(url, objCollection);
+            }
+            catch (Exception exp)
+            {
+                throw exp;
+            }
+
+            return objDeviceLoanInfo;
+        }
+        [HttpGet("BuildInstallmentSettlementPlan")]
+        public async Task<List<LnDeviceLoanScheduleCollectionViewModel>> BuildInstallmentSettlementPlan(string loaneeCode, string loanNo)
+        {
+            List<LnDeviceLoanScheduleCollectionViewModel> objDeviceLoanInfo = new List<LnDeviceLoanScheduleCollectionViewModel>();
+
+            try
+            {
+                var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(loaneeCode);
+                var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+
+                var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/FetchCurrentLoanSchedule?loanNo=" + loanNo;
+
+                objDeviceLoanInfo = await Request<LnDeviceLoanScheduleCollectionViewModel, LnDeviceLoanScheduleCollectionViewModel>.GetCollecttion(url);
+            }
+            catch (Exception exp)
             {
                 throw exp;
             }
