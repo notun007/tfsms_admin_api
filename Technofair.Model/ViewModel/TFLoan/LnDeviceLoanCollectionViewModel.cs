@@ -28,7 +28,7 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
         public decimal? PaymentCharge { get; set; }
         public string? Remarks { get; set; }
         public DateTime CollectionDate { get; set; }
-
+        public string TransactionId { get; set; }
 
         #region New
         public Int16? AnFFinancialServiceProviderTypeId { get; set; }

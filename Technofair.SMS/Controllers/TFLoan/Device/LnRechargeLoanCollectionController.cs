@@ -22,6 +22,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
     public class LnRechargeLoanCollectionController : ControllerBase
     {
         private ILnRechargeLoanCollectionService service;
+        
         private ILnDeviceLoanDisbursementService serviceDisbursement;
         private ITFACompanyCustomerService serviceCompanyCustomer;
 
@@ -29,6 +30,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         {
             var dbfactory = new AdminDatabaseFactory();
             service = new LnRechargeLoanCollectionService(new LnRechargeLoanCollectionRepository(dbfactory), new AdminUnitOfWork(dbfactory));
+            
             serviceDisbursement = new LnDeviceLoanDisbursementService(new LnDeviceLoanDisbursementRepository(dbfactory), new AdminUnitOfWork(dbfactory));
 
             serviceCompanyCustomer = new TFACompanyCustomerService(new TFACompanyCustomerRepository(dbfactory), new AdminUnitOfWork(dbfactory));

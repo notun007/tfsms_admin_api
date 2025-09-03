@@ -114,6 +114,7 @@ namespace TFSMS.Admin.Data
 
         #region  Loan
 
+        public DbSet<LnDeviceLoanCollectionRequestObject> LnDeviceLoanCollectionRequestObjects { get; set; }
         public DbSet<AnFFinancialServiceProviderType> AnFFinancialServiceProviderTypes { get; set; }
         public DbSet<AnFPaymentChannel> AnFPaymentChannels { get; set; }
         public DbSet<AnFFinancialServiceProvider> AnFFinancialServiceProviders { get; set; }

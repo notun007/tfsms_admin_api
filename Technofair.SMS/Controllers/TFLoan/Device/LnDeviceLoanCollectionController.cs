@@ -2,8 +2,11 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Technofair.Data.Repository.TFLoan.Device;
 using Technofair.Lib.Model;
+using Technofair.Model.TFLoan.Device;
 using Technofair.Model.ViewModel.TFLoan;
+using Technofair.Service.TFLoan.Device;
 using Technofair.Utiity.Http;
 using Technofair.Utiity.Key;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
@@ -16,11 +19,6 @@ using TFSMS.Admin.Model.ViewModel.TFLoan;
 using TFSMS.Admin.Service.Common;
 using TFSMS.Admin.Service.TFAdmin;
 using TFSMS.Admin.Service.TFLoan.Device;
-//using TFSMS.Admin.Data.Infrastructure.TFAdmin;
-
-//using TFSMS.Admin.Model.Utility;
-//using TFSMS.Admin.Model.ViewModel.TFLoan;
-//using TFSMS.Admin.Service.TFLoan.Device;
 
 
 namespace TFSMS.Admin.Controllers.TFLoan.Device
@@ -30,6 +28,8 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
     public class LnDeviceLoanCollectionController : ControllerBase
     {        
         private ILnDeviceLoanCollectionService service;
+        private ILnDeviceLoanCollectionRequestObjectService serviceReqObject;
+
         private ICmnCompanyService serviceCompany;
         private ITFACompanyCustomerService serviceCompanyCustomer;
 
@@ -41,6 +41,8 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             //New:28072025
             var dbfactory = new AdminDatabaseFactory();
             service = new LnDeviceLoanCollectionService(new LnDeviceLoanCollectionRepository(dbfactory), new AdminUnitOfWork(dbfactory));
+            serviceReqObject = new LnDeviceLoanCollectionRequestObjectService(new LnDeviceLoanCollectionRequestObjectRepository(dbfactory), new AdminUnitOfWork(dbfactory));
+
             serviceCompany = new CmnCompanyService(new CmnCompanyRepository(dbfactory), new AdminUnitOfWork(dbfactory));
             serviceCompanyCustomer = new TFACompanyCustomerService(new TFACompanyCustomerRepository(dbfactory), new AdminUnitOfWork(dbfactory));
 
@@ -56,7 +58,9 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         [HttpPost("Save")]
         public async Task<Operation> Save([FromBody] LnDeviceLoanCollectionViewModel obj)
         {
+            Operation objReqOperation = new Operation();
             Operation objOperation = new Operation();
+
             LnDeviceLoanCollection objDeviceLoanCollection = new LnDeviceLoanCollection();
                       
             LnDeviceLoanCollectionViewModel objCollection = new LnDeviceLoanCollectionViewModel();
@@ -64,82 +68,139 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             var objCollectionExit = service.GetById(obj.Id);
 
             LnDeviceLoanCollectionViewModel objPayload = new LnDeviceLoanCollectionViewModel();
-
-            if (objCollectionExit == null)
-            {
-                objPayload.Id = obj.Id;
-                objPayload.LoanId = obj.LoanId; ////
-                objPayload.LnLoanCollectionTypeId = obj.LnLoanCollectionTypeId;
-                objPayload.AnFPaymentMethodId = obj.AnFPaymentMethodId;
-                
-                objPayload.LenderId = obj.LenderId;
-                objPayload.LoaneeId = obj.LoaneeId;
-
-                objPayload.LenderCode = obj.LenderCode;
-                objPayload.LoaneeCode = obj.LoaneeCode;
-
-                objPayload.loanNo = obj.loanNo;
-                objPayload.Amount = obj.Amount;
-                objPayload.Remarks = obj.Remarks;
-                objPayload.CollectionDate = obj.CollectionDate;
-                objPayload.IsCancel = obj.IsCancel;
-                objPayload.CancelBy = obj.CancelBy;
-                objPayload.CancelDate = obj.CancelDate;
-
-                objPayload.CreatedBy = obj.CreatedBy;
-                objPayload.CreatedDate = DateTime.Now;
-
-                var objCompanyCustomer = serviceCompanyCustomer.GetById(obj.LoaneeId);
-
-                var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
-
-                var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/SaveLoanCollection";
-
-                objOperation = await Request<LnDeviceLoanCollectionViewModel, Operation>.Post(url, objPayload);
-
-            }
-
-
-
-            var objExit = service.GetById(obj.Id);
-
-            if (objOperation.Success == true)
-            {
-                if (objExit == null)
+         
+           
+                                                
+                try
                 {
+                
+                #region Admin 
+                //Temp table a insert karta habe...with transaction_id
+                //if sms gets succeeded the finalize in Admin side
+                //by using transactio_id
 
-                    objDeviceLoanCollection.Id = obj.Id;
-                    objDeviceLoanCollection.LoanId = obj.LoanId;
-                    objDeviceLoanCollection.LnLoanCollectionTypeId = obj.LnLoanCollectionTypeId;
-                    objDeviceLoanCollection.AnFPaymentMethodId = obj.AnFPaymentMethodId;
-                    objDeviceLoanCollection.LenderId = obj.LenderId;
-                    objDeviceLoanCollection.LoaneeId = obj.LoaneeId;
+                LnDeviceLoanCollectionRequestObject objRequest = new LnDeviceLoanCollectionRequestObject();
+                objRequest.Id = obj.Id;
+                objRequest.LoanId = obj.LoanId;
+                objRequest.LnLoanCollectionTypeId = obj.LnLoanCollectionTypeId;
+                objRequest.AnFPaymentMethodId = obj.AnFPaymentMethodId;
+                objRequest.LenderId = obj.LenderId;
+                objRequest.LoaneeId = obj.LoaneeId;
 
-                    objDeviceLoanCollection.LenderCode = obj.LenderCode;
-                    objDeviceLoanCollection.LoaneeCode = obj.LoaneeCode;
+                objRequest.LenderCode = obj.LenderCode;
+                objRequest.LoaneeCode = obj.LoaneeCode;
 
-                    objDeviceLoanCollection.Amount = obj.Amount;
-                    objDeviceLoanCollection.Remarks = obj.Remarks;
-                    objDeviceLoanCollection.CollectionDate = obj.CollectionDate;
+                objRequest.Amount = obj.Amount;
+                objRequest.Remarks = obj.Remarks;
+                objRequest.CollectionDate = obj.CollectionDate;
+                objRequest.TransactionId = objPayload.TransactionId;
+                objRequest.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
+                objRequest.BnkBankId = obj.BnkBankId;
 
-                    //objCollection.TransactionId = KeyGeneration.GenerateTimestamp();
-                    objDeviceLoanCollection.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
-                    objDeviceLoanCollection.BnkBankId = obj.BnkBankId;
+                objRequest.BnkBranchId = obj.BnkBranchId;
+                objRequest.BnkAccountInfoId = obj.BnkAccountInfoId;
 
-                    objDeviceLoanCollection.BnkBranchId = obj.BnkBranchId;
-                    objDeviceLoanCollection.BnkAccountInfoId = obj.BnkAccountInfoId;
+                objRequest.IsCancel = true;
+                objRequest.CancelBy = obj.CancelBy;
+                objRequest.CancelDate = obj.CancelDate;
 
-                   
-                    objDeviceLoanCollection.IsCancel = obj.IsCancel;
-                    objDeviceLoanCollection.CancelBy = obj.CancelBy;
-                    objDeviceLoanCollection.CancelDate = obj.CancelDate;
+                objRequest.CreatedBy = obj.CreatedBy;
+                objRequest.CreatedDate = DateTime.Now;
 
-                    objDeviceLoanCollection.CreatedBy = obj.CreatedBy;
-                    objDeviceLoanCollection.CreatedDate = DateTime.Now;
-                    objOperation = await service.Save(objDeviceLoanCollection);
-                    objOperation.Message = "Device Loan Collection Created Successfully.";
+                objReqOperation = await serviceReqObject.Save(objRequest);
+
+                
+                #endregion'
+
+                    if (objReqOperation.Success)
+                    {
+                        objPayload.loanNo = obj.loanNo;
+                        objPayload.LoanId = obj.LoanId;
+                        objPayload.LnLoanCollectionTypeId = obj.LnLoanCollectionTypeId;
+                        objPayload.AnFPaymentMethodId = obj.AnFPaymentMethodId;
+                        objPayload.LenderCode = obj.LenderCode;
+                        objPayload.LoaneeCode = obj.LoaneeCode;
+                        objPayload.Amount = obj.Amount;
+                        objPayload.Remarks = obj.Remarks;
+                        objPayload.CollectionDate = obj.CollectionDate;
+                    objPayload.TransactionId = objPayload.TransactionId;
+                    objPayload.IsCancel = obj.IsCancel;
+                        objPayload.CancelBy = obj.CancelBy;
+                        objPayload.CancelDate = obj.CancelDate;
+                        objPayload.CreatedBy = obj.CreatedBy;
+                        objPayload.CreatedDate = DateTime.Now;
+
+                        var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(objPayload.LoaneeCode);
+
+                        var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+
+                        var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/RecoverScheduledLoan";
+
+                        objOperation = await Request<LnDeviceLoanCollectionViewModel, Operation>.Post(url, objPayload);
+                    }
+
+                if(objOperation.Success == true)
+                {
+                    //var objCollectionRequest = serviceRe
+
+                    //obj serviceReqObject.Update(objCollectionRequest);
+
+                   var objCollectionRequest = serviceReqObject.GetById((Int64)objReqOperation.OperationId);
+
+                    objCollectionRequest.IsCancel = false;
+                    objCollectionRequest.ModifiedBy = obj.CreatedBy;
+                    objCollectionRequest.ModifiedDate = DateTime.Now;
+                    objReqOperation = serviceReqObject.Update(objCollectionRequest);
+
+                    if(objReqOperation.Success == true)
+                    {
+                        objDeviceLoanCollection.Id = obj.Id;
+                        objDeviceLoanCollection.LoanId = obj.LoanId;
+                        objDeviceLoanCollection.LnLoanCollectionTypeId = obj.LnLoanCollectionTypeId;
+                        objDeviceLoanCollection.AnFPaymentMethodId = obj.AnFPaymentMethodId;
+                        objDeviceLoanCollection.LenderId = obj.LenderId;
+                        objDeviceLoanCollection.LoaneeId = obj.LoaneeId;
+
+                        objDeviceLoanCollection.LenderCode = obj.LenderCode;
+                        objDeviceLoanCollection.LoaneeCode = obj.LoaneeCode;
+
+                        objDeviceLoanCollection.Amount = obj.Amount;
+                        objDeviceLoanCollection.Remarks = obj.Remarks;
+                        objDeviceLoanCollection.CollectionDate = obj.CollectionDate;
+
+                        objDeviceLoanCollection.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
+                        objDeviceLoanCollection.BnkBankId = obj.BnkBankId;
+
+                        objDeviceLoanCollection.BnkBranchId = obj.BnkBranchId;
+                        objDeviceLoanCollection.BnkAccountInfoId = obj.BnkAccountInfoId;
+
+                        objDeviceLoanCollection.IsCancel = obj.IsCancel;
+                        objDeviceLoanCollection.CancelBy = obj.CancelBy;
+                        objDeviceLoanCollection.CancelDate = obj.CancelDate;
+
+                        objDeviceLoanCollection.CreatedBy = obj.CreatedBy;
+                        objDeviceLoanCollection.CreatedDate = DateTime.Now;
+                        objOperation = await service.Save(objDeviceLoanCollection);
+                        objOperation.Message = "Device Loan Collection Created Successfully.";
+                    }
+                    
                 }
-            }
+
+                }
+                catch (Exception exp)
+                {
+                    throw exp;
+                }
+                          
+
+                //Old: Start
+                //var objCompanyCustomer = serviceCompanyCustomer.GetById(obj.LoaneeId);
+                //var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+                //var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/SaveLoanCollection";
+                //objOperation = await Request<LnDeviceLoanCollectionViewModel, Operation>.Post(url, objPayload);
+                //End
+
+          
            
 
             return objOperation;
@@ -193,7 +254,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         [HttpPost("RecoverScheduledLoan")]
         public async Task<Operation> RecoverScheduledLoan(LnDeviceLoanCollectionViewModel objCollection)
         {
-            Operation objDeviceLoanInfo = new Operation();
+            Operation objOperation = new Operation();
 
             try
             {
@@ -203,14 +264,14 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                 var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/RecoverScheduledLoan";
 
-                objDeviceLoanInfo = await Request<LnDeviceLoanCollectionViewModel, Operation>.Post(url, objCollection);
+                objOperation = await Request<LnDeviceLoanCollectionViewModel, Operation>.Post(url, objCollection);
             }
             catch (Exception exp)
             {
                 throw exp;
             }
 
-            return objDeviceLoanInfo;
+            return objOperation;
         }
         [HttpGet("BuildInstallmentSettlementPlan")]
         public async Task<List<LnDeviceLoanScheduleCollectionViewModel>> BuildInstallmentSettlementPlan(string loaneeCode, string loanNo)

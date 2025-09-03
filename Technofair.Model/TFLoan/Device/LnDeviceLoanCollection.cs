@@ -40,7 +40,7 @@ namespace TFSMS.Admin.Model.TFLoan.Device
         public string? Remarks { get; set; }
 
         public DateTime CollectionDate { get; set; }
-
+        public string TransactionId { get; set; }
         #region New
         public Int16? AnFFinancialServiceProviderTypeId { get; set; }
         public int? BnkBankId { get; set; }
