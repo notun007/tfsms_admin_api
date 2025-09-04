@@ -288,25 +288,25 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
 
         [HttpGet("BuildInstallmentSettlementPlan")]
-        public async Task<List<LnDeviceLoanScheduleCollectionViewModel>> BuildInstallmentSettlementPlan(string loaneeCode, string loanNo)
+        public async Task<List<InstallmentSettlementPlan>> BuildInstallmentSettlementPlan(string loaneeCode, string loanNo)
         {
-            List<LnDeviceLoanScheduleCollectionViewModel> objDeviceLoanInfo = new List<LnDeviceLoanScheduleCollectionViewModel>();
+            List<InstallmentSettlementPlan> objPlan = new List<InstallmentSettlementPlan>();
 
             try
             {
                 var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(loaneeCode);
                 var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
 
-                var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/FetchCurrentLoanSchedule?loanNo=" + loanNo;
+                var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/BuildInstallmentSettlementPlan?loanNo=" + loanNo;
 
-                objDeviceLoanInfo = await Request<LnDeviceLoanScheduleCollectionViewModel, LnDeviceLoanScheduleCollectionViewModel>.GetCollecttion(url);
+                objPlan = await Request<InstallmentSettlementPlan, InstallmentSettlementPlan>.GetCollecttion(url);
             }
             catch (Exception exp)
             {
                 throw exp;
             }
 
-            return objDeviceLoanInfo;
+            return objPlan;
         }
     }
 }
