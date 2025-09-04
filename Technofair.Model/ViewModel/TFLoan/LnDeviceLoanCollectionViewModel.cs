@@ -13,15 +13,23 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
     {
         public int Id { get; set; }
         public Int64 LoanId { get; set; }
-        public Int16 LnLoanCollectionTypeId { get; set; }       
+        public Int16 LnLoanCollectionTypeId { get; set; }      
+        
+        //Extra
         public string? CollectionType { get; set; }
-        public int LenderId { get; set; }
+
+        public int? LenderId { get; set; }
+
+        //Extra
         public string? Lender { get; set; }
-        public int LoaneeId { get; set; }
+        public int? LoaneeId { get; set; }
+
+        //Extra
         public string? Loanee { get; set; }
-        public string? LenderCode { get; set; }
-        public string? LoaneeCode { get; set; }
+        public string LenderCode { get; set; }
+        public string LoaneeCode { get; set; }
         public Int16 AnFPaymentMethodId { get; set; }
+        //Extra
         public string? PaymentMethod { get; set; }
         public decimal Amount { get; set; }
         public decimal? PaymentChargePercent { get; set; }
@@ -37,7 +45,7 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
         public int? BnkAccountInfoId { get; set; }
         #endregion
 
-        public bool IsCancel { get; set; }
+        public bool? IsCancel { get; set; }
         public int? CancelBy { get; set; }
         public DateTime? CancelDate { get; set; }
         public int CreatedBy { get; set; }

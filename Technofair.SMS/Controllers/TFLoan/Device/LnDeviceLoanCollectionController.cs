@@ -13,8 +13,10 @@ using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 using TFSMS.Admin.Data.Repository.Common;
 using TFSMS.Admin.Data.Repository.TFAdmin;
 using TFSMS.Admin.Data.Repository.TFLoan.Device;
+using TFSMS.Admin.Model.Common;
+using TFSMS.Admin.Model.TFAdmin;
 using TFSMS.Admin.Model.TFLoan.Device;
-using TFSMS.Admin.Model.Utility;
+//using TFSMS.Admin.Model.Utility;
 using TFSMS.Admin.Model.ViewModel.TFLoan;
 using TFSMS.Admin.Service.Common;
 using TFSMS.Admin.Service.TFAdmin;
@@ -55,8 +57,8 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             return list;
         }
 
-        [HttpPost("Save")]
-        public async Task<Operation> Save([FromBody] LnDeviceLoanCollectionViewModel obj)
+        [HttpPost("RecoverScheduledLoan")]
+        public async Task<Operation> RecoverScheduledLoan([FromBody] ScheduleLoanRecoverViewModel obj)
         {
             Operation objReqOperation = new Operation();
             Operation objOperation = new Operation();
@@ -65,27 +67,32 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                       
             LnDeviceLoanCollectionViewModel objCollection = new LnDeviceLoanCollectionViewModel();
 
-            var objCollectionExit = service.GetById(obj.Id);
+            //var objCollectionExit = service.GetById(obj.Id);
 
             LnDeviceLoanCollectionViewModel objPayload = new LnDeviceLoanCollectionViewModel();
-         
-           
-                                                
+
+            CmnCompany objSolutionProvider = new CmnCompany();
+            TFACompanyCustomer objCompanyCustomer = new TFACompanyCustomer();
+
+
                 try
                 {
-                
+
                 #region Admin 
                 //Temp table a insert karta habe...with transaction_id
                 //if sms gets succeeded the finalize in Admin side
                 //by using transactio_id
+
+                objSolutionProvider = serviceCompany.GetSolutionProvider();
+                objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(obj.LoaneeCode);
 
                 LnDeviceLoanCollectionRequestObject objRequest = new LnDeviceLoanCollectionRequestObject();
                 objRequest.Id = obj.Id;
                 objRequest.LoanId = obj.LoanId;
                 objRequest.LnLoanCollectionTypeId = obj.LnLoanCollectionTypeId;
                 objRequest.AnFPaymentMethodId = obj.AnFPaymentMethodId;
-                objRequest.LenderId = obj.LenderId;
-                objRequest.LoaneeId = obj.LoaneeId;
+                objRequest.LenderId = objSolutionProvider.Id;
+                objRequest.LoaneeId = objCompanyCustomer.Id;
 
                 objRequest.LenderCode = obj.LenderCode;
                 objRequest.LoaneeCode = obj.LoaneeCode;
@@ -114,7 +121,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                     if (objReqOperation.Success)
                     {
-                        objPayload.loanNo = obj.loanNo;
+                        objPayload.loanNo = obj.LoanNo;
                         objPayload.LoanId = obj.LoanId;
                         objPayload.LnLoanCollectionTypeId = obj.LnLoanCollectionTypeId;
                         objPayload.AnFPaymentMethodId = obj.AnFPaymentMethodId;
@@ -123,14 +130,14 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                         objPayload.Amount = obj.Amount;
                         objPayload.Remarks = obj.Remarks;
                         objPayload.CollectionDate = obj.CollectionDate;
-                    objPayload.TransactionId = objPayload.TransactionId;
+                    objPayload.TransactionId = objRequest.TransactionId;
                     objPayload.IsCancel = obj.IsCancel;
                         objPayload.CancelBy = obj.CancelBy;
                         objPayload.CancelDate = obj.CancelDate;
                         objPayload.CreatedBy = obj.CreatedBy;
                         objPayload.CreatedDate = DateTime.Now;
 
-                        var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(objPayload.LoaneeCode);
+                        //var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(objPayload.LoaneeCode);
 
                         var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
 
@@ -158,8 +165,8 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                         objDeviceLoanCollection.LoanId = obj.LoanId;
                         objDeviceLoanCollection.LnLoanCollectionTypeId = obj.LnLoanCollectionTypeId;
                         objDeviceLoanCollection.AnFPaymentMethodId = obj.AnFPaymentMethodId;
-                        objDeviceLoanCollection.LenderId = obj.LenderId;
-                        objDeviceLoanCollection.LoaneeId = obj.LoaneeId;
+                        objDeviceLoanCollection.LenderId = objSolutionProvider.Id;
+                        objDeviceLoanCollection.LoaneeId = objCompanyCustomer.Id;
 
                         objDeviceLoanCollection.LenderCode = obj.LenderCode;
                         objDeviceLoanCollection.LoaneeCode = obj.LoaneeCode;
@@ -167,7 +174,11 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                         objDeviceLoanCollection.Amount = obj.Amount;
                         objDeviceLoanCollection.Remarks = obj.Remarks;
                         objDeviceLoanCollection.CollectionDate = obj.CollectionDate;
-                        objDeviceLoanCollection.TransactionId = objPayload.TransactionId;
+                        objDeviceLoanCollection.TransactionId = objRequest.TransactionId;
+
+
+                        //objDeviceLoanCollection.PaymentChargePercent = null;
+                        //objDeviceLoanCollection.PaymentCharge = null;
 
                         objDeviceLoanCollection.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
                         objDeviceLoanCollection.BnkBankId = obj.BnkBankId;
@@ -175,7 +186,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                         objDeviceLoanCollection.BnkBranchId = obj.BnkBranchId;
                         objDeviceLoanCollection.BnkAccountInfoId = obj.BnkAccountInfoId;
 
-                        objDeviceLoanCollection.IsCancel = obj.IsCancel;
+                        objDeviceLoanCollection.IsCancel = false;
                         objDeviceLoanCollection.CancelBy = obj.CancelBy;
                         objDeviceLoanCollection.CancelDate = obj.CancelDate;
 
@@ -252,28 +263,30 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             return objDeviceLoanInfo;
         }
 
-        [HttpPost("RecoverScheduledLoan")]
-        public async Task<Operation> RecoverScheduledLoan(LnDeviceLoanCollectionViewModel objCollection)
-        {
-            Operation objOperation = new Operation();
+        //[HttpPost("RecoverScheduledLoan")]
+        //public async Task<Operation> RecoverScheduledLoan(LnDeviceLoanCollectionViewModel objCollection)
+        //{
+        //    Operation objOperation = new Operation();
 
-            try
-            {
-                var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(objCollection.LoaneeCode);
+        //    try
+        //    {
+        //        var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(objCollection.LoaneeCode);
 
-                var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+        //        var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
 
-                var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/RecoverScheduledLoan";
+        //        var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/RecoverScheduledLoan";
 
-                objOperation = await Request<LnDeviceLoanCollectionViewModel, Operation>.Post(url, objCollection);
-            }
-            catch (Exception exp)
-            {
-                throw exp;
-            }
+        //        objOperation = await Request<LnDeviceLoanCollectionViewModel, Operation>.Post(url, objCollection);
+        //    }
+        //    catch (Exception exp)
+        //    {
+        //        throw exp;
+        //    }
 
-            return objOperation;
-        }
+        //    return objOperation;
+        //}
+
+
         [HttpGet("BuildInstallmentSettlementPlan")]
         public async Task<List<LnDeviceLoanScheduleCollectionViewModel>> BuildInstallmentSettlementPlan(string loaneeCode, string loanNo)
         {
