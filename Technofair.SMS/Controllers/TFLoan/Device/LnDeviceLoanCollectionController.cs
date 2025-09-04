@@ -93,7 +93,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 objRequest.Amount = obj.Amount;
                 objRequest.Remarks = obj.Remarks;
                 objRequest.CollectionDate = obj.CollectionDate;
-                objRequest.TransactionId = objPayload.TransactionId;
+                objRequest.TransactionId = KeyGeneration.GenerateTimestamp();
                 objRequest.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
                 objRequest.BnkBankId = obj.BnkBankId;
 
@@ -167,6 +167,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                         objDeviceLoanCollection.Amount = obj.Amount;
                         objDeviceLoanCollection.Remarks = obj.Remarks;
                         objDeviceLoanCollection.CollectionDate = obj.CollectionDate;
+                        objDeviceLoanCollection.TransactionId = objPayload.TransactionId;
 
                         objDeviceLoanCollection.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
                         objDeviceLoanCollection.BnkBankId = obj.BnkBankId;
