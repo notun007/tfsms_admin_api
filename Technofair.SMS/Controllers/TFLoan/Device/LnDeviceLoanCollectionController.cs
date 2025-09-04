@@ -297,7 +297,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(loaneeCode);
                 var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
 
-                var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/BuildInstallmentSettlementPlan?loanNo=" + loanNo + "&amount" + amount;
+                var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/BuildInstallmentSettlementPlan?loanNo=" + loanNo + "&amount=" + amount;
 
                 objPlan = await Request<InstallmentSettlementPlan, InstallmentSettlementPlan>.GetCollecttion(url);
             }
