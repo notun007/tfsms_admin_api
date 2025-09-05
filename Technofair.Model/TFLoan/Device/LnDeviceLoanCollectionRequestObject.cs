@@ -29,17 +29,14 @@ namespace Technofair.Model.TFLoan.Device
         public string? LoaneeCode { get; set; }
         public Int16 AnFPaymentMethodId { get; set; }
         public AnFPaymentMethod AnFPaymentMethod { get; set; }
-
         public decimal Amount { get; set; }
-
-        //[Column(TypeName = "decimal(12, 2)")]
-        //public decimal? PaymentChargePercent { get; set; }
-        //[Column(TypeName = "decimal(12, 3)")]
-        //public decimal? PaymentCharge { get; set; }
         public string? Remarks { get; set; }
-
         public DateTime CollectionDate { get; set; }
         public string TransactionId { get; set; }
+        public bool IsSmsSuccess { get; set; }
+        public bool IsAdminSuccess { get; set; }
+        public bool IsSuccess { get; set; }
+
 
         #region New
         public Int16? AnFFinancialServiceProviderTypeId { get; set; }

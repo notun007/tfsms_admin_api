@@ -63,14 +63,10 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             Operation objReqOperation = new Operation();
             Operation objOperation = new Operation();
 
-            LnDeviceLoanCollection objDeviceLoanCollection = new LnDeviceLoanCollection();
-                      
-            LnDeviceLoanCollectionViewModel objCollection = new LnDeviceLoanCollectionViewModel();
-
-            //var objCollectionExit = service.GetById(obj.Id);
-
+                         
+            //LnDeviceLoanCollectionViewModel objCollection = new LnDeviceLoanCollectionViewModel();
             LnDeviceLoanCollectionViewModel objPayload = new LnDeviceLoanCollectionViewModel();
-
+            
             CmnCompany objSolutionProvider = new CmnCompany();
             TFACompanyCustomer objCompanyCustomer = new TFACompanyCustomer();
 
@@ -79,10 +75,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 {
 
                 #region Admin 
-                //Temp table a insert karta habe...with transaction_id
-                //if sms gets succeeded the finalize in Admin side
-                //by using transactio_id
-
+                
                 objSolutionProvider = serviceCompany.GetSolutionProvider();
                 objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(obj.LoaneeCode);
 
@@ -107,7 +100,11 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 objRequest.BnkBranchId = obj.BnkBranchId;
                 objRequest.BnkAccountInfoId = obj.BnkAccountInfoId;
 
-                objRequest.IsCancel = true;
+                objRequest.IsSmsSuccess = false;
+                objRequest.IsAdminSuccess = false;
+                objRequest.IsSuccess = false;
+
+                objRequest.IsCancel = false;
                 objRequest.CancelBy = obj.CancelBy;
                 objRequest.CancelDate = obj.CancelDate;
 
@@ -130,15 +127,12 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                         objPayload.Amount = obj.Amount;
                         objPayload.Remarks = obj.Remarks;
                         objPayload.CollectionDate = obj.CollectionDate;
-                    objPayload.TransactionId = objRequest.TransactionId;
-                    objPayload.IsCancel = obj.IsCancel;
+                        objPayload.TransactionId = objRequest.TransactionId;
+                        objPayload.IsCancel = false;
                         objPayload.CancelBy = obj.CancelBy;
                         objPayload.CancelDate = obj.CancelDate;
                         objPayload.CreatedBy = obj.CreatedBy;
                         objPayload.CreatedDate = DateTime.Now;
-
-                        //var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(objPayload.LoaneeCode);
-
                         var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
 
                         var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/RecoverScheduledLoan";
@@ -146,57 +140,105 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                         objOperation = await Request<LnDeviceLoanCollectionViewModel, Operation>.Post(url, objPayload);
                     }
 
-                if(objOperation.Success == true)
+
+                if (!objOperation.Success)
                 {
-                    //var objCollectionRequest = serviceRe
+                    return objOperation;
+                }
 
-                    //obj serviceReqObject.Update(objCollectionRequest);
-
+                //if(objOperation.Success == true)
+                //{
+                    
                    var objCollectionRequest = serviceReqObject.GetById((Int64)objReqOperation.OperationId);
 
-                    objCollectionRequest.IsCancel = false;
+                    if(objCollectionRequest == null)
+                    {
+                        objOperation.Success = false;
+                        objOperation.Message = "Falied to retrive request object from admin database, loan recovery succeeded in sms database.";
+                        return objOperation;
+                    }
+                    
+                    
+                    objCollectionRequest.IsSmsSuccess = true;
                     objCollectionRequest.ModifiedBy = obj.CreatedBy;
                     objCollectionRequest.ModifiedDate = DateTime.Now;
                     objReqOperation = serviceReqObject.Update(objCollectionRequest);
 
-                    if(objReqOperation.Success == true)
+                    if (!objReqOperation.Success)
                     {
-                        objDeviceLoanCollection.Id = obj.Id;
-                        objDeviceLoanCollection.LoanId = obj.LoanId;
-                        objDeviceLoanCollection.LnLoanCollectionTypeId = obj.LnLoanCollectionTypeId;
-                        objDeviceLoanCollection.AnFPaymentMethodId = obj.AnFPaymentMethodId;
-                        objDeviceLoanCollection.LenderId = objSolutionProvider.Id;
-                        objDeviceLoanCollection.LoaneeId = objCompanyCustomer.Id;
-
-                        objDeviceLoanCollection.LenderCode = obj.LenderCode;
-                        objDeviceLoanCollection.LoaneeCode = obj.LoaneeCode;
-
-                        objDeviceLoanCollection.Amount = obj.Amount;
-                        objDeviceLoanCollection.Remarks = obj.Remarks;
-                        objDeviceLoanCollection.CollectionDate = obj.CollectionDate;
-                        objDeviceLoanCollection.TransactionId = objRequest.TransactionId;
-
-
-                        //objDeviceLoanCollection.PaymentChargePercent = null;
-                        //objDeviceLoanCollection.PaymentCharge = null;
-
-                        objDeviceLoanCollection.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
-                        objDeviceLoanCollection.BnkBankId = obj.BnkBankId;
-
-                        objDeviceLoanCollection.BnkBranchId = obj.BnkBranchId;
-                        objDeviceLoanCollection.BnkAccountInfoId = obj.BnkAccountInfoId;
-
-                        objDeviceLoanCollection.IsCancel = false;
-                        objDeviceLoanCollection.CancelBy = obj.CancelBy;
-                        objDeviceLoanCollection.CancelDate = obj.CancelDate;
-
-                        objDeviceLoanCollection.CreatedBy = obj.CreatedBy;
-                        objDeviceLoanCollection.CreatedDate = DateTime.Now;
-                        objOperation = await service.Save(objDeviceLoanCollection);
-                        objOperation.Message = "Device Loan Collection Created Successfully.";
+                        objOperation.Success = false;
+                        objOperation.Message = "Falied to update request object in admin database, loan recovery succeeded in sms database.";
+                        return objOperation;
                     }
-                    
+
+                    //if (objReqOperation.Success == true)
+                    //{
+
+                        LnDeviceLoanCollection objCollection = new LnDeviceLoanCollection();
+
+                        objCollection.Id = obj.Id;
+                        objCollection.LoanId = obj.LoanId;
+                        objCollection.LnLoanCollectionTypeId = obj.LnLoanCollectionTypeId;
+                        objCollection.AnFPaymentMethodId = obj.AnFPaymentMethodId;
+                        objCollection.LenderId = objSolutionProvider.Id;
+                        objCollection.LoaneeId = objCompanyCustomer.Id;
+
+                        objCollection.LenderCode = obj.LenderCode;
+                        objCollection.LoaneeCode = obj.LoaneeCode;
+
+                        objCollection.Amount = obj.Amount;
+                        objCollection.Remarks = obj.Remarks;
+                        objCollection.CollectionDate = obj.CollectionDate;
+                        objCollection.TransactionId = objRequest.TransactionId;
+
+                        objCollection.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
+                        objCollection.BnkBankId = obj.BnkBankId;
+
+                        objCollection.BnkBranchId = obj.BnkBranchId;
+                        objCollection.BnkAccountInfoId = obj.BnkAccountInfoId;
+
+                        objCollection.IsCancel = false;
+                        objCollection.CancelBy = obj.CancelBy;
+                        objCollection.CancelDate = obj.CancelDate;
+
+                        objCollection.CreatedBy = obj.CreatedBy;
+                        objCollection.CreatedDate = DateTime.Now;
+                        objOperation = await service.Save(objCollection);
+
+                        if (objOperation.Success)
+                        {
+                            objOperation.Message = "Loan Collection succeeded in admin database.";
+                        }
+                        else
+                        {
+                            objOperation.Message = "Loan Collection failed in admin database.";
+                            return objOperation;
+                        }
+                        
+
+                        if (objOperation.Success)
+                        {
+                            objCollectionRequest = serviceReqObject.GetById((Int64)objReqOperation.OperationId);
+
+                            objCollectionRequest.IsAdminSuccess = true;
+                            objCollectionRequest.IsSuccess = true;
+                            objCollectionRequest.ModifiedBy = obj.CreatedBy;
+                            objCollectionRequest.ModifiedDate = DateTime.Now;
+                            objOperation = serviceReqObject.Update(objCollectionRequest);
+
+                            if (objOperation.Success)
+                            {
+                                objOperation.Message = "Loan recovery succeeded.";
+                            }
+                            else
+                            {
+                                objOperation.Message = "Failed to finalize loan recovery in admin database, please sync.";
+                                return objOperation;
+                            }
                 }
+                    //}
+                    
+                //}
 
                 }
                 catch (Exception exp)
@@ -204,17 +246,6 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                     throw exp;
                 }
                           
-
-                //Old: Start
-                //var objCompanyCustomer = serviceCompanyCustomer.GetById(obj.LoaneeId);
-                //var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
-                //var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/SaveLoanCollection";
-                //objOperation = await Request<LnDeviceLoanCollectionViewModel, Operation>.Post(url, objPayload);
-                //End
-
-          
-           
-
             return objOperation;
         }
 
