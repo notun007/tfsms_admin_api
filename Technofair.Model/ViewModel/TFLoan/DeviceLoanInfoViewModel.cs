@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,13 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
     public class DeviceLoanInfoViewModel
     {
         //New: 19052025
+        [Column(TypeName = "decimal(12, 2)")]
         public decimal MonthlyInstallmentAmount { get; set; }
+        [Column(TypeName = "decimal(12, 2)")]
         public decimal PerRechargeInstallmentAmount { get; set; }
+        [Column(TypeName = "decimal(12, 2)")]
         public decimal LoanBalance { get; set; }
+        [Column(TypeName = "decimal(12, 2)")]
         public decimal MonthlyLoanBalance { get; set; }
         public bool IsPaid { get; set; }
         public bool IsMonthlyInstallmentComplete { get; set; }

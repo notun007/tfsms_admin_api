@@ -58,13 +58,13 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         }
 
         [HttpPost("RecoverScheduledLoan")]
-        public async Task<Operation> RecoverScheduledLoan([FromBody] ScheduleLoanRecoverViewModel obj)
+        public async Task<RecoverScheduledLoanResponseViewModel> RecoverScheduledLoan([FromBody] ScheduleLoanRecoverViewModel obj)
         {
             Operation objReqOperation = new Operation();
             Operation objOperation = new Operation();
 
-                         
-            //LnDeviceLoanCollectionViewModel objCollection = new LnDeviceLoanCollectionViewModel();
+            RecoverScheduledLoanResponseViewModel objScheduledLoanResponse = new RecoverScheduledLoanResponseViewModel { Success = false, Message = "Failed to recover loan" };
+
             LnDeviceLoanCollectionViewModel objPayload = new LnDeviceLoanCollectionViewModel();
             
             CmnCompany objSolutionProvider = new CmnCompany();
@@ -113,6 +113,13 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                 objReqOperation = await serviceReqObject.Save(objRequest);
 
+                if (!objReqOperation.Success)
+                {
+                    objScheduledLoanResponse.Success = objReqOperation.Success;
+                    objScheduledLoanResponse.Message = objReqOperation.Message;
+                    return objScheduledLoanResponse;
+                }
+
                 
                 #endregion'
 
@@ -137,13 +144,17 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                         var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/RecoverScheduledLoan";
 
-                        objOperation = await Request<LnDeviceLoanCollectionViewModel, Operation>.Post(url, objPayload);
-                    }
+                    objScheduledLoanResponse = await Request<LnDeviceLoanCollectionViewModel, RecoverScheduledLoanResponseViewModel>.Post(url, objPayload);
+
+                    //objOperation.Success = objScheduledLoanResponse.Success;
+                    //objOperation.Message = objScheduledLoanResponse.Message;
+
+                }
 
 
-                if (!objOperation.Success)
+                if (!objScheduledLoanResponse.Success)
                 {
-                    return objOperation;
+                    return objScheduledLoanResponse;
                 }
 
                 //if(objOperation.Success == true)
@@ -153,22 +164,26 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                     if(objCollectionRequest == null)
                     {
-                        objOperation.Success = false;
-                        objOperation.Message = "Falied to retrive request object from admin database, loan recovery succeeded in sms database.";
-                        return objOperation;
+                    objScheduledLoanResponse.Success = false;
+                    objScheduledLoanResponse.Message = "Falied to retrive request object from admin database, loan recovery succeeded in sms database";
+
+                    return objScheduledLoanResponse;
                     }
                     
                     
                     objCollectionRequest.IsSmsSuccess = true;
+                    objCollectionRequest.Amount = objScheduledLoanResponse.ActualCollectionAmount;
                     objCollectionRequest.ModifiedBy = obj.CreatedBy;
                     objCollectionRequest.ModifiedDate = DateTime.Now;
                     objReqOperation = serviceReqObject.Update(objCollectionRequest);
 
                     if (!objReqOperation.Success)
                     {
-                        objOperation.Success = false;
-                        objOperation.Message = "Falied to update request object in admin database, loan recovery succeeded in sms database.";
-                        return objOperation;
+                       
+                    objScheduledLoanResponse.Success = false;
+                    objScheduledLoanResponse.Message = "Falied to update request object in admin database, loan recovery succeeded in sms database.";
+
+                    return objScheduledLoanResponse;
                     }
 
                     //if (objReqOperation.Success == true)
@@ -186,7 +201,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                         objCollection.LenderCode = obj.LenderCode;
                         objCollection.LoaneeCode = obj.LoaneeCode;
 
-                        objCollection.Amount = obj.Amount;
+                        objCollection.Amount = objScheduledLoanResponse.ActualCollectionAmount;
                         objCollection.Remarks = obj.Remarks;
                         objCollection.CollectionDate = obj.CollectionDate;
                         objCollection.TransactionId = objRequest.TransactionId;
@@ -205,15 +220,19 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                         objCollection.CreatedDate = DateTime.Now;
                         objOperation = await service.Save(objCollection);
 
-                        if (objOperation.Success)
-                        {
-                            objOperation.Message = "Loan Collection succeeded in admin database.";
-                        }
-                        else
-                        {
-                            objOperation.Message = "Loan Collection failed in admin database.";
-                            return objOperation;
-                        }
+                        
+
+                if (objOperation.Success)
+                   {
+                     objScheduledLoanResponse.Success = objOperation.Success;
+                     objScheduledLoanResponse.Message = "Loan Collection succeeded in admin database.";
+                   }
+                   else
+                   {
+                    objScheduledLoanResponse.Success = objOperation.Success;
+                    objScheduledLoanResponse.Message = "Loan Collection failed in admin database.";
+                     return objScheduledLoanResponse;
+                   }
                         
 
                         if (objOperation.Success)
@@ -228,14 +247,17 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                             if (objOperation.Success)
                             {
-                                objOperation.Message = "Loan recovery succeeded.";
+                        objScheduledLoanResponse.Success = objOperation.Success;
+                        objScheduledLoanResponse.Message = "Loan recovery succeeded.";
                             }
                             else
                             {
-                                objOperation.Message = "Failed to finalize loan recovery in admin database, please sync.";
-                                return objOperation;
+                        objScheduledLoanResponse.Success = objOperation.Success;
+                        objScheduledLoanResponse.Message = "Failed to finalize loan recovery in admin database, please sync.";
+
+                           return objScheduledLoanResponse;
                             }
-                }
+                    }
                     //}
                     
                 //}
@@ -246,7 +268,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                     throw exp;
                 }
                           
-            return objOperation;
+            return objScheduledLoanResponse;
         }
 
         [Authorize]

@@ -29,6 +29,7 @@ namespace Technofair.Model.TFLoan.Device
         public string? LoaneeCode { get; set; }
         public Int16 AnFPaymentMethodId { get; set; }
         public AnFPaymentMethod AnFPaymentMethod { get; set; }
+        [Column(TypeName = "decimal(12, 2)")]
         public decimal Amount { get; set; }
         public string? Remarks { get; set; }
         public DateTime CollectionDate { get; set; }
