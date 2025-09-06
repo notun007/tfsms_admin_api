@@ -19,6 +19,8 @@ namespace Technofair.Model.ViewModel.TFLoan
 
         public string MonthYear { get; set; }
         [Column(TypeName = "decimal(12,2)")]
+        public decimal LoanAmount { get; set; }
+        [Column(TypeName = "decimal(12,2)")]
         public decimal ScheduledPrincipal { get; set; }
 
         public DateTime DueDate { get; set; }
