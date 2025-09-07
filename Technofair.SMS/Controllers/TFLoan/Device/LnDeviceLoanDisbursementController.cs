@@ -18,6 +18,10 @@ using Technofair.Model.ViewModel.TFLoan;
 using Technofair.Utiity.Enums;
 using Technofair.Utiity.Log;
 using System.Security.Policy;
+using TFSMS.Admin.Service.Common;
+using TFSMS.Admin.Data.Repository.Common;
+using TFSMS.Admin.Model.TFAdmin;
+using TFSMS.Admin.Model.Common;
 
 namespace TFSMS.Admin.Controllers.TFLoan.Device
 {
@@ -27,6 +31,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
     {
         private ILnDeviceLoanDisbursementService service;
         private ITFACompanyCustomerService serviceCompanyCustomer;
+        private ICmnCompanyService serviceCompany;
         private IWebHostEnvironment _hostingEnvironment;
 
         private readonly ITFLogger _logger;
@@ -36,6 +41,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             var dbfactory = new AdminDatabaseFactory();
             service = new LnDeviceLoanDisbursementService(new LnDeviceLoanDisbursementRepository(dbfactory), new AdminUnitOfWork(dbfactory));
             serviceCompanyCustomer = new TFACompanyCustomerService(new TFACompanyCustomerRepository(dbfactory), new AdminUnitOfWork(dbfactory));
+            serviceCompany = new CmnCompanyService(new CmnCompanyRepository(dbfactory), new AdminUnitOfWork(dbfactory));
 
             this._logger = logger;
 
@@ -213,13 +219,32 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         {
             _logger.LogError("loaneeCode: " + loaneeCode);
 
-            var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(loaneeCode);
+            TFACompanyCustomer objCompanyCustomer = new TFACompanyCustomer();
+            CmnCompany objSolutionProvider = new CmnCompany();
+            List<LnDeviceLoanDisbursementViewModel> list = new List<LnDeviceLoanDisbursementViewModel>();
 
-            var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+            try
+            {
+                objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(loaneeCode);
 
-            var url = smsApiBaseUrl + "/api/LnDeviceLoanDisbursement/GetDeviceLoanDisbursementByLoaneeCode?loaneeCode=" + loaneeCode;
+                objSolutionProvider = serviceCompany.GetSolutionProvider();
 
-            var list = await Request<LnDeviceLoanDisbursementViewModel, LnDeviceLoanDisbursementViewModel>.GetCollecttion(url);
+                var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+
+                var url = smsApiBaseUrl + "/api/LnDeviceLoanDisbursement/GetDeviceLoanDisbursementByLoaneeCode?loaneeCode=" + loaneeCode;
+
+                list = await Request<LnDeviceLoanDisbursementViewModel, LnDeviceLoanDisbursementViewModel>.GetCollecttion(url);
+
+                foreach (var item in list)
+                {
+                    item.LenderId = objSolutionProvider.Id;
+                    item.LoaneeId = objCompanyCustomer.Id;
+                }
+            }
+            catch(Exception exp)
+            {
+                throw exp;
+            }
 
             return list;
         }
