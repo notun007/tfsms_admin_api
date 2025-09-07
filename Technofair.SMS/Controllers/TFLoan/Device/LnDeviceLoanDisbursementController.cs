@@ -258,6 +258,12 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                                 LenderCode = disburse.LenderCode,
                                 LoaneeCode = disburse.LoaneeCode,
 
+                                PaymentAmountPerDevice = disburse.PaymentAmountPerDevice,
+                                DueAmountPerDevice = disburse.DueAmountPerDevice,
+                                LnTenureId = disburse.LnTenureId,
+                                MonthlyInstallmentAmount = disburse.MonthlyInstallmentAmount,
+
+
                                 NumberOfDevice = disburse.NumberOfDevice,
                                 Rate = disburse.Rate,
                                 TotalAmount = disburse.TotalAmount,
