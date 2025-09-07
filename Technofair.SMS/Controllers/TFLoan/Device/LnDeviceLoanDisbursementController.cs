@@ -22,6 +22,7 @@ using TFSMS.Admin.Service.Common;
 using TFSMS.Admin.Data.Repository.Common;
 using TFSMS.Admin.Model.TFAdmin;
 using TFSMS.Admin.Model.Common;
+using System.Reflection;
 
 namespace TFSMS.Admin.Controllers.TFLoan.Device
 {
@@ -226,8 +227,11 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             try
             {
                 objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(loaneeCode);
+                //objSolutionProvider = serviceCompany.GetSolutionProvider();
 
-                objSolutionProvider = serviceCompany.GetSolutionProvider();
+                var objCompanyCustomerList = serviceCompanyCustomer.GetAll();
+                var objSolutionProviderList = serviceCompany.GetAll();
+
 
                 var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
 
@@ -235,11 +239,41 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                 list = await Request<LnDeviceLoanDisbursementViewModel, LnDeviceLoanDisbursementViewModel>.GetCollecttion(url);
 
-                foreach (var item in list)
-                {
-                    item.LenderId = objSolutionProvider.Id;
-                    item.LoaneeId = objCompanyCustomer.Id;
-                }
+                var result = from disburse in list
+                             join loanee in objCompanyCustomerList
+                             on disburse.LoaneeCode equals loanee.Code
+                             join lender in objSolutionProviderList
+                             on disburse.LenderCode equals lender.Code
+                             select new LnDeviceLoanDisbursementViewModel
+                             {
+                                Id = disburse.Id,
+                                LoanNo = disburse.LoanNo,
+                                LenderId = lender.Id,
+                                LoaneeId = loanee.Id,
+
+                                LenderCode = disburse.LenderCode,
+                                LoaneeCode = disburse.LoaneeCode,
+
+                                NumberOfDevice = disburse.NumberOfDevice,
+                                Rate = disburse.Rate,
+                                TotalAmount = disburse.TotalAmount,
+                                DownPaymentAmount = disburse.DownPaymentAmount,
+                                LoanAmount = disburse.LoanAmount,
+                                Remarks = disburse.Remarks,
+                                LenderName = disburse.LenderName,
+                                LoaneeName = disburse.LoaneeName,
+                                CreatedDate = disburse.CreatedDate,
+                                InstallmentStartDate = disburse.InstallmentStartDate,
+                                ScheduleCount = disburse.ScheduleCount,
+                                IsScheduled = disburse.IsScheduled
+                             };
+
+
+                //foreach (var item in list)
+                //{
+                //    item.LenderId = objSolutionProvider.Id;
+                //    item.LoaneeId = objCompanyCustomer.Id;
+                //}
             }
             catch(Exception exp)
             {
