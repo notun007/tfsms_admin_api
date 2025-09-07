@@ -23,6 +23,7 @@ using TFSMS.Admin.Data.Repository.Common;
 using TFSMS.Admin.Model.TFAdmin;
 using TFSMS.Admin.Model.Common;
 using System.Reflection;
+using System.Web.Http.Results;
 
 namespace TFSMS.Admin.Controllers.TFLoan.Device
 {
@@ -222,7 +223,10 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
             TFACompanyCustomer objCompanyCustomer = new TFACompanyCustomer();
             CmnCompany objSolutionProvider = new CmnCompany();
-            List<LnDeviceLoanDisbursementViewModel> list = new List<LnDeviceLoanDisbursementViewModel>();
+
+            List<LnDeviceLoanDisbursementViewModel> objDisbursementList = new List<LnDeviceLoanDisbursementViewModel>();
+
+            List<LnDeviceLoanDisbursementViewModel> result = new List<LnDeviceLoanDisbursementViewModel>();
 
             try
             {
@@ -237,9 +241,9 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                 var url = smsApiBaseUrl + "/api/LnDeviceLoanDisbursement/GetDeviceLoanDisbursementByLoaneeCode?loaneeCode=" + loaneeCode;
 
-                list = await Request<LnDeviceLoanDisbursementViewModel, LnDeviceLoanDisbursementViewModel>.GetCollecttion(url);
+                objDisbursementList = await Request<LnDeviceLoanDisbursementViewModel, LnDeviceLoanDisbursementViewModel>.GetCollecttion(url);
 
-                var result = from disburse in list
+                result = (from disburse in objDisbursementList
                              join loanee in objCompanyCustomerList
                              on disburse.LoaneeCode equals loanee.Code
                              join lender in objSolutionProviderList
@@ -266,7 +270,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                                 InstallmentStartDate = disburse.InstallmentStartDate,
                                // ScheduleCount = disburse.ScheduleCount,
                                 IsScheduled = disburse.IsScheduled
-                             };
+                             }).ToList();
 
 
                 //foreach (var item in list)
@@ -280,7 +284,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 throw exp;
             }
 
-            return list;
+            return result;
         }
 
         //New: 25082025
