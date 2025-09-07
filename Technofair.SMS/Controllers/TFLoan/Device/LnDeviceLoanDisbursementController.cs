@@ -264,7 +264,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                                 LoaneeName = disburse.LoaneeName,
                                 CreatedDate = disburse.CreatedDate,
                                 InstallmentStartDate = disburse.InstallmentStartDate,
-                                ScheduleCount = disburse.ScheduleCount,
+                               // ScheduleCount = disburse.ScheduleCount,
                                 IsScheduled = disburse.IsScheduled
                              };
 
