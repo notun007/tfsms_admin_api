@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -34,8 +35,15 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
         [Column(TypeName = "decimal(12, 2)")]
         public decimal MonthlyInstallmentAmount { get; set; }
         public DateTime InstallmentStartDate { get; set; }
+        public short? AnFFinancialServiceProviderTypeId { get; set; }
+        public int? BnkBankId { get; set; }
+        public int? BnkBranchId { get; set; }
+        public int? BnkAccountInfoId { get; set; }
+        [Required]
+        [StringLength(100)]
+        public string? TransactionId { get; set; }
         #endregion
-        public bool IsClosed { get; set; }
+        public bool? IsClosed { get; set; }
         
         public string? Remarks { get; set; }
         public int CreatedBy { get; set; }
