@@ -155,7 +155,18 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
             LnDeviceLoanDisbursement objLnDeviceLoanDisbursement = new LnDeviceLoanDisbursement();
 
+           
+            
             var objExit = service.GetById(obj.Id);
+
+            //Ay validation gulo collection a deya nay...atao collection a deta habe...
+            //Ay validation habe TransactionId deya in both LoanDisbursementRequestObject and LoanDisbursement table a...jodi exist na kare then insert habe shudhu..
+            //Kono update habe na...
+            //r jodi same trx id entry thake then just return and message = "Transaction Id exist...";
+
+
+
+
 
             if (objOperation.Success == true)
             {

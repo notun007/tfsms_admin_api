@@ -39,7 +39,6 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
         public int? BnkBankId { get; set; }
         public int? BnkBranchId { get; set; }
         public int? BnkAccountInfoId { get; set; }
-        [Required]
         [StringLength(100)]
         public string? TransactionId { get; set; }
         #endregion
