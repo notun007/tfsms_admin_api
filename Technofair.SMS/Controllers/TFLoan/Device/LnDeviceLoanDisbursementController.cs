@@ -558,6 +558,10 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                                 LnTenureId = disburse.LnTenureId,
                                 MonthlyInstallmentAmount = disburse.MonthlyInstallmentAmount,
 
+                                AnFFinancialServiceProviderTypeId = disburse.AnFFinancialServiceProviderTypeId,
+                                BnkBankId = disburse.BnkBankId,
+                                BnkBranchId = disburse.BnkBranchId,
+                                BnkAccountInfoId = disburse.BnkAccountInfoId,
 
                                 NumberOfDevice = disburse.NumberOfDevice,
                                 Rate = disburse.Rate,
