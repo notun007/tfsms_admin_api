@@ -29,6 +29,9 @@ namespace TFSMS.Admin.Service.TFLoan.Device
         Task<List<LnDeviceLoanDisbursementViewModel>> GetDeviceLoanDisbursement();
         string NextLoanNo();
         //Asad-1
+
+        //
+        Task<List<LnDeviceLoanDisbursement>> GetDeviceLoanDisbursementByLoaneeCode(string loaneeCode);
         Task<List<DropDownViewModel>> GetLoanDisbursementDdlByLoaneeId(int loaneeId);
 
         Task<LnDeviceLoanDisbursement> GetLoanDisbursementByLoanNo(string loanNo);
@@ -161,6 +164,12 @@ namespace TFSMS.Admin.Service.TFLoan.Device
             return loan;
         }
         //Asad-2
+
+        public async Task<List<LnDeviceLoanDisbursement>> GetDeviceLoanDisbursementByLoaneeCode(string loaneeCode)
+        {
+            var loanList = await repository.GetDeviceLoanDisbursementByLoaneeCode(loaneeCode);
+            return loanList;
+        }
         public async Task<List<DropDownViewModel>> GetLoanDisbursementDdlByLoaneeId(int loaneeId)
         {
             var loanList = await repository.GetLoanDisbursementByLoaneeId(loaneeId);

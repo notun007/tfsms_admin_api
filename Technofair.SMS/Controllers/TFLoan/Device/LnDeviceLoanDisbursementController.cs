@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Security.Policy;
 using System.Web.Http.Results;
@@ -19,6 +20,7 @@ using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 using TFSMS.Admin.Data.Repository.Common;
 using TFSMS.Admin.Data.Repository.TFAdmin;
 using TFSMS.Admin.Data.Repository.TFLoan.Device;
+using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Model.Common;
 using TFSMS.Admin.Model.TFAdmin;
 using TFSMS.Admin.Model.TFLoan.Device;
@@ -519,15 +521,19 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             TFACompanyCustomer objCompanyCustomer = new TFACompanyCustomer();
             CmnCompany objSolutionProvider = new CmnCompany();
 
-            List<LnDeviceLoanDisbursementViewModel> objDisbursementList = new List<LnDeviceLoanDisbursementViewModel>();
+            List<LnDeviceLoanDisbursement> objAdminDisbursementList = new List<LnDeviceLoanDisbursement>();
+
+            List<LnDeviceLoanDisbursementViewModel> objSmsDisbursementList = new List<LnDeviceLoanDisbursementViewModel>();
 
             List<LnDeviceLoanDisbursementViewModel> result = new List<LnDeviceLoanDisbursementViewModel>();
 
             try
             {
-                objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(loaneeCode);
-                //objSolutionProvider = serviceCompany.GetSolutionProvider();
 
+                objAdminDisbursementList = await service.GetDeviceLoanDisbursementByLoaneeCode(loaneeCode);
+
+                objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(loaneeCode);
+             
                 var objCompanyCustomerList = serviceCompanyCustomer.GetAll();
                 var objSolutionProviderList = serviceCompany.GetAll();
 
@@ -536,53 +542,51 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                 var url = smsApiBaseUrl + "/api/LnDeviceLoanDisbursement/GetDeviceLoanDisbursementByLoaneeCode?loaneeCode=" + loaneeCode;
 
-                objDisbursementList = await Request<LnDeviceLoanDisbursementViewModel, LnDeviceLoanDisbursementViewModel>.GetCollecttion(url);
+                objSmsDisbursementList = await Request<LnDeviceLoanDisbursementViewModel, LnDeviceLoanDisbursementViewModel>.GetCollecttion(url);
 
-                result = (from disburse in objDisbursementList
-                             join loanee in objCompanyCustomerList
-                             on disburse.LoaneeCode equals loanee.Code
+                result = (from smsDisburse in objSmsDisbursementList
+                          join adminDisburse in objAdminDisbursementList
+                          on smsDisburse.LoanNo equals adminDisburse.LoanNo
+                          join loanee in objCompanyCustomerList
+                             on smsDisburse.LoaneeCode equals loanee.Code
                              join lender in objSolutionProviderList
-                             on disburse.LenderCode equals lender.Code
+                             on smsDisburse.LenderCode equals lender.Code
                              select new LnDeviceLoanDisbursementViewModel
                              {
-                                Id = disburse.Id,
-                                LoanNo = disburse.LoanNo,
+                                Id = smsDisburse.Id,
+                                LoanNo = smsDisburse.LoanNo,
                                 LenderId = lender.Id,
                                 LoaneeId = loanee.Id,
 
-                                LenderCode = disburse.LenderCode,
-                                LoaneeCode = disburse.LoaneeCode,
+                                LenderCode = smsDisburse.LenderCode,
+                                LoaneeCode = smsDisburse.LoaneeCode,
 
-                                PaymentAmountPerDevice = disburse.PaymentAmountPerDevice,
-                                DueAmountPerDevice = disburse.DueAmountPerDevice,
-                                LnTenureId = disburse.LnTenureId,
-                                MonthlyInstallmentAmount = disburse.MonthlyInstallmentAmount,
+                                PaymentAmountPerDevice = smsDisburse.PaymentAmountPerDevice,
+                                DueAmountPerDevice = smsDisburse.DueAmountPerDevice,
+                                LnTenureId = smsDisburse.LnTenureId,
+                                MonthlyInstallmentAmount = smsDisburse.MonthlyInstallmentAmount,
+                                                                
+                                NumberOfDevice = smsDisburse.NumberOfDevice,
+                                Rate = smsDisburse.Rate,
+                                TotalAmount = smsDisburse.TotalAmount,
+                                DownPaymentAmount = smsDisburse.DownPaymentAmount,
+                                LoanAmount = smsDisburse.LoanAmount,
+                                Remarks = smsDisburse.Remarks,
+                                LenderName = smsDisburse.LenderName,
+                                LoaneeName = smsDisburse.LoaneeName,
+                                CreatedDate = smsDisburse.CreatedDate,
+                                InstallmentStartDate = smsDisburse.InstallmentStartDate,
+                                IsScheduled = smsDisburse.IsScheduled,
 
-                                AnFFinancialServiceProviderTypeId = disburse.AnFFinancialServiceProviderTypeId,
-                                BnkBankId = disburse.BnkBankId,
-                                BnkBranchId = disburse.BnkBranchId,
-                                BnkAccountInfoId = disburse.BnkAccountInfoId,
+                                 AnFFinancialServiceProviderTypeId = adminDisburse.AnFFinancialServiceProviderTypeId,
+                                 BnkBankId = adminDisburse.BnkBankId,
+                                 BnkBranchId = adminDisburse.BnkBranchId,
+                                 BnkAccountInfoId = adminDisburse.BnkAccountInfoId,
+                                 TransactionId = adminDisburse.TransactionId,
+                                
 
-                                NumberOfDevice = disburse.NumberOfDevice,
-                                Rate = disburse.Rate,
-                                TotalAmount = disburse.TotalAmount,
-                                DownPaymentAmount = disburse.DownPaymentAmount,
-                                LoanAmount = disburse.LoanAmount,
-                                Remarks = disburse.Remarks,
-                                LenderName = disburse.LenderName,
-                                LoaneeName = disburse.LoaneeName,
-                                CreatedDate = disburse.CreatedDate,
-                                InstallmentStartDate = disburse.InstallmentStartDate,
-                               // ScheduleCount = disburse.ScheduleCount,
-                                IsScheduled = disburse.IsScheduled
                              }).ToList();
-
-
-                //foreach (var item in list)
-                //{
-                //    item.LenderId = objSolutionProvider.Id;
-                //    item.LoaneeId = objCompanyCustomer.Id;
-                //}
+                               
             }
             catch(Exception exp)
             {

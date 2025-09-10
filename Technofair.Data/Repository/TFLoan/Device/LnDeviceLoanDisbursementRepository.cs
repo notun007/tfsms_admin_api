@@ -24,6 +24,7 @@ namespace TFSMS.Admin.Data.Repository.TFLoan.Device
         Task<List<LnDeviceLoanDisbursementViewModel>> GetDeviceLoanDisbursement();
         DataTable NextLoanNo();
         Task<LnDeviceLoanDisbursement> GetLoanDisbursementByLoanNo(string loanNo);
+        Task<List<LnDeviceLoanDisbursement>> GetDeviceLoanDisbursementByLoaneeCode(string loaneeCode);
         Task<List<LnDeviceLoanDisbursement>> GetLoanDisbursementByLoaneeId(int loaneeId);
         Task<List<string>> GetLoanNoByLoaneeId(int loaneeId);
 
@@ -116,6 +117,14 @@ namespace TFSMS.Admin.Data.Repository.TFLoan.Device
         }
 
         //Asad
+
+        public async Task<List<LnDeviceLoanDisbursement>> GetDeviceLoanDisbursementByLoaneeCode(string loaneeCode)
+        {
+            var loans = await DataContext.LnDeviceLoanDisbursements
+                .Where(d => d.LoaneeCode == loaneeCode)
+                .ToListAsync();
+            return loans;
+        }
         public async Task<List<LnDeviceLoanDisbursement>> GetLoanDisbursementByLoaneeId(int loaneeId)
         {
 
