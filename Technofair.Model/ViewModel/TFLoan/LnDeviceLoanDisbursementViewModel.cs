@@ -15,8 +15,8 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
         public string LoanNo { get; set; }
         public int LenderId { get; set; }       
         public int LoaneeId { get; set; }
-        public string? LenderCode { get; set; }
-        public string? LoaneeCode { get; set; }
+        public string LenderCode { get; set; }
+        public string LoaneeCode { get; set; }
         public Int16 NumberOfDevice { get; set; }
         public decimal Rate { get; set; }
 

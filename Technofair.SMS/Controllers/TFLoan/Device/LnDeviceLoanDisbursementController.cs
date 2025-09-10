@@ -25,6 +25,7 @@ using TFSMS.Admin.Model.Common;
 using System.Reflection;
 using System.Web.Http.Results;
 using Technofair.Utiity.Key;
+using Technofair.Model.TFLoan.Device;
 
 namespace TFSMS.Admin.Controllers.TFLoan.Device
 {
@@ -89,164 +90,276 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             return await service.GetLoanNoByLoaneeId(loaneeId);
         }
 
-        [HttpPost("Save")]
-        public async Task<Operation> Save([FromBody] LnDeviceLoanDisbursementViewModel obj)
+
+        //New: 10092025
+        [HttpPost("SaveDeviceLoanDisbursement")]
+        public async Task<Operation> SaveDeviceLoanDisbursement([FromBody] LnDeviceLoanDisbursementViewModel obj)
         {
+            Operation objReqOperation = new Operation();
             Operation objOperation = new Operation();
 
-
-
-            //LnDeviceLoanDisbursement/SaveLoanDisbursement
-            // LnDeviceLoanDisbursementViewModel objPolicy = new LnDeviceLoanDisbursementViewModel();
-
-            var objDisbursementExit = service.GetById(obj.Id);
+            //RecoverScheduledLoanResponseViewModel objScheduledLoanResponse = new RecoverScheduledLoanResponseViewModel { Success = false, Message = "Failed to recover loan" };
 
             LnDeviceLoanDisbursementViewModel objPayload = new LnDeviceLoanDisbursementViewModel();
 
-            if (objDisbursementExit == null)
+            CmnCompany objSolutionProvider = new CmnCompany();
+            TFACompanyCustomer objCompanyCustomer = new TFACompanyCustomer();
+
+
+            try
             {
-                #region Save To SMS Database by SMS Api
+
+                #region Admin 
+
+                objSolutionProvider = serviceCompany.GetSolutionProvider();
+                objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(obj.LoaneeCode);
+
+                LnDeviceLoanDisbursementRequestObject objRequest = new LnDeviceLoanDisbursementRequestObject();
+                                      
+
+                objRequest.Id = obj.Id;
+                objRequest.LoanNo = obj.LoanNo;
+                objRequest.LenderId = objSolutionProvider.Id;
+                objRequest.LoaneeId = objCompanyCustomer.Id;
+
+                objRequest.LenderCode = obj.LenderCode;
+                objRequest.LoaneeCode = obj.LoaneeCode;
+
+              
+                objRequest.NumberOfDevice = obj.NumberOfDevice;
+                objRequest.Rate = obj.Rate;
+                objRequest.TotalAmount = obj.TotalAmount;
+
+                objRequest.PaymentAmountPerDevice = obj.PaymentAmountPerDevice;
+                objRequest.DueAmountPerDevice = obj.DueAmountPerDevice;
+                objRequest.DownPaymentAmount = obj.DownPaymentAmount;
+
+              
+                objRequest.LoanAmount = obj.LoanAmount;
+                objRequest.LnTenureId = obj.LnTenureId;
+                objRequest.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
+
+                objRequest.InstallmentStartDate = obj.InstallmentStartDate;
+                objRequest.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
+                objRequest.BnkBankId = obj.BnkBankId;
+
+                objRequest.BnkBranchId = obj.BnkBranchId;
+                objRequest.BnkAccountInfoId = obj.BnkAccountInfoId;
+
+                objRequest.Remarks = obj.Remarks;
+                objRequest.TransactionId = KeyGeneration.GenerateTimestamp();
+                objRequest.BnkAccountInfoId = obj.BnkAccountInfoId;
+
+                objRequest.IsSmsSuccess = false;
+                objRequest.IsAdminSuccess = false;
+                objRequest.IsSuccess = false;
+
+                objRequest.CreatedBy = obj.CreatedBy;
+                objRequest.CreatedDate = DateTime.Now;
+
+                //Service + Repository likhben for req object....then uncomment
+                //objReqOperation = await serviceReqObject.Save(objRequest);
+                objReqOperation.Message = "Request Saved Successfully.";
+
+                if (!objReqOperation.Success)
+                {
+                    //objScheduledLoanResponse.Success = objReqOperation.Success;
+                    //objScheduledLoanResponse.Message = objReqOperation.Message;
+                    return objOperation;
+                }
+
+
+                #endregion'
+
+                if (objReqOperation.Success)
+                {
+                    objPayload.Id = obj.Id;
+                    objPayload.LoanNo = obj.LoanNo; //service.NextLoanNo();
+                    objPayload.LenderId = obj.LenderId;
+                    objPayload.LoaneeId = obj.LoaneeId;
+
+                    objPayload.LenderCode = obj.LenderCode;
+                    objPayload.LoaneeCode = obj.LoaneeCode;
+
+                    objPayload.NumberOfDevice = obj.NumberOfDevice;
+                    objPayload.Rate = obj.Rate;
+
+                    objPayload.TotalAmount = obj.TotalAmount;
+                    objPayload.PaymentAmountPerDevice = obj.PaymentAmountPerDevice;
+                    objPayload.DueAmountPerDevice = obj.DueAmountPerDevice;
+                    objPayload.DownPaymentAmount = obj.DownPaymentAmount;
+                    objPayload.LoanAmount = obj.LoanAmount;
+                    objPayload.LnTenureId = obj.LnTenureId;
+                    objPayload.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
+
+                    objPayload.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
+                    objPayload.BnkBankId = obj.BnkBankId;
+                    objPayload.BnkBranchId = obj.BnkBranchId;
+                    objPayload.BnkAccountInfoId = obj.BnkAccountInfoId;
+                    objPayload.TransactionId = objRequest.TransactionId;
+
+                    objPayload.Remarks = obj.Remarks;
+                    objPayload.InstallmentStartDate = obj.InstallmentStartDate;
+                    objPayload.IsClosed = false;
+                    objPayload.CreatedBy = obj.CreatedBy;
+                    objPayload.CreatedDate = DateTime.Now;
+
+                    //var objCompanyCustomer = serviceCompanyCustomer.GetById(obj.LoaneeId);
+
+                    var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+
+                    var url = smsApiBaseUrl + "/api/LnDeviceLoanDisbursement/SaveLoanDisbursement";
+
+                    objOperation = await Request<LnDeviceLoanDisbursementViewModel, Operation>.Post(url, objPayload);
+
+                }
+
+
+                if (!objOperation.Success)
+                {
+                    return objOperation;
+                }
+
+
+                //service lekha hola unccommentt korben
+                //var objCollectionRequest = serviceReqObject.GetById((Int64)objReqOperation.OperationId);
+
+                // ata o unccommentt korben
+                //if (objCollectionRequest == null)
+                //{
+                //    objOperation.Success = false;
+                //    objOperation.Message = "Falied to retrive request object from admin database, loan recovery succeeded in sms database";
+
+                //    return objOperation;
+                //}
+
+
+                // ata o unccommentt korben
+                //objCollectionRequest.IsSmsSuccess = true;
+                //objCollectionRequest.ModifiedBy = obj.CreatedBy;
+                //objCollectionRequest.ModifiedDate = DateTime.Now;
+                //objReqOperation = serviceReqObject.Update(objCollectionRequest);
+
+                if (!objReqOperation.Success)
+                {
+
+                    objOperation.Success = false;
+                    objOperation.Message = "Falied to update request object in admin database, loan recovery succeeded in sms database.";
+
+                    return objOperation;
+                }
 
 
 
-                objPayload.Id = obj.Id;
-                objPayload.LoanNo = obj.LoanNo; //service.NextLoanNo();
-                objPayload.LenderId = obj.LenderId;
-                objPayload.LoaneeId = obj.LoaneeId;
-
-                objPayload.LenderCode = obj.LenderCode;
-                objPayload.LoaneeCode = obj.LoaneeCode;
-
-                objPayload.NumberOfDevice = obj.NumberOfDevice;
-                objPayload.Rate = obj.Rate;
-
-                objPayload.TotalAmount = obj.TotalAmount;
-                objPayload.PaymentAmountPerDevice = obj.PaymentAmountPerDevice;
-                objPayload.DueAmountPerDevice = obj.DueAmountPerDevice;
-                objPayload.DownPaymentAmount = obj.DownPaymentAmount;
-                objPayload.LoanAmount = obj.LoanAmount;
-                objPayload.LnTenureId = obj.LnTenureId;
-                objPayload.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
-
-                objPayload.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
-                objPayload.BnkBankId = obj.BnkBankId;
-                objPayload.BnkBranchId = obj.BnkBranchId;
-                objPayload.BnkAccountInfoId = obj.BnkAccountInfoId;
-                objPayload.TransactionId =KeyGeneration.GenerateTimestamp();
-
-                objPayload.Remarks = obj.Remarks;
-                objPayload.InstallmentStartDate = obj.InstallmentStartDate;
-                objPayload.IsClosed = false;
-                objPayload.CreatedBy = obj.CreatedBy;
-                objPayload.CreatedDate = DateTime.Now;
-
-                var objCompanyCustomer = serviceCompanyCustomer.GetById(obj.LoaneeId);
-
-                var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
-
-                var url = smsApiBaseUrl + "/api/LnDeviceLoanDisbursement/SaveLoanDisbursement";
-
-                objOperation = await Request<LnDeviceLoanDisbursementViewModel, Operation>.Post(url, objPayload);
+                LnDeviceLoanDisbursement objLnDeviceLoanDisbursement = new LnDeviceLoanDisbursement();
 
 
-                #endregion
+                var objExit = service.GetById(obj.Id);
+
+                //Ay validation gulo collection a deya nay...atao collection a deta habe...
+                //Ay validation habe TransactionId deya in both LoanDisbursementRequestObject and LoanDisbursement table a...jodi exist na kare then insert habe shudhu..
+                //Kono update habe na...
+                //r jodi same trx id entry thake then just return and message = "Transaction Id exist...";
+
+
+                if (objOperation.Success == true)
+                {
+                   
+                        objLnDeviceLoanDisbursement.Id = obj.Id;
+                        objLnDeviceLoanDisbursement.LoanNo = objPayload.LoanNo;
+                        objLnDeviceLoanDisbursement.LenderId = obj.LenderId;
+                        objLnDeviceLoanDisbursement.LoaneeId = obj.LoaneeId;
+
+                        objLnDeviceLoanDisbursement.LenderCode = obj.LenderCode;
+                        objLnDeviceLoanDisbursement.LoaneeCode = obj.LoaneeCode;
+
+                        objLnDeviceLoanDisbursement.NumberOfDevice = obj.NumberOfDevice;
+                        objLnDeviceLoanDisbursement.Rate = obj.Rate;
+
+                        objLnDeviceLoanDisbursement.TotalAmount = obj.TotalAmount;
+                        objLnDeviceLoanDisbursement.PaymentAmountPerDevice = obj.PaymentAmountPerDevice;
+                        objLnDeviceLoanDisbursement.DueAmountPerDevice = obj.DueAmountPerDevice;
+                        objLnDeviceLoanDisbursement.DownPaymentAmount = obj.DownPaymentAmount;
+                        objLnDeviceLoanDisbursement.LoanAmount = obj.LoanAmount;
+                        objLnDeviceLoanDisbursement.LnTenureId = obj.LnTenureId;
+                        objLnDeviceLoanDisbursement.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
+
+                        objLnDeviceLoanDisbursement.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
+                        objLnDeviceLoanDisbursement.BnkBankId = obj.BnkBankId;
+                        objLnDeviceLoanDisbursement.BnkBranchId = obj.BnkBranchId;
+                        objLnDeviceLoanDisbursement.BnkAccountInfoId = obj.BnkAccountInfoId;
+                        objLnDeviceLoanDisbursement.TransactionId = objRequest.TransactionId;
+
+                        objLnDeviceLoanDisbursement.Remarks = obj.Remarks;
+                        objLnDeviceLoanDisbursement.InstallmentStartDate = obj.InstallmentStartDate;
+                        objLnDeviceLoanDisbursement.IsClosed = false;
+
+                        objLnDeviceLoanDisbursement.CreatedBy = obj.CreatedBy;
+                        objLnDeviceLoanDisbursement.CreatedDate = DateTime.Now;
+                        objOperation = await service.Save(objLnDeviceLoanDisbursement);
+                        objOperation.Message = "Device Loan Disbursement Created Successfully.";
+                    
+                   
+                }
+
+
+                //Do not remove this block
+                //if (objOperation.Success)
+                //{
+                //    objScheduledLoanResponse.Success = objOperation.Success;
+                //    objScheduledLoanResponse.Message = "Loan Collection succeeded in admin database.";
+                //}
+                //else
+                //{
+                //    objScheduledLoanResponse.Success = objOperation.Success;
+                //    objScheduledLoanResponse.Message = "Loan Collection failed in admin database.";
+                //    return objScheduledLoanResponse;
+                //}
+
+
+                if (objOperation.Success)
+                {
+                    //Uncomment after writting service
+                    //objCollectionRequest = serviceReqObject.GetById((Int64)objReqOperation.OperationId);
+
+                    //objCollectionRequest.IsAdminSuccess = true;
+                    //objCollectionRequest.IsSuccess = true;
+                    //objCollectionRequest.ModifiedBy = obj.CreatedBy;
+                    //objCollectionRequest.ModifiedDate = DateTime.Now;
+                    //objOperation = serviceReqObject.Update(objCollectionRequest);
+
+                    if (objOperation.Success)
+                    {
+                        objOperation.Success = objOperation.Success;
+                        objOperation.Message = "Loan recovery succeeded.";
+                    }
+                    else
+                    {
+                        objOperation.Success = objOperation.Success;
+                        objOperation.Message = "Failed to finalize loan recovery in admin database, please sync.";
+
+                        return objOperation;
+                    }
+                }
+               
+
+            }
+            catch (Exception exp)
+            {
+                throw exp;
             }
 
-
-            LnDeviceLoanDisbursement objLnDeviceLoanDisbursement = new LnDeviceLoanDisbursement();
-
-           
-            
-            var objExit = service.GetById(obj.Id);
-
-            //Ay validation gulo collection a deya nay...atao collection a deta habe...
-            //Ay validation habe TransactionId deya in both LoanDisbursementRequestObject and LoanDisbursement table a...jodi exist na kare then insert habe shudhu..
-            //Kono update habe na...
-            //r jodi same trx id entry thake then just return and message = "Transaction Id exist...";
-
-
-
-
-
-            if (objOperation.Success == true)
-            {
-                if (objExit == null)
-                {
-                    objLnDeviceLoanDisbursement.Id = obj.Id;
-                    objLnDeviceLoanDisbursement.LoanNo = objPayload.LoanNo;
-                    objLnDeviceLoanDisbursement.LenderId = obj.LenderId;
-                    objLnDeviceLoanDisbursement.LoaneeId = obj.LoaneeId;
-
-                    objLnDeviceLoanDisbursement.LenderCode = obj.LenderCode;
-                    objLnDeviceLoanDisbursement.LoaneeCode = obj.LoaneeCode;
-
-                    objLnDeviceLoanDisbursement.NumberOfDevice = obj.NumberOfDevice;
-                    objLnDeviceLoanDisbursement.Rate = obj.Rate;
-
-                    objLnDeviceLoanDisbursement.TotalAmount = obj.TotalAmount;
-                    objLnDeviceLoanDisbursement.PaymentAmountPerDevice = obj.PaymentAmountPerDevice;
-                    objLnDeviceLoanDisbursement.DueAmountPerDevice = obj.DueAmountPerDevice;
-                    objLnDeviceLoanDisbursement.DownPaymentAmount = obj.DownPaymentAmount;
-                    objLnDeviceLoanDisbursement.LoanAmount = obj.LoanAmount;
-                    objLnDeviceLoanDisbursement.LnTenureId = obj.LnTenureId;
-                    objLnDeviceLoanDisbursement.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
-
-                    objLnDeviceLoanDisbursement.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
-                    objLnDeviceLoanDisbursement.BnkBankId = obj.BnkBankId;
-                    objLnDeviceLoanDisbursement.BnkBranchId = obj.BnkBranchId;
-                    objLnDeviceLoanDisbursement.BnkAccountInfoId = obj.BnkAccountInfoId;
-                    objLnDeviceLoanDisbursement.TransactionId = objPayload.TransactionId;
-
-                    objLnDeviceLoanDisbursement.Remarks = obj.Remarks;
-                    objLnDeviceLoanDisbursement.InstallmentStartDate = obj.InstallmentStartDate;
-                    objLnDeviceLoanDisbursement.IsClosed = false;
-
-                    objLnDeviceLoanDisbursement.CreatedBy = obj.CreatedBy;
-                    objLnDeviceLoanDisbursement.CreatedDate = DateTime.Now;
-                    objOperation = await service.Save(objLnDeviceLoanDisbursement);
-                    objOperation.Message = "Device Loan Disbursement Created Successfully.";
-                }
-                if (objExit != null)
-                {
-                    objExit.LenderId = obj.LenderId;
-                    objExit.LoaneeId = obj.LoaneeId;
-                    objExit.NumberOfDevice = obj.NumberOfDevice;
-                    objExit.Rate = obj.Rate;
-
-                    objLnDeviceLoanDisbursement.TotalAmount = obj.TotalAmount;
-                    objLnDeviceLoanDisbursement.PaymentAmountPerDevice = obj.PaymentAmountPerDevice;
-                    objLnDeviceLoanDisbursement.DueAmountPerDevice = obj.DueAmountPerDevice;
-                    objLnDeviceLoanDisbursement.DownPaymentAmount = obj.DownPaymentAmount;
-                    objLnDeviceLoanDisbursement.LoanAmount = obj.LoanAmount;
-                    objLnDeviceLoanDisbursement.LnTenureId = obj.LnTenureId;
-                    objLnDeviceLoanDisbursement.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
-
-                    objLnDeviceLoanDisbursement.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
-                    objLnDeviceLoanDisbursement.BnkBankId = obj.BnkBankId;
-                    objLnDeviceLoanDisbursement.BnkBranchId = obj.BnkBranchId;
-                    objLnDeviceLoanDisbursement.BnkAccountInfoId = obj.BnkAccountInfoId;
-                    objLnDeviceLoanDisbursement.TransactionId = obj.TransactionId;
-
-                    objExit.Remarks = obj.Remarks;
-                    objExit.InstallmentStartDate = obj.InstallmentStartDate;
-                    objExit.ModifiedBy = obj.ModifiedBy;
-                    objExit.ModifiedDate = DateTime.Now;
-                    objOperation = service.Update(objExit);
-                    objOperation.Message = "Device Loan Disbursement Updated Successfully.";
-                }
-            }
             return objOperation;
         }
+
+
+
+        //Old: 10092025
 
         //[HttpPost("Save")]
         //public async Task<Operation> Save([FromBody] LnDeviceLoanDisbursementViewModel obj)
         //{
         //    Operation objOperation = new Operation();
-
-
-
-        //    //LnDeviceLoanDisbursement/SaveLoanDisbursement
-        //   // LnDeviceLoanDisbursementViewModel objPolicy = new LnDeviceLoanDisbursementViewModel();
 
         //    var objDisbursementExit = service.GetById(obj.Id);
 
@@ -277,6 +390,12 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         //        objPayload.LnTenureId = obj.LnTenureId;
         //        objPayload.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
 
+        //        objPayload.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
+        //        objPayload.BnkBankId = obj.BnkBankId;
+        //        objPayload.BnkBranchId = obj.BnkBranchId;
+        //        objPayload.BnkAccountInfoId = obj.BnkAccountInfoId;
+        //        objPayload.TransactionId =KeyGeneration.GenerateTimestamp();
+
         //        objPayload.Remarks = obj.Remarks;
         //        objPayload.InstallmentStartDate = obj.InstallmentStartDate;
         //        objPayload.IsClosed = false;
@@ -298,7 +417,14 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
         //    LnDeviceLoanDisbursement objLnDeviceLoanDisbursement = new LnDeviceLoanDisbursement();
 
+
         //    var objExit = service.GetById(obj.Id);
+
+        //    //Ay validation gulo collection a deya nay...atao collection a deta habe...
+        //    //Ay validation habe TransactionId deya in both LoanDisbursementRequestObject and LoanDisbursement table a...jodi exist na kare then insert habe shudhu..
+        //    //Kono update habe na...
+        //    //r jodi same trx id entry thake then just return and message = "Transaction Id exist...";
+
 
         //    if (objOperation.Success == true)
         //    {
@@ -323,12 +449,18 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         //            objLnDeviceLoanDisbursement.LnTenureId = obj.LnTenureId;
         //            objLnDeviceLoanDisbursement.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
 
+        //            objLnDeviceLoanDisbursement.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
+        //            objLnDeviceLoanDisbursement.BnkBankId = obj.BnkBankId;
+        //            objLnDeviceLoanDisbursement.BnkBranchId = obj.BnkBranchId;
+        //            objLnDeviceLoanDisbursement.BnkAccountInfoId = obj.BnkAccountInfoId;
+        //            objLnDeviceLoanDisbursement.TransactionId = objPayload.TransactionId;
+
         //            objLnDeviceLoanDisbursement.Remarks = obj.Remarks;
         //            objLnDeviceLoanDisbursement.InstallmentStartDate = obj.InstallmentStartDate;
         //            objLnDeviceLoanDisbursement.IsClosed = false;
 
         //            objLnDeviceLoanDisbursement.CreatedBy = obj.CreatedBy;
-        //            objLnDeviceLoanDisbursement.CreatedDate = DateTime.Now;    
+        //            objLnDeviceLoanDisbursement.CreatedDate = DateTime.Now;
         //            objOperation = await service.Save(objLnDeviceLoanDisbursement);
         //            objOperation.Message = "Device Loan Disbursement Created Successfully.";
         //        }
@@ -346,6 +478,13 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         //            objLnDeviceLoanDisbursement.LoanAmount = obj.LoanAmount;
         //            objLnDeviceLoanDisbursement.LnTenureId = obj.LnTenureId;
         //            objLnDeviceLoanDisbursement.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
+
+        //            objLnDeviceLoanDisbursement.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
+        //            objLnDeviceLoanDisbursement.BnkBankId = obj.BnkBankId;
+        //            objLnDeviceLoanDisbursement.BnkBranchId = obj.BnkBranchId;
+        //            objLnDeviceLoanDisbursement.BnkAccountInfoId = obj.BnkAccountInfoId;
+        //            objLnDeviceLoanDisbursement.TransactionId = obj.TransactionId;
+
         //            objExit.Remarks = obj.Remarks;
         //            objExit.InstallmentStartDate = obj.InstallmentStartDate;
         //            objExit.ModifiedBy = obj.ModifiedBy;
@@ -356,6 +495,10 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         //    }
         //    return objOperation;
         //}
+
+
+
+
 
         [HttpPost("GetDeviceLoanDisbursement")]
         public Task<List<LnDeviceLoanDisbursementViewModel>> GetDeviceLoanDisbursement()
