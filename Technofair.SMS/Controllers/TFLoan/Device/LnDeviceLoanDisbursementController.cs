@@ -1,31 +1,31 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
+using System.Security.Policy;
+using System.Web.Http.Results;
 using Technofair.Data.Infrastructure;
 using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Data.Repository.TFLoan.Device;
-
 //using Technofair.Data.Repository.Loan.Device;
 using Technofair.Lib.Model;
+using Technofair.Model.TFLoan.Device;
+using Technofair.Model.ViewModel.TFLoan;
+using Technofair.Service.TFLoan.Device;
+using Technofair.Utiity.Enums;
+using Technofair.Utiity.Http;
+using Technofair.Utiity.Key;
+using Technofair.Utiity.Log;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.Common;
+using TFSMS.Admin.Data.Repository.TFAdmin;
+using TFSMS.Admin.Data.Repository.TFLoan.Device;
+using TFSMS.Admin.Model.Common;
+using TFSMS.Admin.Model.TFAdmin;
 using TFSMS.Admin.Model.TFLoan.Device;
 using TFSMS.Admin.Model.ViewModel.TFLoan;
-using TFSMS.Admin.Service.TFLoan.Device;
-using TFSMS.Admin.Data.Repository.TFLoan.Device;
-using Technofair.Utiity.Http;
-using TFSMS.Admin.Service.TFAdmin;
-using TFSMS.Admin.Data.Repository.TFAdmin;
-using Technofair.Model.ViewModel.TFLoan;
-using Technofair.Utiity.Enums;
-using Technofair.Utiity.Log;
-using System.Security.Policy;
 using TFSMS.Admin.Service.Common;
-using TFSMS.Admin.Data.Repository.Common;
-using TFSMS.Admin.Model.TFAdmin;
-using TFSMS.Admin.Model.Common;
-using System.Reflection;
-using System.Web.Http.Results;
-using Technofair.Utiity.Key;
-using Technofair.Model.TFLoan.Device;
+using TFSMS.Admin.Service.TFAdmin;
+using TFSMS.Admin.Service.TFLoan.Device;
 
 namespace TFSMS.Admin.Controllers.TFLoan.Device
 {
@@ -36,6 +36,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         private ILnDeviceLoanDisbursementService service;
         private ITFACompanyCustomerService serviceCompanyCustomer;
         private ICmnCompanyService serviceCompany;
+        private ILnDeviceLoanDisbursementRequestObjectService serviceReqObject;
         private IWebHostEnvironment _hostingEnvironment;
 
         private readonly ITFLogger _logger;
@@ -46,6 +47,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             service = new LnDeviceLoanDisbursementService(new LnDeviceLoanDisbursementRepository(dbfactory), new AdminUnitOfWork(dbfactory));
             serviceCompanyCustomer = new TFACompanyCustomerService(new TFACompanyCustomerRepository(dbfactory), new AdminUnitOfWork(dbfactory));
             serviceCompany = new CmnCompanyService(new CmnCompanyRepository(dbfactory), new AdminUnitOfWork(dbfactory));
+            serviceReqObject = new LnDeviceLoanDisbursementRequestObjectService(new LnDeviceLoanDisbursementRequestObjectRepository(dbfactory), new AdminUnitOfWork(dbfactory));
 
             this._logger = logger;
 
@@ -158,7 +160,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 objRequest.CreatedDate = DateTime.Now;
 
                 //Service + Repository likhben for req object....then uncomment
-                //objReqOperation = await serviceReqObject.Save(objRequest);
+                objReqOperation = await serviceReqObject.Save(objRequest);
                 objReqOperation.Message = "Request Saved Successfully.";
 
                 if (!objReqOperation.Success)
@@ -222,23 +224,23 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
 
                 //service lekha hola unccommentt korben
-                //var objCollectionRequest = serviceReqObject.GetById((Int64)objReqOperation.OperationId);
+                var objCollectionRequest = serviceReqObject.GetById((Int64)objReqOperation.OperationId);
 
                 // ata o unccommentt korben
-                //if (objCollectionRequest == null)
-                //{
-                //    objOperation.Success = false;
-                //    objOperation.Message = "Falied to retrive request object from admin database, loan recovery succeeded in sms database";
+                if (objCollectionRequest == null)
+                {
+                    objOperation.Success = false;
+                    objOperation.Message = "Falied to retrive request object from admin database, loan recovery succeeded in sms database";
 
-                //    return objOperation;
-                //}
+                    return objOperation;
+                }
 
 
                 // ata o unccommentt korben
-                //objCollectionRequest.IsSmsSuccess = true;
-                //objCollectionRequest.ModifiedBy = obj.CreatedBy;
-                //objCollectionRequest.ModifiedDate = DateTime.Now;
-                //objReqOperation = serviceReqObject.Update(objCollectionRequest);
+                objCollectionRequest.IsSmsSuccess = true;
+                objCollectionRequest.ModifiedBy = obj.CreatedBy;
+                objCollectionRequest.ModifiedDate = DateTime.Now;
+                objReqOperation = serviceReqObject.Update(objCollectionRequest);
 
                 if (!objReqOperation.Success)
                 {
@@ -320,13 +322,13 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 if (objOperation.Success)
                 {
                     //Uncomment after writting service
-                    //objCollectionRequest = serviceReqObject.GetById((Int64)objReqOperation.OperationId);
+                    objCollectionRequest = serviceReqObject.GetById((Int64)objReqOperation.OperationId);
 
-                    //objCollectionRequest.IsAdminSuccess = true;
-                    //objCollectionRequest.IsSuccess = true;
-                    //objCollectionRequest.ModifiedBy = obj.CreatedBy;
-                    //objCollectionRequest.ModifiedDate = DateTime.Now;
-                    //objOperation = serviceReqObject.Update(objCollectionRequest);
+                    objCollectionRequest.IsAdminSuccess = true;
+                    objCollectionRequest.IsSuccess = true;
+                    objCollectionRequest.ModifiedBy = obj.CreatedBy;
+                    objCollectionRequest.ModifiedDate = DateTime.Now;
+                    objOperation = serviceReqObject.Update(objCollectionRequest);
 
                     if (objOperation.Success)
                     {

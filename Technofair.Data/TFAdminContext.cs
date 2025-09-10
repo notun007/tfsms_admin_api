@@ -142,6 +142,7 @@ namespace TFSMS.Admin.Data
         public DbSet<LnDeviceLender> LnDeviceLenders { get; set; }
         public DbSet<LnLoanModel> LnLoanModels { get; set; }
         public DbSet<LnTenure> LnTenures { get; set; }
+        public DbSet<LnDeviceLoanDisbursementRequestObject> LnDeviceLoanDisbursementRequestObjects { get; set; }
         #endregion
 
 
