@@ -76,5 +76,10 @@ namespace TFSMS.Admin.Controllers.Accounts
             }
             return objOperation;
         }
+        [HttpGet("GetFinancialServiceProviderByFinancialServiceProviderTypeId")]
+        public async Task<List<AnFFinancialServiceProvider>> GetFinancialServiceProviderByFinancialServiceProviderTypeId(Int16 Id)
+        {
+            return await service.GetFinancialServiceProviderByFinancialServiceProviderTypeId(Id);
+        }
     }
 }

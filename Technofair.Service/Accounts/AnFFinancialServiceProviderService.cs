@@ -17,6 +17,7 @@ namespace TFSMS.Admin.Service.Accounts
         Operation Save(AnFFinancialServiceProvider obj);
         Operation Delete(AnFFinancialServiceProvider obj);
         AnFFinancialServiceProvider GetById(Int16 Id);
+        Task<List<AnFFinancialServiceProvider>> GetFinancialServiceProviderByFinancialServiceProviderTypeId(Int16 Id);
         Operation Update(AnFFinancialServiceProvider obj);
         List<AnFFinancialServiceProvider> GetAll();
     }
@@ -91,6 +92,12 @@ namespace TFSMS.Admin.Service.Accounts
         {
             AnFFinancialServiceProvider obj = repository.GetById(Id);
             return obj;
+        }
+
+        public async Task<List<AnFFinancialServiceProvider>> GetFinancialServiceProviderByFinancialServiceProviderTypeId(Int16 Id)
+        {
+            List<AnFFinancialServiceProvider> list = await repository.GetFinancialServiceProviderByFinancialServiceProviderTypeId(Id);
+            return list;
         }
     }
 }

@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using Microsoft.EntityFrameworkCore;
 
 namespace TFSMS.Admin.Data.Repository.Accounts
 {
     public interface IAnFFinancialServiceProviderRepository : IRepository<AnFFinancialServiceProvider>
     {
         Int16 AddEntity(AnFFinancialServiceProvider obj);
+        Task<List<AnFFinancialServiceProvider>> GetFinancialServiceProviderByFinancialServiceProviderTypeId(Int16 Id);
     }
     public class AnFFinancialServiceProviderRepository : AdminBaseRepository<AnFFinancialServiceProvider>, IAnFFinancialServiceProviderRepository
     {
@@ -33,6 +35,15 @@ namespace TFSMS.Admin.Data.Repository.Accounts
             obj.Id = Id;
             base.Add(obj);
             return Id;
+        }
+
+        public async Task<List<AnFFinancialServiceProvider>> GetFinancialServiceProviderByFinancialServiceProviderTypeId(Int16 Id)
+        {
+            List <AnFFinancialServiceProvider> objProviderList = new List<AnFFinancialServiceProvider>();
+            objProviderList = await
+            DataContext.AnFFinancialServiceProviders.Where(x=> x.AnFFinancialServiceProviderTypeId == Id).ToListAsync();
+
+            return objProviderList;
         }
     }
 }
