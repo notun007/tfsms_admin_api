@@ -5,19 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Technofair.Model.Accounts;
+using Technofair.Model.Bank;
+using Technofair.Model.TFLoan.Device;
+using Technofair.Utiity.Helper;
 using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Model.Common;
 using TFSMS.Admin.Model.HRM;
 using TFSMS.Admin.Model.Security;
-
-
 //using TFSMS.Admin.Model.Accounts;
 //using TFSMS.Admin.Model.Common;
 using TFSMS.Admin.Model.TFAdmin;
 using TFSMS.Admin.Model.TFLoan.Device;
-using Technofair.Utiity.Helper;
-using Technofair.Model.TFLoan.Device;
-using Technofair.Model.Bank;
 
 namespace TFSMS.Admin.Data
 {
@@ -119,6 +118,9 @@ namespace TFSMS.Admin.Data
         public DbSet<AnFPaymentChannel> AnFPaymentChannels { get; set; }
         public DbSet<AnFFinancialServiceProvider> AnFFinancialServiceProviders { get; set; }
         public DbSet<AnFPaymentMethod> AnFPaymentMethods { get; set; }
+        public DbSet<AnFAccountInfo> AnFAccountInfos {  get; set; }
+        public DbSet<AnFBranch> AnFBranches {  get; set; }
+
         public DbSet<CmnAppSetting> CmnAppSettings { get; set; }
         public DbSet<CmnCompanyType> CmnCompanyTypes { get; set; }
         public DbSet<CmnCompany> CmnCompanies { get; set; }
