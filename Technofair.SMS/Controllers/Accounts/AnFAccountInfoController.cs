@@ -27,5 +27,12 @@ namespace TFSMS.Admin.Controllers.Accounts
             List<AnFAccountInfo> list = service.GetAll();
             return list;
         }
+
+        [HttpPost("GetAccountInfoByBranchId")]
+        public List<AnFAccountInfo> GetAccountInfoByBranchId(short financialServiceProviderId, short branchId)
+        {
+            List<AnFAccountInfo> list = service.GetAll().Where(x => x.AnFFinancialServiceProviderId == financialServiceProviderId && x.AnFBranchId == branchId).ToList();
+            return list;
+        }
     }
 }

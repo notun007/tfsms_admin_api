@@ -63,19 +63,13 @@ namespace Technofair.Model.TFLoan.Device
         public string TransactionId { get; set; }
 
         public short? AnFFinancialServiceProviderTypeId { get; set; }
-
+        public short? AnFFinancialServiceProviderId { get; set; }
         public int? BnkBankId { get; set; }
-
-        public int? BnkBranchId { get; set; }
-
-        public int? BnkAccountInfoId { get; set; }
-
+        public short? AnFBranchId { get; set; }
+        public short? AnFAccountInfoId { get; set; }
         public bool IsSmsSuccess { get; set; }
-
         public bool IsAdminSuccess { get; set; }
-
         public bool IsSuccess { get; set; }
-
         public bool IsClosed { get; set; }
 
         public int CreatedBy { get; set; }

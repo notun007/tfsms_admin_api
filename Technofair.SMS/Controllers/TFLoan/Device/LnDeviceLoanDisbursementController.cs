@@ -145,14 +145,15 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                 objRequest.InstallmentStartDate = obj.InstallmentStartDate;
                 objRequest.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
+                objRequest.AnFFinancialServiceProviderId = obj.AnFFinancialServiceProviderId;
                 objRequest.BnkBankId = obj.BnkBankId;
 
-                objRequest.BnkBranchId = obj.BnkBranchId;
-                objRequest.BnkAccountInfoId = obj.BnkAccountInfoId;
+                objRequest.AnFBranchId = obj.AnFBranchId;
+                objRequest.AnFAccountInfoId = obj.AnFAccountInfoId;
 
                 objRequest.Remarks = obj.Remarks;
                 objRequest.TransactionId = KeyGeneration.GenerateTimestamp();
-                objRequest.BnkAccountInfoId = obj.BnkAccountInfoId;
+                objRequest.AnFAccountInfoId = obj.AnFAccountInfoId;
 
                 objRequest.IsSmsSuccess = false;
                 objRequest.IsAdminSuccess = false;
@@ -197,9 +198,10 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                     objPayload.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
 
                     objPayload.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
+                    objPayload.AnFFinancialServiceProviderId = obj.AnFFinancialServiceProviderId;
                     objPayload.BnkBankId = obj.BnkBankId;
-                    objPayload.BnkBranchId = obj.BnkBranchId;
-                    objPayload.BnkAccountInfoId = obj.BnkAccountInfoId;
+                    objPayload.AnFBranchId = obj.AnFBranchId;
+                    objPayload.AnFAccountInfoId = obj.AnFAccountInfoId;
                     objPayload.TransactionId = objRequest.TransactionId;
 
                     objPayload.Remarks = obj.Remarks;
@@ -289,9 +291,10 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                         objLnDeviceLoanDisbursement.MonthlyInstallmentAmount = obj.MonthlyInstallmentAmount;
 
                         objLnDeviceLoanDisbursement.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
+                        objLnDeviceLoanDisbursement.AnFFinancialServiceProviderId = obj.AnFFinancialServiceProviderId;
                         objLnDeviceLoanDisbursement.BnkBankId = obj.BnkBankId;
-                        objLnDeviceLoanDisbursement.BnkBranchId = obj.BnkBranchId;
-                        objLnDeviceLoanDisbursement.BnkAccountInfoId = obj.BnkAccountInfoId;
+                        objLnDeviceLoanDisbursement.AnFBranchId = obj.AnFBranchId;
+                        objLnDeviceLoanDisbursement.AnFAccountInfoId = obj.AnFAccountInfoId;
                         objLnDeviceLoanDisbursement.TransactionId = objRequest.TransactionId;
 
                         objLnDeviceLoanDisbursement.Remarks = obj.Remarks;
@@ -579,9 +582,10 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                                 IsScheduled = smsDisburse.IsScheduled,
 
                                  AnFFinancialServiceProviderTypeId = adminDisburse.AnFFinancialServiceProviderTypeId,
+                                 AnFFinancialServiceProviderId = adminDisburse.AnFFinancialServiceProviderId,
                                  BnkBankId = adminDisburse.BnkBankId,
-                                 BnkBranchId = adminDisburse.BnkBranchId,
-                                 BnkAccountInfoId = adminDisburse.BnkAccountInfoId,
+                                 AnFBranchId = adminDisburse.AnFBranchId,
+                                 AnFAccountInfoId = adminDisburse.AnFAccountInfoId,
                                  TransactionId = adminDisburse.TransactionId,
                                 
 
