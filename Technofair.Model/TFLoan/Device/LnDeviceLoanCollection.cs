@@ -43,6 +43,9 @@ namespace TFSMS.Admin.Model.TFLoan.Device
         public string TransactionId { get; set; }
         #region New
         public Int16? AnFFinancialServiceProviderTypeId { get; set; }
+        public short? AnFFinancialServiceProviderId { get; set; }
+        public short? AnFBranchId { get; set; }
+        public short? AnFAccountInfoId { get; set; }
         public int? BnkBankId { get; set; }
         public int? BnkBranchId { get; set; }
         public int? BnkAccountInfoId { get; set; }
