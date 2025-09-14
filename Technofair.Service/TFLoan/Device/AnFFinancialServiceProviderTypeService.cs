@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 using Technofair.Data.Infrastructure;
 using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Data.Repository.TFLoan.Device;
-
-//using Technofair.Data.Repository.Accounts;
-//using Technofair.Data.Repository.Subscription;
 using Technofair.Lib.Model;
 using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Data.Repository.Accounts;
+using TFSMS.Admin.Data.Repository.TFLoan.Device;
 
 
 namespace TFSMS.Admin.Service.TFLoan.Device

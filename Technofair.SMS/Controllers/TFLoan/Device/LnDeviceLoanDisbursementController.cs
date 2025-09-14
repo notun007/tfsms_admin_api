@@ -1,33 +1,25 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿
+
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
-using System.Security.Policy;
-using System.Web.Http.Results;
-using Technofair.Data.Infrastructure;
-using Technofair.Data.Infrastructure.TFAdmin;
-using Technofair.Data.Repository.TFLoan.Device;
-//using Technofair.Data.Repository.Loan.Device;
-using Technofair.Lib.Model;
-using Technofair.Model.TFLoan.Device;
-using Technofair.Model.ViewModel.TFLoan;
 using Technofair.Service.TFLoan.Device;
-using Technofair.Utiity.Enums;
-using Technofair.Utiity.Http;
-using Technofair.Utiity.Key;
 using Technofair.Utiity.Log;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
-using TFSMS.Admin.Data.Repository.Common;
-using TFSMS.Admin.Data.Repository.TFAdmin;
-using TFSMS.Admin.Data.Repository.TFLoan.Device;
-using TFSMS.Admin.Model.Accounts;
-using TFSMS.Admin.Model.Common;
-using TFSMS.Admin.Model.TFAdmin;
-using TFSMS.Admin.Model.TFLoan.Device;
-using TFSMS.Admin.Model.ViewModel.TFLoan;
 using TFSMS.Admin.Service.Common;
 using TFSMS.Admin.Service.TFAdmin;
 using TFSMS.Admin.Service.TFLoan.Device;
+using TFSMS.Admin.Data.Repository.TFLoan.Device;
+using TFSMS.Admin.Data.Repository.TFAdmin;
+using TFSMS.Admin.Data.Repository.Common;
+using Technofair.Data.Repository.TFLoan.Device;
+using TFSMS.Admin.Model.TFLoan.Device;
+using Technofair.Lib.Model;
+using TFSMS.Admin.Model.ViewModel.TFLoan;
+using TFSMS.Admin.Model.Common;
+using TFSMS.Admin.Model.TFAdmin;
+using Technofair.Model.TFLoan.Device;
+using Technofair.Utiity.Http;
+using Technofair.Model.ViewModel.TFLoan;
+using Technofair.Utiity.Key;
 
 namespace TFSMS.Admin.Controllers.TFLoan.Device
 {
@@ -39,6 +31,9 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         private ITFACompanyCustomerService serviceCompanyCustomer;
         private ICmnCompanyService serviceCompany;
         private ILnDeviceLoanDisbursementRequestObjectService serviceReqObject;
+
+        private IAnFFinancialServiceProviderTypeService serviceProviderType;
+
         private IWebHostEnvironment _hostingEnvironment;
 
         private readonly ITFLogger _logger;
@@ -50,6 +45,8 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
             serviceCompanyCustomer = new TFACompanyCustomerService(new TFACompanyCustomerRepository(dbfactory), new AdminUnitOfWork(dbfactory));
             serviceCompany = new CmnCompanyService(new CmnCompanyRepository(dbfactory), new AdminUnitOfWork(dbfactory));
             serviceReqObject = new LnDeviceLoanDisbursementRequestObjectService(new LnDeviceLoanDisbursementRequestObjectRepository(dbfactory), new AdminUnitOfWork(dbfactory));
+
+            serviceProviderType = new AnFFinancialServiceProviderTypeService(new AnFFinancialServiceProviderTypRepository(dbfactory), new AdminUnitOfWork(dbfactory));
 
             this._logger = logger;
 
@@ -528,6 +525,8 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
             List<LnDeviceLoanDisbursementViewModel> objSmsDisbursementList = new List<LnDeviceLoanDisbursementViewModel>();
 
+            var objServiceProviderList = serviceProviderType.GetAll();
+
             List<LnDeviceLoanDisbursementViewModel> result = new List<LnDeviceLoanDisbursementViewModel>();
 
             try
@@ -554,6 +553,10 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                              on smsDisburse.LoaneeCode equals loanee.Code
                              join lender in objSolutionProviderList
                              on smsDisburse.LenderCode equals lender.Code
+
+                            join serviceProvider in objServiceProviderList
+                            on adminDisburse.AnFFinancialServiceProviderTypeId equals serviceProvider.Id
+
                              select new LnDeviceLoanDisbursementViewModel
                              {
                                 Id = smsDisburse.Id,
@@ -587,7 +590,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                                  AnFBranchId = adminDisburse.AnFBranchId,
                                  AnFAccountInfoId = adminDisburse.AnFAccountInfoId,
                                  TransactionId = adminDisburse.TransactionId,
-                                
+                                 FinancialServiceProviderTypeName = serviceProvider.Name
 
                              }).ToList();
                                

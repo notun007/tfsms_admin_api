@@ -53,6 +53,7 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
         public string? LenderName {  get; set; }
         public string? LoaneeName {  get; set; }
         public bool? IsScheduled { get; set; }
-        //public Int16? ScheduleCount { get; set; }
+
+        public string? FinancialServiceProviderTypeName { get; set; }
     }
 }

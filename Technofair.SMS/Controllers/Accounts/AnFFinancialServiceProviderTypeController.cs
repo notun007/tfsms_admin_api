@@ -6,10 +6,12 @@ using Technofair.Data.Repository.Accounts;
 using Technofair.Lib.Model;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 using TFSMS.Admin.Data.Repository.Accounts;
+using TFSMS.Admin.Data.Repository.TFLoan.Device;
 using TFSMS.Admin.Model.Accounts;
 
 using TFSMS.Admin.Model.ViewModel.Accounts;
 using TFSMS.Admin.Service.Accounts;
+using TFSMS.Admin.Service.TFLoan.Device;
 
 namespace TFSMS.Admin.Controllers.Accounts
 {

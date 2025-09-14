@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Repository\Accounts\AnFFinancialServiceProviderTypRepository.cs" />
     <Compile Remove="Repository\Accounts\AnFPaymentMethodDetailRepository.cs" />
     <Compile Remove="Repository\Common\CmnAppSettingRepository.cs" />
     <Compile Remove="Repository\Subscription\ScpDeviceAssignRepository.cs" />
