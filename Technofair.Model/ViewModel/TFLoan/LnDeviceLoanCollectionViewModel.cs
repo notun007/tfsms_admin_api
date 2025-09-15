@@ -28,9 +28,9 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
         public string? Loanee { get; set; }
         public string LenderCode { get; set; }
         public string LoaneeCode { get; set; }
-        public Int16 AnFPaymentMethodId { get; set; }
+      
         //Extra
-        public string? PaymentMethod { get; set; }
+        //public string? PaymentMethod { get; set; }
         public decimal Amount { get; set; }
         public decimal? PaymentChargePercent { get; set; }
         public decimal? PaymentCharge { get; set; }

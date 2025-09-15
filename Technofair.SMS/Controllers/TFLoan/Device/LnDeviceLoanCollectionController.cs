@@ -133,7 +133,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                         objPayload.loanNo = obj.LoanNo;
                         objPayload.LoanId = obj.LoanId;
                         objPayload.LnLoanCollectionTypeId = obj.LnLoanCollectionTypeId;
-                        objPayload.AnFPaymentMethodId = obj.AnFPaymentMethodId;
+                        //objPayload.AnFPaymentMethodId = obj.AnFPaymentMethodId;
                         objPayload.LenderCode = obj.LenderCode;
                         objPayload.LoaneeCode = obj.LoaneeCode;
                         objPayload.Amount = obj.Amount;
@@ -199,7 +199,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                         objCollection.Id = obj.Id;
                         objCollection.LoanId = obj.LoanId;
                         objCollection.LnLoanCollectionTypeId = obj.LnLoanCollectionTypeId;
-                        objCollection.AnFPaymentMethodId = obj.AnFPaymentMethodId;
+                        //objCollection.AnFPaymentMethodId = obj.AnFPaymentMethodId;
                         objCollection.LenderId = objSolutionProvider.Id;
                         objCollection.LoaneeId = objCompanyCustomer.Id;
 
