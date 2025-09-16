@@ -30,6 +30,7 @@ namespace TFSMS.Admin.Data.Repository.TFLoan.Device
         Task AddRangeDeviceLoanCollectionAsync(List<LnDeviceLoanCollection> objList);
         DeviceLoanInfoViewModel GetDeviceLoanInfo(int lenderId, int loaneeId);
         DeviceLoanInfoViewModel GetDeviceLoanInfoByAppKey(string appKey);
+        Task<List<LnDeviceLoanCollectionViewModel>> GetLoanCollectionByLoanId(Int64 loanId);
 
     }
     public class LnDeviceLoanCollectionRepository : AdminBaseRepository<LnDeviceLoanCollection>, ILnDeviceLoanCollectionRepository
@@ -162,6 +163,35 @@ namespace TFSMS.Admin.Data.Repository.TFLoan.Device
                 param[1] = new SqlParameter("@loaneeId", loaneeId);
 
                 dt = Helper.ExecuteDataset(DataContext.Database.GetDbConnection().ConnectionString, CommandType.StoredProcedure, SPList.SubscriberSP.GetLoanCollection, param).Tables[0];
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        list.Add(((LnDeviceLoanCollectionViewModel)Helper.FillTo(row, typeof(LnDeviceLoanCollectionViewModel))));
+                    }
+
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw ex; ;
+            }
+        }
+
+        public async Task<List<LnDeviceLoanCollectionViewModel>> GetLoanCollectionByLoanId(Int64 loanId)
+        {
+            List<LnDeviceLoanCollectionViewModel> list = new List<LnDeviceLoanCollectionViewModel>();
+
+            try
+            {
+
+                DataTable dt = new DataTable();
+
+                SqlParameter[] paramsToStore = new SqlParameter[1];
+                paramsToStore[0] = new SqlParameter("@LoanId", loanId);
+                dt = Helper.ExecuteDataReader(DataContext.Database.GetDbConnection().ConnectionString, CommandType.StoredProcedure, SPList.SubscriberSP.GetLoanCollectionByLoanId, paramsToStore);
+                //dt = Helper.ExecuteDataset(DataContext.Database.GetDbConnection().ConnectionString, CommandType.StoredProcedure, SPList.SubscriberSP.GetLoanCollectionByLoanId, paramsToStore).Tables[0];
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     foreach (DataRow row in dt.Rows)

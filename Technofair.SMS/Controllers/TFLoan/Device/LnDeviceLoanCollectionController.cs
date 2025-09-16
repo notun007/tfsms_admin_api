@@ -369,5 +369,13 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
             return objPlan;
         }
+
+       // [Authorize]
+        [HttpPost("GetLoanCollectionByLoanId")]
+        public async Task<List<LnDeviceLoanCollectionViewModel>> GetLoanCollectionByLoanId(Int64 loanId)
+        {
+            List<LnDeviceLoanCollectionViewModel> list = await service.GetLoanCollectionByLoanId(loanId);
+            return list;
+        }
     }
 }

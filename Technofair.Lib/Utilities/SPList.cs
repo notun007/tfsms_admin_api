@@ -624,6 +624,7 @@ namespace Technofair.Lib.Utilities
             //public static string GetAlternatePaymentLog = "GetAlternatePaymentLog";
             public static string GetPaymentLog = "GetPaymentLog";
             public static string GetLoanCollection = "GetLoanCollection";
+            public static string GetLoanCollectionByLoanId = "GetLoanCollectionByLoanId";
             public static string GetPaymentLogSummaryByAnyKey = "GetPaymentLogSummaryByAnyKey";
             public static string GetCreditDeviceByAnyKey = "GetCreditDeviceByAnyKey";
             public static string GetSubscriptionSummaryByClient = "GetSubscriptionSummaryByClient";
