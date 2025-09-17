@@ -116,6 +116,16 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(obj.LoaneeCode);
 
                 LnDeviceLoanDisbursementRequestObject objRequest = new LnDeviceLoanDisbursementRequestObject();
+
+
+                var objExist = await service.GetLoanDetailsByLoanNo(obj.LoanNo);
+
+                if (objExist != null)
+                {
+                    objOperation.Success = false;
+                    objOperation.Message = "Duplicate loan number in sms database";
+                    return objOperation;
+                }
                                       
 
                 objRequest.Id = obj.Id;

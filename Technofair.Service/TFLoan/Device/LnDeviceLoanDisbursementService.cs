@@ -26,6 +26,8 @@ namespace TFSMS.Admin.Service.TFLoan.Device
         Task<Operation> AddWithNoCommitAsync(LnDeviceLoanDisbursement obj);
         List<LnDeviceLoanDisbursement> GetAll();
         LnDeviceLoanDisbursement GetById(Int64 id);
+        Task<LnDeviceLoanDisbursement> GetLoanDetailsByLoanNo(string loanNo);
+      
         Task<List<LnDeviceLoanDisbursementViewModel>> GetDeviceLoanDisbursement();
         string NextLoanNo();
         //Asad-1
@@ -127,6 +129,11 @@ namespace TFSMS.Admin.Service.TFLoan.Device
             {
                 throw ex;
             }
+        }
+
+        public async Task<LnDeviceLoanDisbursement> GetLoanDetailsByLoanNo(string loanNo)
+        {
+            return await repository.GetLoanDetailsByLoanNo(loanNo);
         }
         public Task<List<LnDeviceLoanDisbursementViewModel>> GetDeviceLoanDisbursement()
         {
