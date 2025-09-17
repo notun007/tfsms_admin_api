@@ -98,9 +98,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
         {
             Operation objReqOperation = new Operation();
             Operation objOperation = new Operation();
-
-            //RecoverScheduledLoanResponseViewModel objScheduledLoanResponse = new RecoverScheduledLoanResponseViewModel { Success = false, Message = "Failed to recover loan" };
-
+                      
             LnDeviceLoanDisbursementViewModel objPayload = new LnDeviceLoanDisbursementViewModel();
 
             CmnCompany objSolutionProvider = new CmnCompany();
@@ -116,6 +114,20 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByLoaneeCode(obj.LoaneeCode);
 
                 LnDeviceLoanDisbursementRequestObject objRequest = new LnDeviceLoanDisbursementRequestObject();
+
+
+                var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+
+                var url = smsApiBaseUrl + "/api/LnDeviceLoanDisbursement/GetLoanDisbursementByLoanNo?loanNo=" + obj.LoanNo;
+
+                LnDeviceLoanDisbursement objLnDeviceLoanDisbursement = await Request<LnDeviceLoanDisbursement, LnDeviceLoanDisbursement>.GetObject(url);
+
+                if (objLnDeviceLoanDisbursement != null)
+                {
+                    objOperation.Success = false;
+                    objOperation.Message = "Duplicate loan number in admin database";
+                    return objOperation;
+                }
 
 
                 var objExist = await service.GetLoanDetailsByLoanNo(obj.LoanNo);
