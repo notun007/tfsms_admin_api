@@ -92,7 +92,8 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                 objRequest.Amount = obj.Amount;
                 objRequest.Remarks = obj.Remarks;
-                objRequest.CollectionDate = obj.CollectionDate;
+                //objRequest.CollectionDate = obj.CollectionDate;
+                objRequest.CollectionDate = obj.CollectionDate.Date + DateTime.Now.TimeOfDay;
                 objRequest.TransactionId = KeyGeneration.GenerateTimestamp();
 
                 objRequest.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
@@ -138,7 +139,8 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                         objPayload.LoaneeCode = obj.LoaneeCode;
                         objPayload.Amount = obj.Amount;
                         objPayload.Remarks = obj.Remarks;
-                        objPayload.CollectionDate = obj.CollectionDate;
+                    //objPayload.CollectionDate = obj.CollectionDate;
+                        objPayload.CollectionDate = obj.CollectionDate.Date + DateTime.Now.TimeOfDay;
                         objPayload.TransactionId = objRequest.TransactionId;
                         objPayload.IsCancel = false;
                         objPayload.CancelBy = obj.CancelBy;
@@ -208,7 +210,8 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                         objCollection.Amount = objScheduledLoanResponse.ActualCollectionAmount;
                         objCollection.Remarks = obj.Remarks;
-                        objCollection.CollectionDate = obj.CollectionDate;
+                // objCollection.CollectionDate = obj.CollectionDate;
+                        objCollection.CollectionDate = obj.CollectionDate.Date + DateTime.Now.TimeOfDay;
                         objCollection.TransactionId = objRequest.TransactionId;
 
                         objCollection.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
