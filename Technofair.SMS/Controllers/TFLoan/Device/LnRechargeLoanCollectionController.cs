@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Technofair.Data.Repository.TFLoan.Device;
 using Technofair.Lib.Model;
+using Technofair.Model.Accounts;
 using Technofair.Model.TFLoan.Device;
 using Technofair.Model.ViewModel.TFLoan;
 using Technofair.Service.TFLoan.Device;
@@ -10,6 +11,7 @@ using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 using TFSMS.Admin.Data.Repository.TFAdmin;
 using TFSMS.Admin.Data.Repository.TFLoan.Device;
+using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Model.TFLoan.Device;
 using TFSMS.Admin.Model.ViewModel.TFLoan;
 using TFSMS.Admin.Service.TFAdmin;
@@ -59,6 +61,9 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                 objCollection.TransactionId = KeyGeneration.GenerateTimestamp();
                 objCollection.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
+                objCollection.AnFFinancialServiceProviderId = obj.AnFFinancialServiceProviderId;
+                objCollection.AnFBranchId = obj.AnFBranchId;
+                objCollection.AnFAccountInfoId = obj.AnFAccountInfoId;
                 objCollection.BnkBankId = obj.BnkBankId;
 
                 objCollection.BnkBranchId = obj.BnkBranchId;

@@ -34,6 +34,9 @@ namespace Technofair.Model.TFLoan.Device
         public DateTime CollectionDate { get; set; }
         public string TransactionId { get; set; }
         public Int16 AnFFinancialServiceProviderTypeId { get; set; }
+        public Int16? AnFFinancialServiceProviderId { get; set; }
+        public Int16? AnFBranchId { get; set; }
+        public Int16? AnFAccountInfoId { get; set; }
         public int? BnkBankId { get; set; }
         public int? BnkBranchId { get; set; }
         public int? BnkAccountInfoId { get; set; }
