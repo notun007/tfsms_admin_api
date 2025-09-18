@@ -64,10 +64,10 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 objCollection.AnFFinancialServiceProviderId = obj.AnFFinancialServiceProviderId;
                 objCollection.AnFBranchId = obj.AnFBranchId;
                 objCollection.AnFAccountInfoId = obj.AnFAccountInfoId;
-                objCollection.BnkBankId = obj.BnkBankId;
+                //objCollection.BnkBankId = obj.BnkBankId;
 
-                objCollection.BnkBranchId = obj.BnkBranchId;
-                objCollection.BnkAccountInfoId = obj.BnkAccountInfoId;
+                //objCollection.BnkBranchId = obj.BnkBranchId;
+                //objCollection.BnkAccountInfoId = obj.BnkAccountInfoId;
                 objCollection.IsCancel = false;
 
                 objCollection.CreatedBy = obj.CreatedBy;

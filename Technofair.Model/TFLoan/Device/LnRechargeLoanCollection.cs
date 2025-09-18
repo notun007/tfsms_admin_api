@@ -37,9 +37,9 @@ namespace Technofair.Model.TFLoan.Device
         public Int16? AnFFinancialServiceProviderId { get; set; }
         public Int16? AnFBranchId { get; set; }
         public Int16? AnFAccountInfoId { get; set; }
-        public int? BnkBankId { get; set; }
-        public int? BnkBranchId { get; set; }
-        public int? BnkAccountInfoId { get; set; }
+        //public int? BnkBankId { get; set; }
+        //public int? BnkBranchId { get; set; }
+        //public int? BnkAccountInfoId { get; set; }
         public bool IsCancel { get; set; }
 
         public int? CancelBy { get; set; }
