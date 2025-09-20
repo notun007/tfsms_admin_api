@@ -165,7 +165,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                 objRequest.InstallmentStartDate = obj.InstallmentStartDate;
                 objRequest.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
                 objRequest.AnFFinancialServiceProviderId = obj.AnFFinancialServiceProviderId;
-                objRequest.BnkBankId = obj.BnkBankId;
+                
 
                 objRequest.AnFBranchId = obj.AnFBranchId;
                 objRequest.AnFAccountInfoId = obj.AnFAccountInfoId;
@@ -218,7 +218,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                     objPayload.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
                     objPayload.AnFFinancialServiceProviderId = obj.AnFFinancialServiceProviderId;
-                    objPayload.BnkBankId = obj.BnkBankId;
+                    
                     objPayload.AnFBranchId = obj.AnFBranchId;
                     objPayload.AnFAccountInfoId = obj.AnFAccountInfoId;
                     objPayload.TransactionId = objRequest.TransactionId;
@@ -311,7 +311,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                         objLnDeviceLoanDisbursement.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
                         objLnDeviceLoanDisbursement.AnFFinancialServiceProviderId = obj.AnFFinancialServiceProviderId;
-                        objLnDeviceLoanDisbursement.BnkBankId = obj.BnkBankId;
+                        
                         objLnDeviceLoanDisbursement.AnFBranchId = obj.AnFBranchId;
                         objLnDeviceLoanDisbursement.AnFAccountInfoId = obj.AnFAccountInfoId;
                         objLnDeviceLoanDisbursement.TransactionId = objRequest.TransactionId;
@@ -608,7 +608,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                                  AnFFinancialServiceProviderTypeId = adminDisburse.AnFFinancialServiceProviderTypeId,
                                  AnFFinancialServiceProviderId = adminDisburse.AnFFinancialServiceProviderId,
-                                 BnkBankId = adminDisburse.BnkBankId,
+                                
                                  AnFBranchId = adminDisburse.AnFBranchId,
                                  AnFAccountInfoId = adminDisburse.AnFAccountInfoId,
                                  TransactionId = adminDisburse.TransactionId,

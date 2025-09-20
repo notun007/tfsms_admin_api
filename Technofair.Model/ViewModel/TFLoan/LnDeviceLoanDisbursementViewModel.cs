@@ -37,7 +37,6 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
         public DateTime InstallmentStartDate { get; set; }
         public short AnFFinancialServiceProviderTypeId { get; set; }
         public short? AnFFinancialServiceProviderId { get; set; }
-        public int? BnkBankId { get; set; }
         public short? AnFBranchId { get; set; }
         public short? AnFAccountInfoId { get; set; }
         [StringLength(100)]
