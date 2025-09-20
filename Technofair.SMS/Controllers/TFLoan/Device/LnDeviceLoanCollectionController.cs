@@ -217,11 +217,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                         objCollection.AnFFinancialServiceProviderTypeId = obj.AnFFinancialServiceProviderTypeId;
                         objCollection.AnFFinancialServiceProviderId = obj.AnFFinancialServiceProviderId;
                         objCollection.AnFBranchId = obj.AnFBranchId;
-                        objCollection.AnFAccountInfoId = obj.AnFAccountInfoId;
-
-                        objCollection.BnkBankId = obj.BnkBankId;
-                        objCollection.BnkBranchId = obj.BnkBranchId;
-                        objCollection.BnkAccountInfoId = obj.BnkAccountInfoId;
+                        objCollection.AnFAccountInfoId = obj.AnFAccountInfoId;                        
 
                         objCollection.IsCancel = false;
                         objCollection.CancelBy = obj.CancelBy;

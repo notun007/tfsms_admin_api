@@ -43,11 +43,8 @@ namespace TFSMS.Admin.Model.TFLoan.Device
         public short? AnFFinancialServiceProviderId { get; set; }
         public short? AnFBranchId { get; set; }
         public short? AnFAccountInfoId { get; set; }
-        public int? BnkBankId { get; set; }
-        public int? BnkBranchId { get; set; }
-        public int? BnkAccountInfoId { get; set; }
+       
         #endregion
-
 
         public bool IsCancel { get; set; }
         public int? CancelBy { get; set; }
