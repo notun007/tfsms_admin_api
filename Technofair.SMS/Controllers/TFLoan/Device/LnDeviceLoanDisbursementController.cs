@@ -231,9 +231,9 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                     //var objCompanyCustomer = serviceCompanyCustomer.GetById(obj.LoaneeId);
 
-                    var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+                    smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
 
-                    var url = smsApiBaseUrl + "/api/LnDeviceLoanDisbursement/SaveLoanDisbursement";
+                     url = smsApiBaseUrl + "/api/LnDeviceLoanDisbursement/SaveLoanDisbursement";
 
                     objOperation = await Request<LnDeviceLoanDisbursementViewModel, Operation>.Post(url, objPayload);
 
@@ -276,7 +276,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
 
 
-                LnDeviceLoanDisbursement objLnDeviceLoanDisbursement = new LnDeviceLoanDisbursement();
+                objLnDeviceLoanDisbursement = new LnDeviceLoanDisbursement();
 
 
                 var objExit = service.GetById(obj.Id);
