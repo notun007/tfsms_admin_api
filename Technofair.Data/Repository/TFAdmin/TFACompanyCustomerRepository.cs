@@ -14,6 +14,8 @@ using Technofair.Lib.Utilities;
 using TFSMS.Admin.Model.ViewModel.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using static System.Net.Mime.MediaTypeNames;
+using Technofair.Model.ViewModel.TFAdmin;
 
 namespace TFSMS.Admin.Data.Repository.TFAdmin
 {
@@ -25,7 +27,7 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
         Task<int> AddEntityAsync(TFACompanyCustomer obj);
         Task<TFACompanyCustomer> GetCompanyCustomerByAppKey(string appKey);
         Task<TFACompanyCustomer> GetCompanyCustomerByLoaneeCode(string loaneeCode);
-       
+        Task<List<TFACompanyCustomer>> GetCompanyCustomerExceptItseltByEmail(TFACompanyCustomerViewModel obj);
         string GetLastCode();
         List<CompanyCustomerWithClientPackageViewModel> GetActiveCompanyCustomerWithClientPackage(int monthId, int yearId);
     }
@@ -71,37 +73,37 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
             return await DataContext.TFACompanyCustomers.Where(x => x.Code == loaneeCode).SingleOrDefaultAsync();
         }
 
+        public async Task<List<TFACompanyCustomer>> GetCompanyCustomerExceptItseltByEmail(TFACompanyCustomerViewModel obj)
+        {
+            return await DataContext.TFACompanyCustomers.Where(x => x.Email == obj.Email && x.Id != obj.Id).ToListAsync();
+        }
         public string GetLastCode()
         {
-            //string refNo = objType.ShortName + "-" + objType.SerialNo;
-            string refNo = "";
-            TFACompanyCustomer? obj = DataContext.TFACompanyCustomers.OrderByDescending(o => o.Id).FirstOrDefault();//.Where(w=>w.Code.Contains(refNo))
-            //int serial = 1;            
-            if (obj != null && obj.Code != null && obj.Code != "")
+            //MSO-10001
+ 
+            TFACompanyCustomer? obj = DataContext.TFACompanyCustomers.OrderByDescending(o => o.Id).FirstOrDefault();
+           
+            string initial = "10001"; 
+            string prefix = "MSO";
+            string nextCode = string.Empty;
+                       
+            if (obj == null)
             {
-                //string sub = obj.Code.ToString().Substring(refNo.Length);
-                //serial = Convert.ToInt32(sub) + 1;
-                //if (serial.ToString().Length == 1)
-                //{
-                //    refNo += "000";
-                //}
-                //else if (serial.ToString().Length == 2)
-                //{
-                //    refNo += "00";
-                //}
-                //else if (serial.ToString().Length == 3)
-                //{
-                //    refNo += "0";
-                //}
-                //refNo = refNo + serial;
-                refNo = Convert.ToInt32(obj.Code).ToString();
+                nextCode = prefix + "-" + initial;
             }
-            else
+
+            if (obj != null)
             {
-                //refNo = refNo + "000" + serial;
-                refNo = refNo + "1001";
+                int startIndex = 4;
+                int length = 5;
+
+                string maxCode = "MSO-10001".Substring(startIndex, length);
+                Console.WriteLine(maxCode);
+
+                nextCode = prefix + "-" + (Convert.ToInt32(maxCode) + 1).ToString();
             }
-            return refNo;
+          
+            return nextCode;
         }
 
         //public DataTable GetActiveCompanyCustomerWithClientPackage(int monthId, int yearId)

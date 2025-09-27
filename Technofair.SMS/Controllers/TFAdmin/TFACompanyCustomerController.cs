@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using TFSMS.Admin.Service.TFAdmin;
 using TFSMS.Admin.Data.Repository.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using Technofair.Model.ViewModel.TFAdmin;
 
 
 namespace TFSMS.Admin.Controllers.TFAdmin
@@ -38,88 +39,106 @@ namespace TFSMS.Admin.Controllers.TFAdmin
 
         [Authorize(Policy = "Authenticated")]
         [HttpPost("Save")]
-        public async Task<Operation> Save([FromBody] TFACompanyCustomer obj)
+        public async Task<Operation> Save([FromBody] TFACompanyCustomerViewModel obj)
         {
             Operation objOperation = new Operation { OperationId = -1, Success = false, Message = "Unable to Save" };
+
+
+            if (obj == null) 
+            {
+                objOperation.Success = false;
+                objOperation.Message = "Sent information found as empty";
+                return objOperation;
+            }
+
             using (var dbContextTransaction = repository.BeginTransaction())
             {
                 try
                 {
-                    string emailID = "";
-                    TFACompanyCustomer objExist = service.GetByEmailID(obj.Email.Trim());
-                    
-                    
-                    //Ata kono program?
 
-                 
-                        if (objExist == null)
-                        {
-                            obj.Code = service.GetLastCode();
-                            obj.CreatedDate = DateTime.Now;
-                            objOperation = await service.AddWithNoCommit(obj);
+                    TFACompanyCustomer objExist = service.GetById(obj.Id);
+                    TFACompanyCustomer objCompanyCustomer = service.GetByEmailID(obj.Email.Trim());
 
-                        }
-
-                        //else
-                        //{
-                        //    objOperation.OperationId = -1;//already exist
-                        //    objOperation.Success = false;
-                        //    objOperation.Message = "Email Address Already Exist.";
-                        //    return objOperation;
-                        //}
-             
-
-
-                    else if (obj.Id > 0)
+                  
+                    if (objExist == null)
                     {
+                        if (objCompanyCustomer != null)
+                        {
+                            objOperation.Success = false;
+                            objOperation.Message = "Email Address Already Exist.";
+                            return objOperation;
+                        }
+                    }
 
-                        if (objExist != null && objExist.Id != obj.Id)
+                    if (objExist == null)
+                    {
+                        TFACompanyCustomer objCustomer = new TFACompanyCustomer();
+
+                        objCustomer.Id = obj.Id;
+                        objCustomer.Code = obj.Code = service.GetLastCode();
+                        objCustomer.Name = obj.Name;
+                        objCustomer.ShortName = obj.ShortName;
+                        objCustomer.Address = obj.Address;
+                        objCustomer.ContactNo = obj.ContactNo;
+                        objCustomer.Email = obj.Email;
+                        objCustomer.ContactPerson = obj.ContactPerson;
+                        objCustomer.ContactPersonNo = obj.ContactPersonNo;
+                        objCustomer.CmnCountryId = obj.CmnCountryId;
+                        objCustomer.CmnCurrencyId = obj.CmnCurrencyId;
+                        objCustomer.BIN = obj.BIN;
+                        objCustomer.Web = obj.Web;
+                        objCustomer.Logo = obj.Logo;
+                        objCustomer.GraceDay = obj.GraceDay;
+                        objCustomer.AppKey = obj.AppKey;
+                        objCustomer.ServerIP = obj.ServerIP;
+                        objCustomer.MotherBoardId = obj.MotherBoardId;
+                        objCustomer.NetworkAdapterId = obj.NetworkAdapterId;
+                        objCustomer.SmsApiBaseUrl = obj.SmsApiBaseUrl;
+                        objCustomer.IsActive = obj.IsActive;
+                        objCustomer.CreatedBy = obj.CreatedBy;
+                        objCustomer.CreatedDate = obj.CreatedDate;
+                                           
+                        objOperation = await service.AddWithNoCommit(objCustomer);
+
+                    }
+
+                    if (objExist != null)
+                    {
+                        var objCompanyCustomerList = await service.GetCompanyCustomerExceptItseltByEmail(obj);
+
+                        if (objCompanyCustomerList.Count() > 0)
                         {
                             objOperation.Success = false;
                             objOperation.Message = "Email already exist";
                             return objOperation;
                         }
+                    }
 
-                        if (objExist == null)
+                        if (objExist != null)
                         {
-                            objExist = new TFACompanyCustomer();
-                            objExist = service.GetById(obj.Id);
-                        }
+                                              
+                        objExist.Name = obj.Name;
+                        objExist.ShortName = obj.ShortName;
+                        objExist.ContactNo = obj.ContactNo;
+                        objExist.Address = obj.Address;
+                        objExist.ContactPerson = obj.ContactPerson;
+                        objExist.ContactPersonNo = obj.ContactPersonNo;
+                        objExist.CmnCountryId = obj.CmnCountryId;
+                        objExist.CmnCurrencyId = obj.CmnCurrencyId;
+                        objExist.BIN = obj.BIN;
+                        objExist.Web = obj.Web;
+                        objExist.GraceDay = obj.GraceDay;
 
-                        if ((objExist != null && objExist.Id == obj.Id))
-                        {
-                            //emailID = obj.Email.Trim();
-                            objExist.Name = obj.Name;
-                            objExist.ShortName = obj.ShortName;
-                            objExist.Email = obj.Email;
-                            objExist.ContactNo = obj.ContactNo;
-                            objExist.Address = obj.Address;
-                            objExist.ContactPerson = obj.ContactPerson;
-                            objExist.ContactPersonNo = obj.ContactPersonNo;
-                            objExist.CmnCountryId = obj.CmnCountryId;
-                            objExist.CmnCurrencyId = obj.CmnCurrencyId;
-                            objExist.BIN = obj.BIN;
-                            objExist.Web = obj.Web;
-                            objExist.GraceDay = obj.GraceDay;
+                        objExist.AppKey = obj.AppKey;
+                        objExist.ServerIP = obj.ServerIP;
+                        objExist.SmsApiBaseUrl = obj.SmsApiBaseUrl;
+                        objExist.MotherBoardId = obj.MotherBoardId;
+                        objExist.NetworkAdapterId = obj.NetworkAdapterId;
 
-                            objExist.AppKey = obj.AppKey;
-                            objExist.ServerIP = obj.ServerIP;
-                            objExist.SmsApiBaseUrl = obj.SmsApiBaseUrl;
-                            objExist.MotherBoardId = obj.MotherBoardId;
-                            objExist.NetworkAdapterId = obj.NetworkAdapterId;
-                            
 
-                            objExist.IsActive = obj.IsActive;
-                            objExist.ModifiedDate = DateTime.Now;
-                            objOperation = await service.UpdateWithNoCommit(objExist);
-                        }
-                        else
-                        {
-                            objOperation.OperationId = -1;//already exist
-                            objOperation.Success = false;
-                            objOperation.Message = "Email Address Already Exist.";
-                            return objOperation;
-                        }
+                        objExist.IsActive = obj.IsActive;
+                        objExist.ModifiedDate = DateTime.Now;
+                        objOperation = await service.UpdateWithNoCommit(objExist);
                     }
 
                     //Log

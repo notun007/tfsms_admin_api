@@ -7,6 +7,7 @@ using TFSMS.Admin.Model.TFAdmin;
 using TFSMS.Admin.Model.ViewModel.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Repository.TFAdmin;
+using Technofair.Model.ViewModel.TFAdmin;
 
 namespace TFSMS.Admin.Service.TFAdmin
 {
@@ -25,6 +26,7 @@ namespace TFSMS.Admin.Service.TFAdmin
         TFACompanyCustomer GetByCode(string code);
         Task<TFACompanyCustomer> GetCompanyCustomerByAppKey(string appKey);
         Task<TFACompanyCustomer> GetCompanyCustomerByLoaneeCode(string loaneeCode);
+        Task<List<TFACompanyCustomer>> GetCompanyCustomerExceptItseltByEmail(TFACompanyCustomerViewModel obj);
         string GetLastCode();
         List<CompanyCustomerWithClientPackageViewModel> GetActiveCompanyCustomerWithClientPackage(int monthId, int year);
     }
@@ -50,6 +52,10 @@ namespace TFSMS.Admin.Service.TFAdmin
             return await repository.GetCompanyCustomerByLoaneeCode(loaneeCode);
         }
 
+        public async Task<List<TFACompanyCustomer>> GetCompanyCustomerExceptItseltByEmail(TFACompanyCustomerViewModel obj)
+        {
+            return await repository.GetCompanyCustomerExceptItseltByEmail(obj);
+        }
         public string GetLastCode()
         {
             return repository.GetLastCode();
