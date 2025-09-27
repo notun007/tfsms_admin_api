@@ -47,24 +47,29 @@ namespace TFSMS.Admin.Controllers.TFAdmin
                 {
                     string emailID = "";
                     TFACompanyCustomer objExist = service.GetByEmailID(obj.Email.Trim());
-                    if (obj.Id == 0)//&& ButtonPermission.Add
-                    {
+                    
+                    
+                    //Ata kono program?
+
+                 
                         if (objExist == null)
                         {
-                            //emailID = objCompany.Email.Trim();
                             obj.Code = service.GetLastCode();
                             obj.CreatedDate = DateTime.Now;
                             objOperation = await service.AddWithNoCommit(obj);
 
                         }
-                        else
-                        {
-                            objOperation.OperationId = -1;//already exist
-                            objOperation.Success = false;
-                            objOperation.Message = "Email Address Already Exist.";
-                            return objOperation;
-                        }
-                    }
+
+                        //else
+                        //{
+                        //    objOperation.OperationId = -1;//already exist
+                        //    objOperation.Success = false;
+                        //    objOperation.Message = "Email Address Already Exist.";
+                        //    return objOperation;
+                        //}
+             
+
+
                     else if (obj.Id > 0)
                     {
 
