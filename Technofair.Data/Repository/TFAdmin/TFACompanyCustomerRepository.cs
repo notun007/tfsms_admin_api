@@ -97,7 +97,7 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
                 int startIndex = 4;
                 int length = 5;
 
-                string maxCode = "MSO-10001".Substring(startIndex, length);
+                string maxCode = obj.Code.Substring(startIndex, length);
                 Console.WriteLine(maxCode);
 
                 nextCode = prefix + "-" + (Convert.ToInt32(maxCode) + 1).ToString();

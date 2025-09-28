@@ -88,6 +88,11 @@ namespace TFSMS.Admin.Controllers.TFAdmin
             List<TFAClientServerInfo> list = service.GetAll();
             return list;
         }
+        [HttpGet("ReadServerInfo")]
+        public TFAClientServerInfoViewModel ReadServerInfo()
+        {
+            return service.ReadServerInfo();
+        }
 
         //[HttpPost("GetClientServerInfoByCustomerCompanyId")]
         //public async Task<TFAClientServerInfo> GetClientServerInfoByCustomerCompanyId(int id)
