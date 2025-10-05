@@ -606,6 +606,11 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                                 InstallmentStartDate = smsDisburse.InstallmentStartDate,
                                 IsScheduled = smsDisburse.IsScheduled,
 
+                                RechargeCollectionAmount = smsDisburse.RechargeCollectionAmount,
+                                ManualCollectionAmount = smsDisburse.ManualCollectionAmount,
+                                TotalCollectionAmount = smsDisburse.TotalCollectionAmount,
+                                Balance = smsDisburse.Balance,
+
                                  AnFFinancialServiceProviderTypeId = adminDisburse.AnFFinancialServiceProviderTypeId,
                                  AnFFinancialServiceProviderId = adminDisburse.AnFFinancialServiceProviderId,
                                 
