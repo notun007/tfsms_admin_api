@@ -42,6 +42,16 @@ namespace TFSMS.Admin.Model.ViewModel.TFLoan
         [StringLength(100)]
         public string? TransactionId { get; set; }
         #endregion
+
+
+        [Column(TypeName = "decimal(12, 2)")]
+        public decimal RechargeCollectionAmount { get; set; }
+        [Column(TypeName = "decimal(12, 2)")]
+        public decimal ManualCollectionAmount { get; set; }
+        [Column(TypeName = "decimal(12, 2)")]
+        public decimal TotalCollectionAmount { get; set; }
+        [Column(TypeName = "decimal(12, 2)")]
+        public decimal Balance { get; set; }
         public bool? IsClosed { get; set; }
         
         public string? Remarks { get; set; }
