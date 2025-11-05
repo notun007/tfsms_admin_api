@@ -357,7 +357,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                     if (objOperation.Success)
                     {
                         objOperation.Success = objOperation.Success;
-                        objOperation.Message = "Loan recovery succeeded.";
+                        objOperation.Message = "Loan disbursment save successfully.";
                     }
                     else
                     {
@@ -605,6 +605,11 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                                 CreatedDate = smsDisburse.CreatedDate,
                                 InstallmentStartDate = smsDisburse.InstallmentStartDate,
                                 IsScheduled = smsDisburse.IsScheduled,
+
+                                RechargeCollectionAmount = smsDisburse.RechargeCollectionAmount,
+                                ManualCollectionAmount = smsDisburse.ManualCollectionAmount,
+                                TotalCollectionAmount = smsDisburse.TotalCollectionAmount,
+                                Balance = smsDisburse.Balance,
 
                                  AnFFinancialServiceProviderTypeId = adminDisburse.AnFFinancialServiceProviderTypeId,
                                  AnFFinancialServiceProviderId = adminDisburse.AnFFinancialServiceProviderId,
