@@ -108,7 +108,7 @@ namespace TFSMS.Admin.Controllers.TFAdmin
             return service.GetClientBillByClientPaymentDetailId(tfaCompanyCustomerId, tfaClientPaymentDetailId);
         }
 
-        [HttpPost("GetClientPackageExpireDate")]
+        [HttpGet("GetClientPackageExpireDate")]
         public ClientPaymentViewModel GetClientPackageExpireDate(string appKey)
         {
             return service.GetClientPackageExpireDate(appKey);
