@@ -9,5 +9,6 @@ namespace Technofair.Model.ViewModel.TFAdmin
     public class ClientPaymentViewModel
     {
         public DateTime? ExpireDate { get; set; }
+        public string? ExpireMessage { get; set; }
     }
 }
