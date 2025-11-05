@@ -8,6 +8,7 @@ using Technofair.Utiity.Log;
 using TFSMS.Admin.Service.TFAdmin;
 using TFSMS.Admin.Data.Repository.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using Technofair.Model.ViewModel.TFAdmin;
 
 
 namespace TFSMS.Admin.Controllers.TFAdmin
@@ -105,6 +106,12 @@ namespace TFSMS.Admin.Controllers.TFAdmin
         public CompanyCustomerWithClientPackageViewModel GetClientBillByClientPaymentDetailId(int tfaCompanyCustomerId, Int64 tfaClientPaymentDetailId)
         {
             return service.GetClientBillByClientPaymentDetailId(tfaCompanyCustomerId, tfaClientPaymentDetailId);
+        }
+
+        [HttpPost("GetClientPackageExpireDate")]
+        public ClientPaymentViewModel GetClientPackageExpireDate(string appKey)
+        {
+            return service.GetClientPackageExpireDate(appKey);
         }
 
     }

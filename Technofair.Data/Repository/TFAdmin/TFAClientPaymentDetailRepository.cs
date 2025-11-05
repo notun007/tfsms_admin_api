@@ -15,6 +15,7 @@ using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Model.ViewModel.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using Technofair.Model.ViewModel.TFAdmin;
 
 namespace TFSMS.Admin.Data.Repository.TFAdmin
 {
@@ -32,6 +33,7 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
         DataTable GetDetailByPaymentIdAndDomain(long paymentId, string domain);
         Task<TFAClientPaymentDetail> clientPaymentDetails(int companyCustomerId, int monthId, int year);
         CompanyCustomerWithClientPackageViewModel GetClientBillByClientPaymentDetailId(int tfaCompanyCustomerId, Int64 tfaClientPaymentDetailId);
+        ClientPaymentViewModel GetClientPackageExpireDate(string appKey);
         TFAClientPaymentDetail GetByClientPaymentDetailId(long clientPaymentDetailId);
     }
 
@@ -303,6 +305,35 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
             return list.FirstOrDefault();
         }
 
+        public ClientPaymentViewModel GetClientPackageExpireDate(string appKey)
+        {
+            DataTable dt = new DataTable();
+            SqlParameter[] paramsToStore = new SqlParameter[1];
+
+            paramsToStore[0] = new SqlParameter("@appKey", appKey);
+           
+
+
+            List<ClientPaymentViewModel> list = new List<ClientPaymentViewModel>();
+
+            try
+            {
+                dt = Helper.ExecuteDataset(DataContext.Database.GetDbConnection().ConnectionString, CommandType.StoredProcedure, SPList.TFAdmin.GetClientPackageExpireDate, paramsToStore).Tables[0];
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        list.Add(((ClientPaymentViewModel)Helper.FillTo(row, typeof(ClientPaymentViewModel))));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+            }
+            return list.FirstOrDefault();
+        }
     }
 
 }

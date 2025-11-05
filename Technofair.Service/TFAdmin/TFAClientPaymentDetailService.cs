@@ -10,6 +10,7 @@ using TFSMS.Admin.Model.TFAdmin;
 using TFSMS.Admin.Model.ViewModel.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Repository.TFAdmin;
+using Technofair.Model.ViewModel.TFAdmin;
 
 namespace TFSMS.Admin.Service.TFAdmin
 {
@@ -36,7 +37,9 @@ namespace TFSMS.Admin.Service.TFAdmin
         List<TFAClientPaymentDetail> GetDetailByPaymentIdAndDomain(long paymentId, string domain);
         Task<TFAClientPaymentDetail> clientPaymentDetails(int companyCustomerId, int monthId, int year);
         CompanyCustomerWithClientPackageViewModel GetClientBillByClientPaymentDetailId(int tfaCompanyCustomerId, Int64 tfaClientPaymentDetailId);
-        
+        ClientPaymentViewModel GetClientPackageExpireDate(string appKey);
+
+
     }
     #endregion
 
@@ -322,6 +325,11 @@ namespace TFSMS.Admin.Service.TFAdmin
         public CompanyCustomerWithClientPackageViewModel GetClientBillByClientPaymentDetailId(int tfaCompanyCustomerId, Int64 tfaClientPaymentDetailId)
         {
             return repository.GetClientBillByClientPaymentDetailId(tfaCompanyCustomerId, tfaClientPaymentDetailId);
+        }
+
+        public ClientPaymentViewModel GetClientPackageExpireDate(string appKey)
+        {
+            return repository.GetClientPackageExpireDate(appKey);
         }
     }
 
