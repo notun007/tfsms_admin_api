@@ -33,7 +33,7 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
         DataTable GetDetailByPaymentIdAndDomain(long paymentId, string domain);
         Task<TFAClientPaymentDetail> clientPaymentDetails(int companyCustomerId, int monthId, int year);
         CompanyCustomerWithClientPackageViewModel GetClientBillByClientPaymentDetailId(int tfaCompanyCustomerId, Int64 tfaClientPaymentDetailId);
-        ClientPaymentViewModel GetClientPackageExpireDate(string appKey);
+        ClientPaymentViewModel GetLastPaymentByAppKey(string appKey);
         TFAClientPaymentDetail GetByClientPaymentDetailId(long clientPaymentDetailId);
     }
 
@@ -305,7 +305,7 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
             return list.FirstOrDefault();
         }
 
-        public ClientPaymentViewModel GetClientPackageExpireDate(string appKey)
+        public ClientPaymentViewModel GetLastPaymentByAppKey(string appKey)
         {
             DataTable dt = new DataTable();
             SqlParameter[] paramsToStore = new SqlParameter[1];
@@ -318,7 +318,7 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
 
             try
             {
-                dt = Helper.ExecuteDataset(DataContext.Database.GetDbConnection().ConnectionString, CommandType.StoredProcedure, SPList.TFAdmin.GetClientPackageExpireDate, paramsToStore).Tables[0];
+                dt = Helper.ExecuteDataset(DataContext.Database.GetDbConnection().ConnectionString, CommandType.StoredProcedure, SPList.TFAdmin.GetLastPaymentByAppKey, paramsToStore).Tables[0];
 
                 if (dt != null && dt.Rows.Count > 0)
                 {

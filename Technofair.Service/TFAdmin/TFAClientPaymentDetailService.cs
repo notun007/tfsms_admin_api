@@ -37,7 +37,7 @@ namespace TFSMS.Admin.Service.TFAdmin
         List<TFAClientPaymentDetail> GetDetailByPaymentIdAndDomain(long paymentId, string domain);
         Task<TFAClientPaymentDetail> clientPaymentDetails(int companyCustomerId, int monthId, int year);
         CompanyCustomerWithClientPackageViewModel GetClientBillByClientPaymentDetailId(int tfaCompanyCustomerId, Int64 tfaClientPaymentDetailId);
-        ClientPaymentViewModel GetClientPackageExpireDate(string appKey);
+        ClientPaymentViewModel GetLastPaymentByAppKey(string appKey);
 
 
     }
@@ -327,9 +327,9 @@ namespace TFSMS.Admin.Service.TFAdmin
             return repository.GetClientBillByClientPaymentDetailId(tfaCompanyCustomerId, tfaClientPaymentDetailId);
         }
 
-        public ClientPaymentViewModel GetClientPackageExpireDate(string appKey)
+        public ClientPaymentViewModel GetLastPaymentByAppKey(string appKey)
         {
-            return repository.GetClientPackageExpireDate(appKey);
+            return repository.GetLastPaymentByAppKey(appKey);
         }
     }
 
