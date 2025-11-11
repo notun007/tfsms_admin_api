@@ -71,7 +71,7 @@ namespace TFSMS.Admin.Controllers.TFAdmin
                 if (objTFAClientPaymentDetail == null)
                 {
                     objOperation.Success = false;
-                    objOperation.Message = "Please Buy Package";
+                    objOperation.Message = "Something went wrong, please try again later";
                     _logger.LogError(objOperation.Message);
                     return objOperation;
                 }
