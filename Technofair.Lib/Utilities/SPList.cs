@@ -712,7 +712,7 @@ namespace Technofair.Lib.Utilities
         {
             public static string GetActiveCompanyCustomerWithClientPackage = "GetActiveCompanyCustomerWithClientPackage";
             public static string GetClientBillByClientPaymentDetailId = "GetClientBillByClientPaymentDetailId";
-            public static string GetClientPackageExpireDate = "GetClientPackageExpireDate";
+            public static string GetLastPaymentByAppKey = "GetLastPaymentByAppKey";
 
 
         }
