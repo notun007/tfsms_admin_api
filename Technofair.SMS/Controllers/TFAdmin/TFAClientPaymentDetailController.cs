@@ -78,7 +78,7 @@ namespace TFSMS.Admin.Controllers.TFAdmin
 
                 if (objTFAClientPaymentDetail != null)
                 {
-                    if (objTFAClientPaymentDetail.ExpireDate >= DateTime.Now)
+                    if (objTFAClientPaymentDetail.ExpireDate >= DateTime.Now.Date)
                     {
                         objOperation.Success = true;
                         objOperation.Message = "Package Still Alive";
