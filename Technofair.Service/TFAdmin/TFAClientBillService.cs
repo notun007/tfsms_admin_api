@@ -13,7 +13,7 @@ namespace TFSMS.Admin.Service.TFAdmin
          List<TFAClientInvoiceViewModel> GetClientInvoice(int? TFACompanyCustomerId);
         List<TFAClientInvoiceViewModel> GetClientApprovedUnpaidBill(int? companyCustomerId);
         List<TFAClientInvoiceViewModel> GetClientApprovedBill(int? companyCustomerId);
-        
+        List<TFAClientInvoiceViewModel> GetUnpaidBillByCompanyCode(string? companyCode);
 
          Operation ApproveClientBill(int tfaClientPaymentDetailId, int approveBy);
     }
@@ -46,7 +46,12 @@ namespace TFSMS.Admin.Service.TFAdmin
         {
             return repository.GetClientApprovedBill(companyCustomerId);
         }
-        
+        public List<TFAClientInvoiceViewModel> GetUnpaidBillByCompanyCode(string? companyCode)
+        {
+            return repository.GetUnpaidBillByCompanyCode(companyCode);
+        }
+
+
       public  Operation ApproveClientBill(int tfaClientPaymentDetailId, int approveBy)
         {
             return repository.ApproveClientBill(tfaClientPaymentDetailId, approveBy);

@@ -25,7 +25,9 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
         List<TFAClientInvoiceViewModel> GetClientInvoice(int? TFACompanyCustomerId);
         List<TFAClientInvoiceViewModel> GetClientApprovedUnpaidBill(int? companyCustomerId);
         List<TFAClientInvoiceViewModel> GetClientApprovedBill(int? companyCustomerId);
-        
+        List<TFAClientInvoiceViewModel> GetUnpaidBillByCompanyCode(string? companyCode);
+
+
         Operation ApproveClientBill(int tfaClientPaymentDetailId, int approveBy);
 
     }
@@ -174,6 +176,33 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
             try
             {
                 dt = Helper.ExecuteDataset(DataContext.Database.GetDbConnection().ConnectionString, CommandType.StoredProcedure, SPList.TFAClientBill.GetClientApprovedBill, paramsToStore).Tables[0];
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        list.Add(((TFAClientInvoiceViewModel)Helper.FillTo(row, typeof(TFAClientInvoiceViewModel))));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+            }
+            return list;
+        }
+
+        public List<TFAClientInvoiceViewModel> GetUnpaidBillByCompanyCode(string? companyCode)
+        {
+            DataTable dt = new DataTable();
+            SqlParameter[] paramsToStore = new SqlParameter[1];
+            paramsToStore[0] = new SqlParameter("@companyCode", companyCode);
+
+            List<TFAClientInvoiceViewModel> list = new List<TFAClientInvoiceViewModel>();
+
+            try
+            {
+                dt = Helper.ExecuteDataset(DataContext.Database.GetDbConnection().ConnectionString, CommandType.StoredProcedure, SPList.TFAClientBill.GetUnpaidBillByCompanyCode, paramsToStore).Tables[0];
 
                 if (dt != null && dt.Rows.Count > 0)
                 {

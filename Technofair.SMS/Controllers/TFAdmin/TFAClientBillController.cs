@@ -126,6 +126,15 @@ namespace TFSMS.Admin.Controllers.TFAdmin
             return list;
         }
 
+        //[Authorize(Policy = "Authenticated")]
+        [HttpPost("GetUnpaidBillByCompanyCode")]
+        public List<TFAClientInvoiceViewModel> GetUnpaidBillByCompanyCode(string? companyCode)
+        {
+            List<TFAClientInvoiceViewModel> list = service.GetUnpaidBillByCompanyCode(companyCode);
+
+            return list;
+        }
+
         [Authorize(Policy = "Authenticated")]
         [HttpPost("ApproveClientBill")]
         public Operation ApproveClientBill(int id, int approveBy)

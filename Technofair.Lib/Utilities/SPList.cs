@@ -695,6 +695,7 @@ namespace Technofair.Lib.Utilities
             public static string GetClientInvoice = "GetClientInvoice";
             public static string GetClientApprovedUnpaidBill = "GetClientApprovedUnpaidBill";
             public static string GetClientApprovedBill = "GetClientApprovedBill";
+            public static string GetUnpaidBillByCompanyCode = "GetUnpaidBillByCompanyCode";
             public static string GetClientPaymentInvoice = "GetClientPaymentInvoice";
             public static string ApproveClientInvoice = "ApproveClientInvoice";
           
