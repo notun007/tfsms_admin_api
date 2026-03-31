@@ -66,8 +66,7 @@ namespace TFSMS.Admin.Controllers.TFAdmin
                 }
 
                 TFAClientPaymentDetail objTFAClientPaymentDetail = await service.GetClientPaymentDetailByAppKey(appKey);
-
-
+                               
                 if (objTFAClientPaymentDetail == null)
                 {
                     objOperation.Success = false;
@@ -75,6 +74,17 @@ namespace TFSMS.Admin.Controllers.TFAdmin
                     _logger.LogError(objOperation.Message);
                     return objOperation;
                 }
+
+                //New Code: Farida- 31-03-2026
+                var objComoanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByAppKey(appKey);
+
+                if (objComoanyCustomer != null)
+                {
+                    double graceDay = objComoanyCustomer.GraceDay == null ? 0 : objComoanyCustomer.GraceDay.Value;
+
+                    objTFAClientPaymentDetail.ExpireDate = objTFAClientPaymentDetail.ExpireDate.AddDays(graceDay);
+                }
+                //End New Code: Farida- 31-03-2026
 
                 if (objTFAClientPaymentDetail != null)
                 {
