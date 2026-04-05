@@ -42,11 +42,7 @@ namespace TFSMS.Admin.Controllers.TFAdmin
 
             try
             {
-                //_logger.LogError("VerifyClientPackageByAppKey");
-
-                //var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
-                //_logger.LogError("Remote IP Address: " + ip);
-
+                
                 var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByAppKey(appKey);
 
                 if (objCompanyCustomer == null)
@@ -65,9 +61,11 @@ namespace TFSMS.Admin.Controllers.TFAdmin
                     return objOperation;
                 }
 
-                TFAClientPaymentDetail objTFAClientPaymentDetail = await service.GetClientPaymentDetailByAppKey(appKey);
-                               
-                if (objTFAClientPaymentDetail == null)
+                //Farida Added On 05-04-2026
+
+                var objLastPayment = service.GetLastPaymentByAppKey(appKey);
+
+                if (objLastPayment == null)
                 {
                     objOperation.Success = false;
                     objOperation.Message = "Something went wrong, please try again later";
@@ -75,20 +73,9 @@ namespace TFSMS.Admin.Controllers.TFAdmin
                     return objOperation;
                 }
 
-                //New Code: Farida- 31-03-2026
-                var objComoanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByAppKey(appKey);
-
-                if (objComoanyCustomer != null)
+                if (objLastPayment != null)
                 {
-                    double graceDay = objComoanyCustomer.GraceDay == null ? 0 : objComoanyCustomer.GraceDay.Value;
-
-                    objTFAClientPaymentDetail.ExpireDate = objTFAClientPaymentDetail.ExpireDate.AddDays(graceDay);
-                }
-                //End New Code: Farida- 31-03-2026
-
-                if (objTFAClientPaymentDetail != null)
-                {
-                    if (objTFAClientPaymentDetail.ExpireDate >= DateTime.Now.Date)
+                    if (objLastPayment.ExpireDate >= DateTime.Now.Date)
                     {
                         objOperation.Success = true;
                         objOperation.Message = "Package Still Alive";
@@ -102,6 +89,52 @@ namespace TFSMS.Admin.Controllers.TFAdmin
                         return objOperation;
                     }
                 }
+                //End
+
+                //Farida Commented On 04-05-2026
+                //TFAClientPaymentDetail objTFAClientPaymentDetail = await service.GetClientPaymentDetailByAppKey(appKey);
+
+                //if (objTFAClientPaymentDetail == null)
+                //{
+                //    objOperation.Success = false;
+                //    objOperation.Message = "Something went wrong, please try again later";
+                //    _logger.LogError(objOperation.Message);
+                //    return objOperation;
+                //}
+                //End
+
+                //double graceDay = objTFAClientPaymentDetail.GraceDay == null ? 0 : Convert.ToDouble(objTFAClientPaymentDetail.GraceDay);
+
+                //objTFAClientPaymentDetail.ExpireDate = objTFAClientPaymentDetail.ExpireDate.AddDays(graceDay);
+                //End
+
+                //var objComoanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByAppKey(appKey);
+
+                //if (objComoanyCustomer != null)
+                //{
+                //    double graceDay = objComoanyCustomer.GraceDay == null ? 0 : objComoanyCustomer.GraceDay.Value;
+
+                //    objTFAClientPaymentDetail.ExpireDate = objTFAClientPaymentDetail.ExpireDate.AddDays(graceDay);
+                //}
+                //End New Code: Farida- 31-03-2026
+
+                //if (objTFAClientPaymentDetail != null)
+                //{
+                //    if (objTFAClientPaymentDetail.ExpireDate >= DateTime.Now.Date)
+                //    {
+                //        objOperation.Success = true;
+                //        objOperation.Message = "Package Still Alive";
+                //        _logger.LogError(objOperation.Message);
+                //    }
+                //    else
+                //    {
+                //        objOperation.Success = false;
+                //        objOperation.Message = "এসএমএস সফ্টওয়ার এর মেয়াদ শেষ। দয়া করে বিল পরিশোধ করে নবায়ন করুন।";
+                //        _logger.LogError(objOperation.Message);
+                //        return objOperation;
+                //    }
+                //}
+
             }
             catch(Exception exp)
             {
