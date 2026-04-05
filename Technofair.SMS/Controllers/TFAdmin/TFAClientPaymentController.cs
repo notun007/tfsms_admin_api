@@ -1,16 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Technofair.Lib.Model; 
-using TFSMS.Admin.Model.ViewModel.Accounts.Reports;
-using TFSMS.Admin.Model.ViewModel.Accounts;
-using TFSMS.Admin.Model.TFAdmin;
-using TFSMS.Admin.Model.ViewModel.TFAdmin;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Specialized;
 using System.Data;
+using Technofair.Data.Repository.Accounts;
+using Technofair.Lib.Model; 
 using Technofair.Lib.Utilities;
-
-using Microsoft.AspNetCore.Authorization;
-using TFSMS.Admin.Service.TFAdmin;
-using TFSMS.Admin.Data.Repository.TFAdmin;
+using Technofair.Model.Accounts;
+using Technofair.Service.Accounts;
+using Technofair.Utiity.Key;
+using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.TFAdmin;
+using TFSMS.Admin.Model.Common;
+using TFSMS.Admin.Model.TFAdmin;
+using TFSMS.Admin.Model.ViewModel.Accounts;
+using TFSMS.Admin.Model.ViewModel.Accounts.Reports;
+using TFSMS.Admin.Model.ViewModel.TFAdmin;
+using TFSMS.Admin.Models;
+using TFSMS.Admin.Service.TFAdmin;
+using static TFSMS.Admin.Models.SSLCommerz;
 
 
 
@@ -26,6 +34,7 @@ namespace TFSMS.Admin.Controllers.TFAdmin
         private ITFAClientPaymentRepository repository;
         private ITFACompanyCustomerService serviceComCustomer;
         private IWebHostEnvironment _hostingEnvironment;
+        private IAnFPaymentMethodCredentialService servicePaymentCredential;
         AdminDatabaseFactory dbfactory = new AdminDatabaseFactory();
         public TFAClientPaymentController(IWebHostEnvironment hostingEnvironment)
         {
@@ -33,6 +42,7 @@ namespace TFSMS.Admin.Controllers.TFAdmin
             service = new TFAClientPaymentService(repository, new AdminUnitOfWork(dbfactory));
             serviceDetail = new TFAClientPaymentDetailService(new TFAClientPaymentDetailRepository(dbfactory), new AdminUnitOfWork(dbfactory));
             serviceComCustomer = new TFACompanyCustomerService(new TFACompanyCustomerRepository(dbfactory), new AdminUnitOfWork(dbfactory));
+            //servicePaymentCredential = new AnFPaymentMethodCredentialService(new AnFPaymentMethodCredentialRepository(dbfactory), new UnitOfWork(dbfactory));
             _hostingEnvironment = hostingEnvironment;
         }
 
@@ -590,6 +600,305 @@ namespace TFSMS.Admin.Controllers.TFAdmin
             }
 
         }
+
+
+        #region SSL Commerz
+        static string redirectUrl = "";
+
+        [HttpPost("GetSSLCommerzGrantToken")]//HttpPost
+        public async Task<SSLCommerzInitResponse> GetSSLCommerzGrantToken(int fundSourceId, int amount, string remarks, Int16 paymentMethodId, int createdBy, string retUrl)
+        {
+            Operation objOperation = new Operation();
+
+            redirectUrl = retUrl;
+            string http = Request.IsHttps ? "https://" : "http://";
+            string host = http + Request.Host;
+            string urlSuccess = host + "/api/ClientRecharge/SSLCommerzSuccess";
+            string urlFail = host + "/api/ClientRecharge/SSLCommerzFail";
+            string urlCancel = host + "/api/ClientRecharge/SSLCommerzCancel";
+            string urlIPN = "";
+            NameValueCollection postData = new NameValueCollection();
+
+            SSLCommerzInitResponse objResponse = new SSLCommerzInitResponse
+            {
+                status = "FAILED",
+                failedreason = "Unable generating token"
+            };
+
+            try
+            {
+               AnFPaymentMethodCredential? objPaymentMethod = servicePaymentCredential.GetByPaymentMethodId(paymentMethodId);
+
+                if (objPaymentMethod == null)
+                {
+                    objResponse.status = "FAILED";
+                    objResponse.failedreason = "Invalid Gateway";
+                    return objResponse;
+                }
+
+                //CmnCompany objFundSource = serviceCompany.GetById(fundSourceId);
+
+                string logId = KeyGeneration.GenerateTimestamp();
+
+                //New: 17022025
+                //fundSourceId,
+               // objOperation = service.InitiateSelfRecharge(logId, paymentMethodId,  amount, remarks, createdBy);
+
+                if (objOperation == null)
+                {
+                    objResponse.status = "FAILED";
+                    objResponse.failedreason = "Unable to initiate recharge";
+                    objResponse.desc = new List<Desc>();
+                    return objResponse;
+                }
+
+                if (objOperation.Success == false)
+                {
+                    objResponse.status = "FAILED";
+                    objResponse.failedreason = objOperation.Message;
+                    objResponse.desc = new List<Desc>();
+                    return objResponse;
+                }
+
+                if (objOperation.Success)
+                {
+                    SSLCommerz sslcz = new SSLCommerz(objPaymentMethod, false);
+                    postData.Add("total_amount", amount.ToString());
+                    postData.Add("tran_id", logId);
+                    postData.Add("success_url", urlSuccess);
+                    postData.Add("fail_url", urlFail);
+                    postData.Add("cancel_url", urlCancel);
+                    postData.Add("ipn_url", urlIPN);
+                    //postData.Add("cus_name", objFundSource.Name);
+                    //postData.Add("cus_email", "info@technofairbd.com");
+                    //postData.Add("cus_add1", objFundSource.Address);
+                    //postData.Add("cus_add2", objFundSource.Address);
+                    //postData.Add("cus_city", objFundSource.Address);
+                    //postData.Add("cus_postcode", objFundSource.Address);
+                    //postData.Add("cus_country", "Bangladesh");
+                    //postData.Add("cus_phone", objFundSource.ContactNo);
+                    postData.Add("shipping_method", "NO");
+                    postData.Add("num_of_item", "1");
+                    postData.Add("product_name", "Technofair SMS");
+                    postData.Add("product_profile", "general");
+                    postData.Add("product_category", "SMS");
+                    postData.Add("disbursements_acct", "");
+                    objResponse = sslcz.InitiateTransaction(postData);
+                    return objResponse;
+                }
+            }
+            catch (Exception ex)
+            {
+                objResponse.status = "FAILED";
+                objResponse.failedreason = "Unable to initiate recharge";
+                objResponse.desc = new List<Desc>();
+            }
+
+            return objResponse;
+        }
+
+
+
+        //Operation Type Success
+        [HttpPost("SSLCommerzSuccess")]
+        public async Task<IActionResult> SSLCommerzSuccess([FromForm] SSLCommerzResponse response)
+        {
+
+            //New: 05.01.2024
+            Operation objOperation = new Operation { Success = false, Message = "Unable to finalize recharge" };
+
+            string message = "";
+            bool isValid = false;
+            int subscriberId = 0;
+            Int16 status = 2;//2=failed
+            string[] arr1 = redirectUrl.Split('#');
+
+            if (response == null)
+            {
+                objOperation.Success = false;
+                objOperation.Message = "Something went wrong, please try again later";
+                redirectUrl += "?status=" + status.ToString() + " & trxID=" + "" + "&id=" + subscriberId + "&urlNam=" + arr1[1] + "&message=" + objOperation.Message;
+                return Redirect(redirectUrl);
+            }
+
+            if (response.status != "VALID")
+            {
+                objOperation.Success = false;
+                objOperation.Message = "Something went wrong, please try again later";
+                redirectUrl += "?status=" + status.ToString() + " & trxID=" + response.tran_id + "&id=" + subscriberId + "&urlNam=" + arr1[1] + "&message=" + objOperation.Message;
+                return Redirect(redirectUrl);
+            }
+
+            AnFPaymentMethodCredential? objPaymentMethod = servicePaymentCredential.GetByPaymentMethodId((Int16)Technofair.Utiity.Enums.Subscription.AnFPaymentMethodEnum.SSL);
+
+            if (objPaymentMethod == null)
+            {
+                objOperation.Success = false;
+                objOperation.Message = "Your payment has been successfully processed, but unable to recharge, our team is investigating the issue";
+                redirectUrl += "?status=" + status.ToString() + " & trxID=" + response.tran_id + "&id=" + subscriberId + "&urlNam=" + arr1[1] + "&message=" + objOperation.Message;//1=success
+                return Redirect(redirectUrl);
+            }
+
+            //AnFClientRechargeRequestObject objReqObject = new AnFClientRechargeRequestObject();
+
+
+            message = response.status + ":successful transaction.";
+            try
+            {
+                //New: 19.12.2024
+                //objReqObject = await serviceRequestObject.GetClientRechargeRequestObjectByTrxId(response.tran_id);
+
+                //if (objReqObject != null)
+                //{
+                //    string currency = "BDT";
+                //    SSLCommerz sslcz = new SSLCommerz(objPaymentMethod, true);
+                //    isValid = sslcz.ValidateTransaction(response.tran_id, objReqObject.Amount, currency, response.val_id);
+                //}
+
+                //if (isValid)
+                //{
+
+                //    objOperation = service.FinalizeSelfRecharge(response.tran_id, response.bank_tran_id);
+
+                 
+
+                //    redirectUrl += "?status=" + status.ToString() + " & trxID=" + response.tran_id + "&id=" + subscriberId + "&urlNam=" + arr1[1] + "&message=" + objOperation.Message;//1=success
+                //}
+                //else
+                //{
+
+                //    objOperation.Success = false;
+                //    objOperation.Message = "Your payment has been successfully processed, but unable to recharge, our team is investigating the issue";
+                //    redirectUrl += "?status=" + status.ToString() + " & trxID=" + response.tran_id + "&id=" + subscriberId + "&urlNam=" + arr1[1] + "&message=" + objOperation.Message;//1=success
+                //}
+
+            }
+            catch (Exception)
+            {
+                objOperation.Success = false;
+                objOperation.Message = "Your payment has been successfully processed, but unable to recharge, our team is investigating the issue";
+                redirectUrl += "?status=" + status.ToString() + " & trxID=" + response.tran_id + "&id=" + subscriberId + "&urlNam=" + arr1[1] + "&message=" + objOperation.Message;//1=success
+
+            }
+
+            //#endregion
+            return Redirect(redirectUrl);         
+
+
+        }
+
+        [HttpPost("SSLCommerzFail")]
+        public async Task<IActionResult> SSLCommerzFail([FromForm] SSLCommerzResponse response)
+        {
+            //New
+            string message = "";
+            Operation objOperation = new Operation();
+            objOperation.Success = false;
+            objOperation.Message = "Payment failed, Please try again later";
+
+            string[] arr = redirectUrl.Split('#');
+
+            if (response == null)
+            {
+                redirectUrl += "?status=3&trxID=" + response.tran_id + "&urlNam=" + arr[1] + "&message=" + objOperation.Message;//1=success
+            }
+
+            try
+            {
+                message = response.status + ":fail transaction.";
+
+                //var objReqObject = await serviceRequestObject.GetClientRechargeRequestObjectByTrxId(response.tran_id);
+
+                //objReqObject.AnFTransactionStatusId = (Int16)Technofair.Utiity.Enums.Subscription.AnFTransactionStatusEnum.Failed;
+                //serviceRequestObject.Update(objReqObject);
+
+                //var objClientRecharge = await service.GetClientRechargeByTrxId(response.tran_id);
+                //objClientRecharge.AnFTransactionStatusId = (Int16)Technofair.Utiity.Enums.Subscription.AnFTransactionStatusEnum.Failed;
+                //service.Update(objClientRecharge);
+
+            }
+            catch (Exception ex)
+            {
+                redirectUrl += "?status=3&trxID=" + response.tran_id + "&urlNam=" + arr[1] + "&message=" + objOperation.Message;//1=success
+            }
+
+            redirectUrl += "?status=3&trxID=" + response.tran_id + "&urlNam=" + arr[1] + "&message=" + objOperation.Message;//1=success
+            return Redirect(redirectUrl);
+
+           
+        }
+
+        [HttpPost("SSLCommerzCancel")]
+        public async Task<IActionResult> SSLCommerzCancel([FromForm] SSLCommerzResponse response)
+        {
+            
+            string message = "";
+            Operation objOperation = new Operation();
+            objOperation.Success = false;
+            objOperation.Message = "You have cancelled, Please try again later";
+
+            string[] arr = redirectUrl.Split('#');
+
+            if (response == null)
+            {
+                redirectUrl += "?status=3&trxID=" + response.tran_id + "&urlNam=" + arr[1] + "&message=" + objOperation.Message;//1=success
+            }
+
+            try
+            {
+                if (response.status == "CANCELLED")
+                {
+                    message = response.status + ":cancel transaction.";
+
+                    //var objReqObject = await serviceRequestObject.GetClientRechargeRequestObjectByTrxId(response.tran_id);
+
+                   // objReqObject.AnFTransactionStatusId = (Int16)Technofair.Utiity.Enums.Subscription.AnFTransactionStatusEnum.Cancelled;
+                    //serviceRequestObject.Update(objReqObject);
+
+                    //var objClientRecharge = await service.GetClientRechargeByTrxId(response.tran_id);
+                    //objClientRecharge.AnFTransactionStatusId = (Int16)Technofair.Utiity.Enums.Subscription.AnFTransactionStatusEnum.Cancelled;
+                    //service.Update(objClientRecharge);
+                }
+            }
+            catch (Exception ex)
+            {
+                redirectUrl += "?status=3&trxID=" + response.tran_id + "&urlNam=" + arr[1] + "&message=" + objOperation.Message;//1=success
+            }
+
+            redirectUrl += "?status=3&trxID=" + response.tran_id + "&urlNam=" + arr[1] + "&message=" + objOperation.Message;//1=success
+            return Redirect(redirectUrl);
+        }
+
+
+
+        private async Task<string> GetSplitList(Int64 deviceNumberId, int companyId, int amount)
+        {           
+            //New
+            string json = string.Empty;
+            return json;
+        }
+        #endregion
+
+        //public class RequestObject
+        //{
+        //    private ScpClientRecharge? _obj = null;
+        //    public ScpClientRecharge obj
+        //    {
+        //        get
+        //        {
+        //            if (_obj == null)
+        //            {
+        //                _obj = new ScpClientRecharge();
+        //            }
+        //            return _obj;
+        //        }
+        //        set
+        //        {
+        //            _obj = value;
+        //        }
+        //    }
+        //    public bool? isMso { get; set; }
+        //}
     }
 
 }

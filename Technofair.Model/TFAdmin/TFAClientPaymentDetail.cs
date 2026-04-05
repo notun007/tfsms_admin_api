@@ -23,6 +23,7 @@ namespace TFSMS.Admin.Model.TFAdmin
         public Nullable<decimal> Discount { get; set; }
         public decimal Amount { get; set; }
         public decimal TotalAmount { get; set; }
+        public Int16 GraceDay { get; set; }
         public DateTime ExpireDate { get; set; }
 
         public bool IsApproved { get; set; }

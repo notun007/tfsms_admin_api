@@ -9,6 +9,7 @@ using System.Collections.Specialized;
 using Newtonsoft.Json;
 using TFSMS.Admin.Model.Accounts;
 using Microsoft.AspNetCore.Mvc;
+using Technofair.Model.Accounts;
 
 namespace TFSMS.Admin.Models
 {
@@ -27,21 +28,21 @@ namespace TFSMS.Admin.Models
          string Validation_URL = "validator/api/validationserverAPI.php";
          string Tran_Checking_URL = "validator/api/merchantTransIDvalidationAPI.php";
 
-        //public SSLCommerz(AnFPaymentMethodCredential? objPaymentMethod, bool Store_Test_Mode = false)
-        //{
-        //    System.Net.ServicePointManager.SecurityProtocol = (SecurityProtocolType)0x00000C00;
-        //    if (Store_ID == null && Store_Pass == null)
-        //    {
-        //        Store_ID = objPaymentMethod.UserID;
-        //        Store_Pass = objPaymentMethod.AuthorizationCode;
-        //        SSLCz_URL = objPaymentMethod.PaymentUrl;
-        //        SetSSLCzTestMode(Store_Test_Mode);
-        //    }
-        //    else
-        //    {
-        //        throw new Exception("Please provide Store ID and Password to initialize SSLCommerz");
-        //    }
-        //}
+        public SSLCommerz(AnFPaymentMethodCredential? objPaymentMethod, bool Store_Test_Mode = false)
+        {
+            System.Net.ServicePointManager.SecurityProtocol = (SecurityProtocolType)0x00000C00;
+            if (Store_ID == null && Store_Pass == null)
+            {
+                Store_ID = objPaymentMethod.UserID;
+                Store_Pass = objPaymentMethod.AuthorizationCode;
+                SSLCz_URL = objPaymentMethod.PaymentUrl;
+                SetSSLCzTestMode(Store_Test_Mode);
+            }
+            else
+            {
+                throw new Exception("Please provide Store ID and Password to initialize SSLCommerz");
+            }
+        }
 
         public SSLCommerzInitResponse InitiateTransaction(NameValueCollection postData, bool GetGateWayList = false)
         {

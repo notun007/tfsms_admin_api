@@ -4,17 +4,16 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Security.Policy;
 using Technofair.Data.Infrastructure.TFAdmin;
-
 using Technofair.Lib.Model;
 using Technofair.Lib.Utilities;
+using Technofair.Utiity.Http;
+using TFSMS.Admin.Data.Infrastructure;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.TFAdmin;
 using TFSMS.Admin.Model.TFAdmin;
 using TFSMS.Admin.Model.ViewModel.Subscription;
 using TFSMS.Admin.Model.ViewModel.TFAdmin;
-
-using Technofair.Utiity.Http;
 using TFSMS.Admin.Service.TFAdmin;
-using TFSMS.Admin.Data.Infrastructure.TFAdmin;
-using TFSMS.Admin.Data.Repository.TFAdmin;
 
 namespace TFSMS.Admin.Controllers.TFAdmin
 {
@@ -125,12 +124,26 @@ namespace TFSMS.Admin.Controllers.TFAdmin
 
             return list;
         }
-
+        //http://localhost:5269/api/TFAClientBill/GetUnpaidBillByCompanyCode?companyCode=MSO-10001
         //[Authorize(Policy = "Authenticated")]
         [HttpPost("GetUnpaidBillByCompanyCode")]
         public List<TFAClientInvoiceViewModel> GetUnpaidBillByCompanyCode(string? companyCode)
         {
             List<TFAClientInvoiceViewModel> list = service.GetUnpaidBillByCompanyCode(companyCode);
+
+            return list;
+        }
+        [HttpPost("GetMonthOfBillByCompanyCode")]
+        public List<TFAClientInvoiceViewModel> GetMonthOfBillByCompanyCode(string? companyCode)
+        {
+            List<TFAClientInvoiceViewModel> list = service.GetMonthOfBillByCompanyCode(companyCode);
+
+            return list;
+        }
+        [HttpPost("GetBillAmountByPaymentDetailId")]
+        public List<TFAClientInvoiceViewModel> GetBillAmountByPaymentDetailId(int paymentDetailId)
+        {
+            List<TFAClientInvoiceViewModel> list = service.GetBillAmountByPaymentDetailId(paymentDetailId);
 
             return list;
         }

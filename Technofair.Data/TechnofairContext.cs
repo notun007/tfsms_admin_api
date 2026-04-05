@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-
+using Technofair.Model.Accounts;
+using Technofair.Utiity.Helper;
 using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Model.Common;
 using TFSMS.Admin.Model.HRM;
 using TFSMS.Admin.Model.Security;
-
-using Technofair.Utiity.Helper;
 
 #nullable disable
 namespace TFSMS.Admin.Data
@@ -59,6 +58,7 @@ namespace TFSMS.Admin.Data
         public DbSet<SecDashboardPermission> SecDashboardPermissions { get; set; }
         public DbSet<SecUserVisitor> SecUserVisitors { get; set; }
         public DbSet<SecWebsiteVisitor> SecWebsiteVisitors { get; set; }
+        public DbSet<AnFPaymentMethodCredential> AnFPaymentMethodCredentials { get; set; }
 
     }
 }
