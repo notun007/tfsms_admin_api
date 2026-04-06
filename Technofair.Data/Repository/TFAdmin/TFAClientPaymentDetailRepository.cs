@@ -35,6 +35,7 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
         CompanyCustomerWithClientPackageViewModel GetClientBillByClientPaymentDetailId(int tfaCompanyCustomerId, Int64 tfaClientPaymentDetailId);
         ClientPaymentViewModel GetLastPaymentByAppKey(string appKey);
         TFAClientPaymentDetail GetByClientPaymentDetailId(long clientPaymentDetailId);
+        List<ClientSubscriptionSummaryViewModel> GetClientSubscriptionSummary();
     }
 
     #endregion
@@ -333,6 +334,34 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
                 //throw ex;
             }
             return list.FirstOrDefault();
+        }
+
+        //added: 06.04.2026
+        public List<ClientSubscriptionSummaryViewModel> GetClientSubscriptionSummary() 
+        {
+            DataTable dt = new DataTable();
+            SqlParameter[] paramsToStore = new SqlParameter[0];
+            //paramsToStore[0] = new SqlParameter("@TFACompanyCustomerId", TFACompanyCustomerId);
+            //paramsToStore[1] = new SqlParameter("@ClientPaymentInvoiceId", TFAClientPaymentInvoiceId);
+            List<ClientSubscriptionSummaryViewModel> list = new List<ClientSubscriptionSummaryViewModel>();
+
+            try
+            {
+                dt = Helper.ExecuteDataset(DataContext.Database.GetDbConnection().ConnectionString, CommandType.StoredProcedure, SPList.TFAClientBill.GetClientSubscriptionSummary, paramsToStore).Tables[0];
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        list.Add(((ClientSubscriptionSummaryViewModel)Helper.FillTo(row, typeof(ClientSubscriptionSummaryViewModel))));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+            }
+            return list;
         }
     }
 

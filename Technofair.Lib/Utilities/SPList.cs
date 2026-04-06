@@ -700,7 +700,9 @@ namespace Technofair.Lib.Utilities
             public static string GetBillAmountByPaymentDetailId = "GetBillAmountByPaymentDetailId";
             public static string GetClientPaymentInvoice = "GetClientPaymentInvoice";
             public static string ApproveClientInvoice = "ApproveClientInvoice";
-          
+            public static string GetClientSubscriptionSummary = "GetClientSubscriptionSummary";
+
+
 
 
         }

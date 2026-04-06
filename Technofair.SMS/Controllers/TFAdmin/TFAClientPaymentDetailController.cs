@@ -157,6 +157,12 @@ namespace TFSMS.Admin.Controllers.TFAdmin
             return service.GetLastPaymentByAppKey(appKey);
         }
 
+        [HttpPost("GetClientSubscriptionSummary")]
+        public List<ClientSubscriptionSummaryViewModel> GetClientSubscriptionSummary()
+        {
+            return service.GetClientSubscriptionSummary();
+        }
+
     }
 
     }

@@ -38,7 +38,7 @@ namespace TFSMS.Admin.Service.TFAdmin
         Task<TFAClientPaymentDetail> clientPaymentDetails(int companyCustomerId, int monthId, int year);
         CompanyCustomerWithClientPackageViewModel GetClientBillByClientPaymentDetailId(int tfaCompanyCustomerId, Int64 tfaClientPaymentDetailId);
         ClientPaymentViewModel GetLastPaymentByAppKey(string appKey);
-
+        List<ClientSubscriptionSummaryViewModel> GetClientSubscriptionSummary();
 
     }
     #endregion
@@ -330,6 +330,11 @@ namespace TFSMS.Admin.Service.TFAdmin
         public ClientPaymentViewModel GetLastPaymentByAppKey(string appKey)
         {
             return repository.GetLastPaymentByAppKey(appKey);
+        }
+
+        public List<ClientSubscriptionSummaryViewModel> GetClientSubscriptionSummary()
+        {
+            return repository.GetClientSubscriptionSummary();
         }
     }
 
