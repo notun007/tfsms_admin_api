@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TFSMS.Admin.Model.TFAdmin;
 
 namespace Technofair.Model.ViewModel.TFAdmin
 {
@@ -24,6 +25,8 @@ namespace Technofair.Model.ViewModel.TFAdmin
             public DateTime? ExpireDate { get; set; }
             public int? Year { get; set; }
             public string? MonthName { get; set; }
+            public Int64 TFAClientPaymentDetailId { get; set; }
+            public Int16? GraceDay { get; set; }
 
             public int CreatedBy { get; set; }
             public DateTime CreatedDate { get; set; }

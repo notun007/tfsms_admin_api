@@ -163,8 +163,65 @@ namespace TFSMS.Admin.Controllers.TFAdmin
             return service.GetClientSubscriptionSummary();
         }
 
-    }
+       
+        [HttpPost("ExtendExpireDate")]
+        public async Task<Operation> ExtendExpireDate([FromBody] ExtendExpireDateViewModel obj)
+        {
+            Operation objOperation = new Operation { Success = false };
+
+            try
+            {
+
+                //if (obj == null || obj.TFAClientPaymentDetailId <= 0)
+                //{
+                //    objOperation.Success = false;
+                //    objOperation.Message = "Invalid request data";
+                //    return objOperation;
+                //}
+
+                //if (obj.ExtendedExpireDate <= obj.ExpireDate)
+                //{
+                //    objOperation.Success = false;
+                //    objOperation.Message = "Extend date must be greater than expire date";
+                //    return objOperation;
+                //}
+
+                //if (obj.ExtendedExpireDate <= DateTime.Now.Date)
+                //{
+                //    objOperation.Success = false;
+                //    objOperation.Message = "Extend date must be greater than today";
+                //    return objOperation;
+                //}
+
+                var paymentDetail =  service.GetById(obj.TFAClientPaymentDetailId);
+
+                if (paymentDetail == null)
+                {
+                    objOperation.Success = false;
+                    objOperation.Message = "Data not found";
+                    return objOperation;
+                }             
+           
+                               
+                paymentDetail.GraceDay = obj.FinalGraceDay;
+                paymentDetail.ModifiedBy = obj.CreatedBy;
+                paymentDetail.ModifiedDate = DateTime.Now;              
+                service.Update(paymentDetail);
+
+                objOperation.Success = true;
+                objOperation.Message = "Expire date extended successfully";
+            }
+            catch (Exception ex)
+            {
+                objOperation.Success = false;
+                objOperation.Message = "Something went wrong";
+            }
+
+            return objOperation;
+        }
 
     }
+
+}
 
 //public async Task<TFAClientPaymentDetail> GetClientPaymentDetailByAppKey(string appKey)
