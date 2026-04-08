@@ -203,7 +203,7 @@ namespace TFSMS.Admin.Controllers.TFAdmin
                 }             
            
                                
-                paymentDetail.GraceDay = obj.FinalGraceDay;
+                paymentDetail.GraceDay = obj.ExtendedGraceDay;
                 paymentDetail.ModifiedBy = obj.CreatedBy;
                 paymentDetail.ModifiedDate = DateTime.Now;              
                 service.Update(paymentDetail);

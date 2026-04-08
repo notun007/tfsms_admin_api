@@ -16,7 +16,7 @@ namespace Technofair.Model.ViewModel.TFAdmin
 
         public DateTime ExtendedExpireDate { get; set; }
 
-        public Int16? FinalGraceDay { get; set; }
+        public Int16? ExtendedGraceDay { get; set; }
 
         public int CreatedBy { get; set; }
     }
