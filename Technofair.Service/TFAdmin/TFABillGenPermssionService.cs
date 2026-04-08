@@ -24,11 +24,13 @@ namespace TFSMS.Admin.Service.TFAdmin
         List<TFABillGenPermssion> GetBillGenPermission(int id);
         Task<List<TFABillGenPermssionViewModel>> GetBillGenPermission();
         Task<List<TFABillGenPermssionViewModel>> GetOpenBillGenPermission();
+        Task<List<TFABillGenPermssionViewModel>> GetOpenBillGenPermissionByCompanyCustomerId(int? CompanyCustomerId);
         Task<List<TFABillGenPermssionViewModel>> GetBillGenPermittedYear();
         Task<List<TFABillGenPermssionViewModel>> GetBillGenPermittedMonthByYear(int year);
         TFABillGenPermssion GetById(int Id);
         List<TFABillGenPermssion> GetAll();
         TFABillGenPermssion? GetBillGenPermissionByMonthIdYear(int monthId, int year);
+        TFABillGenPermssion? GetBillGenPermissionByCompanyCustomerIdMonthIdAndYear(int? customerId, int monthId, int year);
         Task<List<TFABillGenPermssionViewModel>> GetList();
     }
     public class TFABillGenPermssionService : ITFABillGenPermssionService
@@ -126,6 +128,10 @@ namespace TFSMS.Admin.Service.TFAdmin
         {
             return repository.GetBillGenPermissionByMonthIdYear(monthId, year);
         }
+        public TFABillGenPermssion? GetBillGenPermissionByCompanyCustomerIdMonthIdAndYear(int? customerId, int monthId, int year)
+        {
+            return repository.GetBillGenPermissionByCompanyCustomerIdMonthIdAndYear(customerId, monthId, year);
+        }
 
         public async Task<List<TFABillGenPermssionViewModel>> GetBillGenPermission()
         {
@@ -134,6 +140,10 @@ namespace TFSMS.Admin.Service.TFAdmin
         public async Task<List<TFABillGenPermssionViewModel>> GetOpenBillGenPermission()
         {
             return await repository.GetOpenBillGenPermission();
+        }
+        public async Task<List<TFABillGenPermssionViewModel>> GetOpenBillGenPermissionByCompanyCustomerId(int? CompanyCustomerId)
+        {
+            return await repository.GetOpenBillGenPermissionByCompanyCustomerId(CompanyCustomerId);
         }
 
         public async Task<List<TFABillGenPermssionViewModel>> GetBillGenPermittedYear()

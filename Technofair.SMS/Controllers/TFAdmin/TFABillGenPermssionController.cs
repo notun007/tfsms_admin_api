@@ -31,20 +31,22 @@ namespace TFSMS.Admin.Controllers.TFAdmin
             TFABillGenPermssion objExist = service.GetById(obj.Id); 
                                             
 
-            if (objExist == null)
+            if (objExist == null) 
             {
-               var objBillGenPermssionDup = service.GetBillGenPermissionByMonthIdYear(obj.TFAMonthId, obj.Year);
+               var objBillGenPermssionDup = service.GetBillGenPermissionByCompanyCustomerIdMonthIdAndYear(obj.TFACompanyCustomerId, obj.TFAMonthId, obj.Year);
+               //var objBillGenPermssionDup = service.GetBillGenPermissionByMonthIdYear( obj.TFAMonthId, obj.Year);
 
-                if(objBillGenPermssionDup != null)
+                if (objBillGenPermssionDup != null)
                 {
                     objOperation.Success = false;
                     objOperation.Message = "Permission already exist";
                     return objOperation;
                 }
 
-                var objOpenBillGenPermission = await service.GetOpenBillGenPermission();
-                
-                if(objOpenBillGenPermission.Count()>0)
+                //var objOpenBillGenPermission = await service.GetOpenBillGenPermission();
+                var objOpenBillGenPermission = await service.GetOpenBillGenPermissionByCompanyCustomerId(obj.TFACompanyCustomerId);
+
+                if (objOpenBillGenPermission.Count()>0)
                 {
                     objOperation.Success = false;
                     objOperation.Message = "Previous Bill Gen Permission is Open";
@@ -54,6 +56,7 @@ namespace TFSMS.Admin.Controllers.TFAdmin
                 //New
                 TFABillGenPermssion objBillGenPermssion = new TFABillGenPermssion();
                 objBillGenPermssion.Id = obj.Id;
+                objBillGenPermssion.TFACompanyCustomerId = obj.TFACompanyCustomerId;
                 objBillGenPermssion.TFAMonthId = obj.TFAMonthId;
                 objBillGenPermssion.Year = obj.Year;
                 objBillGenPermssion.IsClose = obj.IsClose;
@@ -78,6 +81,7 @@ namespace TFSMS.Admin.Controllers.TFAdmin
                     return objOperation;
                 }
 
+                objExist.TFACompanyCustomerId = obj.TFACompanyCustomerId;
                 objExist.TFAMonthId = obj.TFAMonthId;
                 objExist.Year = obj.Year;
                 objExist.IsClose = obj.IsClose;
@@ -92,6 +96,81 @@ namespace TFSMS.Admin.Controllers.TFAdmin
                       
             return objOperation;
         }
+
+        //[Authorize(Policy = "Authenticated")]
+        //[HttpPost("SaveBillGenPermission")]
+        //public async Task<Operation> Save([FromBody] TFABillGenPermssionViewModel obj)
+        //{
+        //    Operation objOperation = new Operation();
+
+        //    TFABillGenPermssion objExist = service.GetById(obj.Id);
+
+
+        //    if (objExist == null)
+        //    {
+        //       
+        //        var objBillGenPermssionDup = service.GetBillGenPermissionByMonthIdYear( obj.TFAMonthId, obj.Year);
+
+        //        if (objBillGenPermssionDup != null)
+        //        {
+        //            objOperation.Success = false;
+        //            objOperation.Message = "Permission already exist";
+        //            return objOperation;
+        //        }
+
+        //        var objOpenBillGenPermission = await service.GetOpenBillGenPermission();
+        //       
+
+        //        if (objOpenBillGenPermission.Count() > 0)
+        //        {
+        //            objOperation.Success = false;
+        //            objOperation.Message = "Previous Bill Gen Permission is Open";
+        //            return objOperation;
+        //        }
+
+        //        //New
+        //        TFABillGenPermssion objBillGenPermssion = new TFABillGenPermssion();
+        //        objBillGenPermssion.Id = obj.Id;      
+        //        objBillGenPermssion.TFAMonthId = obj.TFAMonthId;
+        //        objBillGenPermssion.Year = obj.Year;
+        //        objBillGenPermssion.IsClose = obj.IsClose;
+        //        objBillGenPermssion.CloseBy = obj.CloseBy;
+        //        objBillGenPermssion.CloseDate = DateTime.Now;
+        //        objBillGenPermssion.CreatedBy = obj.CreatedBy;
+        //        objBillGenPermssion.CreatedDate = DateTime.Now;
+        //        objOperation = await service.Save(objBillGenPermssion);
+        //        objOperation.Success = true;
+        //        objOperation.Message = "Bill Gen Permission Saved Successfully";
+        //    }
+
+        //    if (objExist != null)
+        //    {
+
+        //        var objDuplicate = service.GetBillGenPermissionExceptItSelf(obj);
+
+        //        if (objDuplicate.Count() > 0)
+        //        {
+        //            objOperation.Success = false;
+        //            objOperation.Message = "Permission already exist in other record";
+        //            return objOperation;
+        //        }
+
+       
+        //        objExist.TFAMonthId = obj.TFAMonthId;
+        //        objExist.Year = obj.Year;
+        //        objExist.IsClose = obj.IsClose;
+        //        objExist.CloseBy = obj.CloseBy;
+        //        objExist.CloseDate = DateTime.Now;
+        //        objExist.ModifiedBy = obj.ModifiedBy;
+        //        objExist.ModifiedDate = DateTime.Now;
+        //        objOperation = service.Update(objExist);
+        //        objOperation.Success = true;
+        //        objOperation.Message = "Bill Gen Permission Updated Successfully";
+        //    }
+
+        //    return objOperation;
+        //}
+
 
         [Authorize(Policy = "Authenticated")]
         [HttpPost(("Delete/{id:int}"))]

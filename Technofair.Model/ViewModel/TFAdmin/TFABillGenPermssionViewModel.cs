@@ -10,6 +10,7 @@ namespace TFSMS.Admin.Model.ViewModel.TFAdmin
     public class TFABillGenPermssionViewModel
     {
         public int Id { get; set; }
+        public int? TFACompanyCustomerId { get; set; }
         public Int16 TFAMonthId { get; set; }      
         public Int16 Year { get; set; }
         public Boolean IsClose { get; set; }

@@ -23,10 +23,11 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
         Task<List<TFABillGenPermssionViewModel>> GetBillGenPermission();
         
         Task<List<TFABillGenPermssionViewModel>> GetOpenBillGenPermission();
+        Task<List<TFABillGenPermssionViewModel>> GetOpenBillGenPermissionByCompanyCustomerId(int? CompanyCustomerId);
         Task<List<TFABillGenPermssionViewModel>> GetBillGenPermittedYear();
         Task<List<TFABillGenPermssionViewModel>> GetBillGenPermittedMonthByYear(int year);
         TFABillGenPermssion? GetBillGenPermissionByMonthIdYear(int monthId, int year);
-
+        TFABillGenPermssion? GetBillGenPermissionByCompanyCustomerIdMonthIdAndYear(int? customerId, int monthId, int year);
         Task<List<TFABillGenPermssionViewModel>> GetList();
     }
     public class TFABillGenPermssionRepository : AdminBaseRepository<TFABillGenPermssion>, ITFABillGenPermssionRepository
@@ -92,6 +93,12 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
             return obj;
         }
 
+        public TFABillGenPermssion? GetBillGenPermissionByCompanyCustomerIdMonthIdAndYear(int? customerId, int monthId, int year)
+        {
+            TFABillGenPermssion? obj = DataContext.TFABillGenPermssions.Where(x => x.TFACompanyCustomerId == customerId &&  x.TFAMonthId == monthId && x.Year == year).FirstOrDefault();
+            return obj;
+        }
+
 
         ///month show
         public async Task<List<TFABillGenPermssionViewModel>> GetList()
@@ -148,6 +155,30 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
                                 select new TFABillGenPermssionViewModel
                                 {
                                     Id = bgp.Id,
+                                    TFAMonthId = bgp.TFAMonthId,
+                                    Year = bgp.Year,
+                                    IsClose = bgp.IsClose,
+                                    CloseBy = bgp.CloseBy,
+                                    CloseDate = bgp.CloseDate,
+                                    CreatedBy = bgp.CreatedBy,
+                                    CreatedDate = bgp.CreatedDate,
+                                    ShortName = m.ShortName,
+                                    FullName = m.FullName,
+                                    MonthYear = m.ShortName + "' " + Convert.ToString(bgp.Year)
+                                }).ToListAsync();
+
+            return result;
+        }
+
+        public async Task<List<TFABillGenPermssionViewModel>> GetOpenBillGenPermissionByCompanyCustomerId(int? CompanyCustomerId)
+        {
+            var result = await (from bgp in DataContext.TFABillGenPermssions
+                                join m in DataContext.TFAMonths on bgp.TFAMonthId equals m.Id
+                                where bgp.IsClose == false && bgp.TFACompanyCustomerId == CompanyCustomerId
+                                select new TFABillGenPermssionViewModel
+                                {
+                                    Id = bgp.Id,
+                                    TFACompanyCustomerId = bgp.TFACompanyCustomerId,
                                     TFAMonthId = bgp.TFAMonthId,
                                     Year = bgp.Year,
                                     IsClose = bgp.IsClose,

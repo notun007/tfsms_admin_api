@@ -9,6 +9,8 @@ namespace TFSMS.Admin.Model.TFAdmin
     public class TFABillGenPermssion
     {
         public int Id { get; set; }
+        public int? TFACompanyCustomerId { get; set; }
+        public TFACompanyCustomer TFACompanyCustomer { get; set; }
         public Int16 TFAMonthId { get; set; }
         public TFAMonth TFAMonth { get; set; }
         public Int16 Year { get; set; }
