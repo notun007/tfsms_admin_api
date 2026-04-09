@@ -24,6 +24,7 @@ namespace TFSMS.Admin.Model.ViewModel.TFAdmin
         public string? FullName { get; set; }
         public string? ShortName { get; set; }
         public string? MonthYear { get; set; }
+        public string? CompanyCustomer { get; set; }
 
     }
 }

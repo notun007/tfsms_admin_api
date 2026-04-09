@@ -76,6 +76,12 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
             return obj.Id;
         }
 
+        //public List<TFABillGenPermssion> GetBillGenPermissionExceptItSelf(TFABillGenPermssionViewModel objTFABillGenPermssion)
+        //{
+        //    List<TFABillGenPermssion> list = DataContext.TFABillGenPermssions.Where(x => x.TFACompanyCustomerId != objTFABillGenPermssion.TFACompanyCustomerId && x.Id != objTFABillGenPermssion.Id && (x.TFAMonthId == objTFABillGenPermssion.TFAMonthId && x.Year == objTFABillGenPermssion.Year)).ToList();
+        //    return list;
+        //}
+
         public List<TFABillGenPermssion> GetBillGenPermissionExceptItSelf(TFABillGenPermssionViewModel objTFABillGenPermssion)
         {
             List<TFABillGenPermssion> list = DataContext.TFABillGenPermssions.Where(x => x.Id != objTFABillGenPermssion.Id && (x.TFAMonthId == objTFABillGenPermssion.TFAMonthId && x.Year == objTFABillGenPermssion.Year)).ToList();
@@ -105,10 +111,12 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
         {
             var obj = from cbp in DataContext.TFABillGenPermssions
                         join m in DataContext.TFAMonths on cbp.TFAMonthId equals m.Id
-                        orderby cbp.Year descending , cbp.TFAMonthId descending
+                        join cc in DataContext.TFACompanyCustomers on cbp.TFACompanyCustomerId equals cc.Id
+                      orderby cbp.Year descending , cbp.TFAMonthId descending
                         select new TFABillGenPermssionViewModel
                         {
                             Id = cbp.Id,
+                            TFACompanyCustomerId = cbp.TFACompanyCustomerId,
                             TFAMonthId = cbp.TFAMonthId,
                             Year = cbp.Year,
                             IsClose = cbp.IsClose,
@@ -118,7 +126,8 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
                             CreatedDate = cbp.CreatedDate,
                             ShortName = m.ShortName,
                             FullName = m.FullName,
-                            MonthYear = m.ShortName + "' " + Convert.ToString(cbp.Year)
+                            MonthYear = m.ShortName + "' " + Convert.ToString(cbp.Year),
+                            CompanyCustomer = cc.Name
                         };
 
             return await obj.ToListAsync();
