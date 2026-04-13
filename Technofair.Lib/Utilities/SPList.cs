@@ -718,6 +718,7 @@ namespace Technofair.Lib.Utilities
             public static string GetActiveCompanyCustomerWithClientPackage = "GetActiveCompanyCustomerWithClientPackage";
             public static string GetClientBillByClientPaymentDetailId = "GetClientBillByClientPaymentDetailId";
             public static string GetLastPaymentByAppKey = "GetLastPaymentByAppKey";
+            public static string sp_GetBillGeneratableCompanyCustomers = "sp_GetBillGeneratableCompanyCustomers";
 
 
         }

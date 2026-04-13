@@ -334,6 +334,12 @@ namespace TFSMS.Admin.Controllers.TFAdmin
         {
             return service.GetActiveCompanyCustomerWithClientPackage(monthId, year);
         }
+        [Authorize(Policy = "Authenticated")]
+        [HttpPost("GetBillGeneratableCompanyCustomers")]
+        public List<BillGeneratableCompanyCustomerViewModel> GetBillGeneratableCompanyCustomers()
+        {
+            return service.GetBillGeneratableCompanyCustomers();
+        }
 
 
     }

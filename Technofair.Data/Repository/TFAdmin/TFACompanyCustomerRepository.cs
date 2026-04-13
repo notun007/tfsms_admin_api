@@ -30,6 +30,7 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
         Task<List<TFACompanyCustomer>> GetCompanyCustomerExceptItseltByEmail(TFACompanyCustomerViewModel obj);
         string GetLastCode();
         List<CompanyCustomerWithClientPackageViewModel> GetActiveCompanyCustomerWithClientPackage(int monthId, int yearId);
+        List<BillGeneratableCompanyCustomerViewModel> GetBillGeneratableCompanyCustomers();
     }
 
     #endregion
@@ -144,6 +145,32 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
                     foreach (DataRow row in dt.Rows)
                     {
                         list.Add(((CompanyCustomerWithClientPackageViewModel)Helper.FillTo(row, typeof(CompanyCustomerWithClientPackageViewModel))));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+            }
+            return list;
+        }
+
+        public List<BillGeneratableCompanyCustomerViewModel> GetBillGeneratableCompanyCustomers()
+        {
+            DataTable dt = new DataTable();
+            SqlParameter[] paramsToStore = new SqlParameter[0];
+
+            List<BillGeneratableCompanyCustomerViewModel> list = new List<BillGeneratableCompanyCustomerViewModel>();
+
+            try
+            {
+                dt = Helper.ExecuteDataset(DataContext.Database.GetDbConnection().ConnectionString, CommandType.StoredProcedure, SPList.TFAdmin.sp_GetBillGeneratableCompanyCustomers, paramsToStore).Tables[0];
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        list.Add(((BillGeneratableCompanyCustomerViewModel)Helper.FillTo(row, typeof(BillGeneratableCompanyCustomerViewModel))));
                     }
                 }
             }

@@ -29,6 +29,7 @@ namespace TFSMS.Admin.Service.TFAdmin
         Task<List<TFACompanyCustomer>> GetCompanyCustomerExceptItseltByEmail(TFACompanyCustomerViewModel obj);
         string GetLastCode();
         List<CompanyCustomerWithClientPackageViewModel> GetActiveCompanyCustomerWithClientPackage(int monthId, int year);
+        List<BillGeneratableCompanyCustomerViewModel> GetBillGeneratableCompanyCustomers();
     }
 
     public class TFACompanyCustomerService : ITFACompanyCustomerService
@@ -164,6 +165,10 @@ namespace TFSMS.Admin.Service.TFAdmin
         public List<CompanyCustomerWithClientPackageViewModel> GetActiveCompanyCustomerWithClientPackage(int monthId, int year)
         {
             return repository.GetActiveCompanyCustomerWithClientPackage(monthId, year);
+        }
+        public List<BillGeneratableCompanyCustomerViewModel> GetBillGeneratableCompanyCustomers()
+        {
+            return repository.GetBillGeneratableCompanyCustomers();
         }
 
     }
