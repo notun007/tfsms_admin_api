@@ -108,29 +108,41 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
         }
         public async Task<TFAClientPaymentDetail> clientPaymentDetails( int companyCustomerId,int monthId,int year)
         {
+            //New: By Farida
             var clientPaymentDetail = await (from cp in DataContext.TFAClientPayments
-                        join cpd in DataContext.TFAClientPaymentDetails
-                        on cp.Id equals cpd.TFAClientPaymentId
-                        where cp.TFACompanyCustomerId == companyCustomerId
-                        && cpd.TFAMonthId == monthId
-                        && cpd.Year == year
-                        select new TFAClientPaymentDetail
-                        {
-                            Id = cpd.Id,
-                            TFAClientPaymentId = cpd.TFAClientPaymentId,
-                            Year = cpd.Year,
-                            TFAMonthId = cpd.TFAMonthId,
-                            AnFCompanyServiceTypeId = cpd.AnFCompanyServiceTypeId,
-                            NumberOfAssignedDevice = cpd.NumberOfAssignedDevice,
-                            NumberOfLivePackage = cpd.NumberOfLivePackage,
-                            Rate = cpd.Rate,
-                            Discount = cpd.Discount,
-                            Amount = cpd.Amount,
-                            ExpireDate = cpd.ExpireDate,
-                            CreatedBy = cpd.CreatedBy,
-                            CreatedDate = cpd.CreatedDate
+                                             join cpd in DataContext.TFAClientPaymentDetails
+                                             on cp.Id equals cpd.TFAClientPaymentId
+                                             where cp.TFACompanyCustomerId == companyCustomerId
+                                             && cpd.TFAMonthId == monthId
+                                             && cpd.Year == year
+                                             select cpd
+                                             ).FirstOrDefaultAsync();
 
-                        }).FirstOrDefaultAsync();
+            //Old: By Farida
+            //var clientPaymentDetail = await (from cp in DataContext.TFAClientPayments
+            //            join cpd in DataContext.TFAClientPaymentDetails
+            //            on cp.Id equals cpd.TFAClientPaymentId
+            //            where cp.TFACompanyCustomerId == companyCustomerId
+            //            && cpd.TFAMonthId == monthId
+            //            && cpd.Year == year
+            //            select new TFAClientPaymentDetail
+            //            {
+            //                Id = cpd.Id,
+            //                TFAClientPaymentId = cpd.TFAClientPaymentId,
+            //                Year = cpd.Year,
+            //                TFAMonthId = cpd.TFAMonthId,
+            //                AnFCompanyServiceTypeId = cpd.AnFCompanyServiceTypeId,
+            //                NumberOfAssignedDevice = cpd.NumberOfAssignedDevice,
+            //                NumberOfLivePackage = cpd.NumberOfLivePackage,
+            //                GraceDay = cpd.GraceDay,
+            //                Rate = cpd.Rate,
+            //                Discount = cpd.Discount,
+            //                Amount = cpd.Amount,
+            //                ExpireDate = cpd.ExpireDate,
+            //                CreatedBy = cpd.CreatedBy,
+            //                CreatedDate = cpd.CreatedDate
+
+            //            }).FirstOrDefaultAsync();
 
             return clientPaymentDetail;
         }
