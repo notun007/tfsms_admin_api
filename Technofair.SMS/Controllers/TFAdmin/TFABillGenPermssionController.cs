@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 using Technofair.Lib.Model;
+using Technofair.Model.ViewModel.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
 using TFSMS.Admin.Data.Repository.TFAdmin;
 using TFSMS.Admin.Model.TFAdmin;
@@ -234,6 +235,13 @@ namespace TFSMS.Admin.Controllers.TFAdmin
         {
             List<TFABillGenPermssionViewModel> list = await service.GetBillGenPermittedMonthByYear(year);
             return list;
+        }
+
+        [Authorize(Policy = "Authenticated")]
+        [HttpPost("GetLastBillGenPermissionByCompanyCustomerId")]
+        public BillGenPermissionCheckViewModel GetLastBillGenPermissionByCompanyCustomerId(int tFACompanyCustomerId)
+        {
+            return service.GetLastBillGenPermissionByCompanyCustomerId(tFACompanyCustomerId);
         }
     }
 }

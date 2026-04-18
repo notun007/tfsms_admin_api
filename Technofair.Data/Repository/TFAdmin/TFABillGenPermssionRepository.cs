@@ -1,15 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Technofair.Lib.Utilities;
-using TFSMS.Admin.Model.TFAdmin;
-using TFSMS.Admin.Model.ViewModel.TFAdmin;
+using Technofair.Model.ViewModel.TFAdmin;
 using TFSMS.Admin.Data.Infrastructure;
 using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Model.TFAdmin;
+using TFSMS.Admin.Model.ViewModel.TFAdmin;
 
 namespace TFSMS.Admin.Data.Repository.TFAdmin
 {
@@ -26,6 +28,7 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
         Task<List<TFABillGenPermssionViewModel>> GetOpenBillGenPermissionByCompanyCustomerId(int? CompanyCustomerId);
         Task<List<TFABillGenPermssionViewModel>> GetBillGenPermittedYear();
         Task<List<TFABillGenPermssionViewModel>> GetBillGenPermittedMonthByYear(int year);
+        BillGenPermissionCheckViewModel GetLastBillGenPermissionByCompanyCustomerId(int tFACompanyCustomerId);
         TFABillGenPermssion? GetBillGenPermissionByMonthIdYear(int monthId, int year);
         TFABillGenPermssion? GetBillGenPermissionByCompanyCustomerIdMonthIdAndYear(int? customerId, int monthId, int year);
         Task<List<TFABillGenPermssionViewModel>> GetList();
@@ -238,5 +241,64 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
 
             return result;
         }
+
+
+        public BillGenPermissionCheckViewModel GetLastBillGenPermissionByCompanyCustomerId(int tFACompanyCustomerId)
+        {
+            DataTable dt = new DataTable();
+            SqlParameter[] paramsToStore = new SqlParameter[1];
+            paramsToStore[0] = new SqlParameter("tFACompanyCustomerId", tFACompanyCustomerId);
+
+            BillGenPermissionCheckViewModel result = null;
+
+            try
+            {
+                dt = Helper.ExecuteDataset(
+                        DataContext.Database.GetDbConnection().ConnectionString,
+                        CommandType.StoredProcedure,
+                        SPList.TFAdmin.GetLastBillGenPermissionByCompanyCustomerId,
+                        paramsToStore
+                    ).Tables[0];
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    result = (BillGenPermissionCheckViewModel)
+                        Helper.FillTo(dt.Rows[0], typeof(BillGenPermissionCheckViewModel));
+                }
+            }
+            catch (Exception ex)
+            {
+                // log ex
+            }
+
+            return result;
+        }
+
+        //public List<BillGenPermissionCheckViewModel> GetLastBillGenPermissionByCompanyCustomerId(int tFACompanyCustomerId)
+        //{
+        //    DataTable dt = new DataTable();
+        //    SqlParameter[] paramsToStore = new SqlParameter[1];          
+        //    paramsToStore[0] = new SqlParameter("tFACompanyCustomerId", tFACompanyCustomerId);
+
+        //    List<BillGenPermissionCheckViewModel> list = new List<BillGenPermissionCheckViewModel>();
+
+        //    try
+        //    {
+        //        dt = Helper.ExecuteDataset(DataContext.Database.GetDbConnection().ConnectionString, CommandType.StoredProcedure, SPList.TFAdmin.GetLastBillGenPermissionByCompanyCustomerId, paramsToStore).Tables[0];
+
+        //        if (dt != null && dt.Rows.Count > 0)
+        //        {
+        //            foreach (DataRow row in dt.Rows)
+        //            {
+        //                list.Add(((BillGenPermissionCheckViewModel)Helper.FillTo(row, typeof(BillGenPermissionCheckViewModel))));
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //throw ex;
+        //    }
+        //    return list;
+        //}
     }
 }

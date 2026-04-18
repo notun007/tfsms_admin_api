@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using Technofair.Data.Infrastructure.TFAdmin;
 using Technofair.Data.Repository.Accounts;
 using Technofair.Lib.Model;
+using Technofair.Model.ViewModel.TFAdmin;
+using TFSMS.Admin.Data.Infrastructure;
+using TFSMS.Admin.Data.Repository.TFAdmin;
 using TFSMS.Admin.Model.Accounts;
 using TFSMS.Admin.Model.TFAdmin;
 using TFSMS.Admin.Model.ViewModel.Accounts;
 using TFSMS.Admin.Model.ViewModel.TFAdmin;
-using TFSMS.Admin.Data.Infrastructure;
-using TFSMS.Admin.Data.Repository.TFAdmin;
 
 namespace TFSMS.Admin.Service.TFAdmin
 {
@@ -27,6 +28,7 @@ namespace TFSMS.Admin.Service.TFAdmin
         Task<List<TFABillGenPermssionViewModel>> GetOpenBillGenPermissionByCompanyCustomerId(int? CompanyCustomerId);
         Task<List<TFABillGenPermssionViewModel>> GetBillGenPermittedYear();
         Task<List<TFABillGenPermssionViewModel>> GetBillGenPermittedMonthByYear(int year);
+        BillGenPermissionCheckViewModel GetLastBillGenPermissionByCompanyCustomerId(int tFACompanyCustomerId);
         TFABillGenPermssion GetById(int Id);
         List<TFABillGenPermssion> GetAll();
         TFABillGenPermssion? GetBillGenPermissionByMonthIdYear(int monthId, int year);
@@ -154,6 +156,10 @@ namespace TFSMS.Admin.Service.TFAdmin
         public async Task<List<TFABillGenPermssionViewModel>> GetBillGenPermittedMonthByYear(int year)
         {
             return await repository.GetBillGenPermittedMonthByYear(year);
+        }
+        public BillGenPermissionCheckViewModel GetLastBillGenPermissionByCompanyCustomerId(int tFACompanyCustomerId)
+        {
+            return repository.GetLastBillGenPermissionByCompanyCustomerId(tFACompanyCustomerId);
         }
 
         public async Task<List<TFABillGenPermssionViewModel>> GetList()

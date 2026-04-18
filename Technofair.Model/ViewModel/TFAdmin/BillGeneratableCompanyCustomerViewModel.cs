@@ -9,6 +9,7 @@ namespace Technofair.Model.ViewModel.TFAdmin
 {
     public class BillGeneratableCompanyCustomerViewModel
     {
+
         public int TFACompanyCustomerId { get; set; }
         public string CompanyCustomerName { get; set; }
         public string CompanyCustomerAddress { get; set; }
