@@ -15,15 +15,17 @@ namespace Technofair.Model.ViewModel.TFAdmin
         public string? ShortName { get; set; }
         public string? FullName { get; set; }
         public string? BillMonth { get; set; }
-
-        public bool Status { get; set; }
-        public string Message { get; set; } = string.Empty;
-
         public string? CompanyCustomerName { get; set; }
         public string? Address { get; set; }
         public string? PackageName { get; set; }
         public decimal? Discount { get; set; }
         public decimal? Rate { get; set; }
         public decimal? Amount { get; set; }
+        public bool? IsApproved { get; set; }
+
+        public bool Status { get; set; }
+        public string Message { get; set; } = string.Empty;
+
+        
     }
 }
