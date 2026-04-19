@@ -33,5 +33,6 @@ namespace Technofair.Model.ViewModel.TFAdmin
         public string? ShortName { get; set; }
         public string? FullName { get; set; }
         public Int16 Year { get; set; }
+        public Int16? BillGenerationStatus { get; set; }
     }
 }
