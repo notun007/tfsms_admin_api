@@ -22,6 +22,7 @@ namespace Technofair.Model.ViewModel.TFAdmin
         public decimal? Rate { get; set; }
         public decimal? Amount { get; set; }
         public bool? IsApproved { get; set; }
+        public Int16? BillGenerationStatus { get; set; } 
 
         public bool Status { get; set; }
         public string Message { get; set; } = string.Empty;
