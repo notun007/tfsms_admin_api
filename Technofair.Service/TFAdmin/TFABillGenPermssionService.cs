@@ -34,6 +34,7 @@ namespace TFSMS.Admin.Service.TFAdmin
         TFABillGenPermssion? GetBillGenPermissionByMonthIdYear(int monthId, int year);
         TFABillGenPermssion? GetBillGenPermissionByCompanyCustomerIdMonthIdAndYear(int? customerId, int monthId, int year);
         Task<List<TFABillGenPermssionViewModel>> GetList();
+        Task<List<TFABillGenPermssionViewModel>> GetBillGenerationPermissionByCompanyCustomerId(int companyCustomerId);
     }
     public class TFABillGenPermssionService : ITFABillGenPermssionService
     {
@@ -165,6 +166,10 @@ namespace TFSMS.Admin.Service.TFAdmin
         public async Task<List<TFABillGenPermssionViewModel>> GetList()
         {
             return await repository.GetList();
+        }
+        public async Task<List<TFABillGenPermssionViewModel>> GetBillGenerationPermissionByCompanyCustomerId(int companyCustomerId)
+        {
+            return await repository.GetBillGenerationPermissionByCompanyCustomerId(companyCustomerId);
         }
 
     }

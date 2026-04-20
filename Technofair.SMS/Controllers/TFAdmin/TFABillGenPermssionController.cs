@@ -204,6 +204,12 @@ namespace TFSMS.Admin.Controllers.TFAdmin
             List<TFABillGenPermssionViewModel> list = await service.GetList();
             return list;
         }
+        [Authorize(Policy = "Authenticated")]
+        [HttpPost("GetBillGenerationPermissionByCompanyCustomerId")]
+        public async Task<List<TFABillGenPermssionViewModel>> GetBillGenerationPermissionByCompanyCustomerId(int companyCustomerId)
+        {
+            return await service.GetBillGenerationPermissionByCompanyCustomerId(companyCustomerId);
+        }
 
         [Authorize(Policy = "Authenticated")]
         [HttpPost("GetBillGenPermission")]
