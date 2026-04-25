@@ -92,7 +92,8 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                 objRequest.Amount = obj.Amount;
                 objRequest.Remarks = obj.Remarks;
-                //objRequest.CollectionDate = obj.CollectionDate;
+
+
                 objRequest.CollectionDate = obj.CollectionDate.Date + DateTime.Now.TimeOfDay;
                 objRequest.TransactionId = KeyGeneration.GenerateTimestamp();
 
@@ -134,12 +135,14 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                         objPayload.loanNo = obj.LoanNo;
                         objPayload.LoanId = obj.LoanId;
                         objPayload.LnLoanCollectionTypeId = obj.LnLoanCollectionTypeId;
-                        //objPayload.AnFPaymentMethodId = obj.AnFPaymentMethodId;
+
+
                         objPayload.LenderCode = obj.LenderCode;
                         objPayload.LoaneeCode = obj.LoaneeCode;
                         objPayload.Amount = obj.Amount;
                         objPayload.Remarks = obj.Remarks;
-                    //objPayload.CollectionDate = obj.CollectionDate;
+
+
                         objPayload.CollectionDate = obj.CollectionDate.Date + DateTime.Now.TimeOfDay;
                         objPayload.TransactionId = objRequest.TransactionId;
                         objPayload.IsCancel = false;
@@ -153,8 +156,6 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                     objScheduledLoanResponse = await Request<LnDeviceLoanCollectionViewModel, RecoverScheduledLoanResponseViewModel>.Post(url, objPayload);
 
-                    //objOperation.Success = objScheduledLoanResponse.Success;
-                    //objOperation.Message = objScheduledLoanResponse.Message;
 
                 }
 
@@ -164,8 +165,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                     return objScheduledLoanResponse;
                 }
 
-                //if(objOperation.Success == true)
-                //{
+              
                     
                    var objCollectionRequest = serviceReqObject.GetById((Int64)objReqOperation.OperationId);
 
@@ -193,15 +193,13 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                     return objScheduledLoanResponse;
                     }
 
-                    //if (objReqOperation.Success == true)
-                    //{
-
+                  
                         LnDeviceLoanCollection objCollection = new LnDeviceLoanCollection();
 
                         objCollection.Id = obj.Id;
                         objCollection.LoanId = obj.LoanId;
                         objCollection.LnLoanCollectionTypeId = obj.LnLoanCollectionTypeId;
-                        //objCollection.AnFPaymentMethodId = obj.AnFPaymentMethodId;
+
                         objCollection.LenderId = objSolutionProvider.Id;
                         objCollection.LoaneeId = objCompanyCustomer.Id;
 
@@ -210,7 +208,8 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
 
                         objCollection.Amount = objScheduledLoanResponse.ActualCollectionAmount;
                         objCollection.Remarks = obj.Remarks;
-                // objCollection.CollectionDate = obj.CollectionDate;
+
+
                         objCollection.CollectionDate = obj.CollectionDate.Date + DateTime.Now.TimeOfDay;
                         objCollection.TransactionId = objRequest.TransactionId;
 
@@ -265,9 +264,7 @@ namespace TFSMS.Admin.Controllers.TFLoan.Device
                            return objScheduledLoanResponse;
                             }
                     }
-                    //}
-                    
-                //}
+                   
 
                 }
                 catch (Exception exp)

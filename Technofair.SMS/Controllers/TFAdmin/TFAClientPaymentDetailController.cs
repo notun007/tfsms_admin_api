@@ -1,14 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using TFSMS.Admin.Model.TFAdmin;
-using Technofair.Lib.Model;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TFSMS.Admin.Model.ViewModel.TFAdmin;
-using Microsoft.AspNetCore.Authorization;
-using Technofair.Utiity.Log;
-using TFSMS.Admin.Service.TFAdmin;
-using TFSMS.Admin.Data.Repository.TFAdmin;
-using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using Technofair.Lib.Model;
+using Technofair.Model.TFLoan.Device;
 using Technofair.Model.ViewModel.TFAdmin;
+using Technofair.Utiity.Http;
+using Technofair.Utiity.Log;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.TFAdmin;
+using TFSMS.Admin.Model.TFAdmin;
+using TFSMS.Admin.Model.ViewModel.Subscription;
+using TFSMS.Admin.Model.ViewModel.TFAdmin;
+using TFSMS.Admin.Service.TFAdmin;
 
 
 namespace TFSMS.Admin.Controllers.TFAdmin
@@ -61,6 +64,8 @@ namespace TFSMS.Admin.Controllers.TFAdmin
                     return objOperation;
                 }
 
+
+
                 //Farida Added On 05-04-2026
 
                 var objLastPayment = service.GetLastPaymentByAppKey(appKey);
@@ -89,6 +94,36 @@ namespace TFSMS.Admin.Controllers.TFAdmin
                         return objOperation;
                     }
                 }
+
+
+                //Farida Added On 26-04-2026
+
+                var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+
+                var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/GetAllLoanBalanceByCompletedSchedules";
+
+                LoanBalanceViewModel objLoanBalance = await Request<LoanBalanceViewModel, LoanBalanceViewModel>.GetObject(url);
+
+                if (objLoanBalance == null)
+                {
+                    objOperation.Success = false;
+                    objOperation.Message = "Something went wrong, please try again later";
+                    _logger.LogError(objOperation.Message);
+                    return objOperation;
+                }
+
+                if (objLoanBalance != null)
+                {
+                    objOperation.Success = false;
+                    objOperation.Message = "আপনার ঋণের কিস্তির " + Convert.ToString(objLoanBalance.Balance) + " টাকা বকেয়া রয়েছে। অনুগ্রহ করে বকেয়া পরিশোধ করুন।";
+                    _logger.LogError(objOperation.Message);
+                    return objOperation;
+                }
+
+                //End
+
+
+
                 //End
 
                 //Farida Commented On 04-05-2026
@@ -136,7 +171,7 @@ namespace TFSMS.Admin.Controllers.TFAdmin
                 //}
 
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
                 objOperation.Success = false;
                 objOperation.Message = exp.Message;
