@@ -37,6 +37,21 @@ namespace TFSMS.Admin.Controllers.TFAdmin
             this._logger = logger;
         }
 
+
+        [HttpGet("GetAllLoanBalanceByCompletedSchedules")]
+        public async Task<LoanBalanceViewModel> GetAllLoanBalanceByCompletedSchedules(string appKey)
+        {
+            var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByAppKey(appKey);
+
+            var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+
+            var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/GetAllLoanBalanceByCompletedSchedules";
+
+            LoanBalanceViewModel objLoanBalance = await Request<LoanBalanceViewModel, LoanBalanceViewModel>.GetObject(url);
+
+            return objLoanBalance;
+        }
+
         //[Authorize(Policy = "Authenticated")]
         [HttpGet("VerifyClientPackageByAppKey")]
         public async Task<Operation> VerifyClientPackageByAppKey(string appKey)
