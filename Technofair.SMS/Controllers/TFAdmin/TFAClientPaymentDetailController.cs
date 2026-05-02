@@ -129,10 +129,13 @@ namespace TFSMS.Admin.Controllers.TFAdmin
 
                 if (objLoanBalance != null)
                 {
-                    objOperation.Success = false;
-                    objOperation.Message = "আপনার ঋণের কিস্তির " + Convert.ToString(objLoanBalance.Balance) + " টাকা বকেয়া রয়েছে। অনুগ্রহ করে বকেয়া পরিশোধ করুন।";
-                    _logger.LogError(objOperation.Message);
-                    return objOperation;
+                    if (objLoanBalance.Balance > 0)
+                    {
+                        objOperation.Success = false;
+                        objOperation.Message = "আপনার ঋণের কিস্তির " + Convert.ToString(objLoanBalance.Balance) + " টাকা বকেয়া রয়েছে। অনুগ্রহ করে বকেয়া পরিশোধ করুন।";
+                        _logger.LogError(objOperation.Message);
+                        return objOperation;
+                    }
                 }
 
                 //End
