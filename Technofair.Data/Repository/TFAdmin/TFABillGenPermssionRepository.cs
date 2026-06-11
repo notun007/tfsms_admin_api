@@ -86,11 +86,22 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
         //    return list;
         //}
 
+
         public List<TFABillGenPermssion> GetBillGenPermissionExceptItSelf(TFABillGenPermssionViewModel objTFABillGenPermssion)
         {
-            List<TFABillGenPermssion> list = DataContext.TFABillGenPermssions.Where(x => x.Id != objTFABillGenPermssion.Id && (x.TFAMonthId == objTFABillGenPermssion.TFAMonthId && x.Year == objTFABillGenPermssion.Year)).ToList();
-            return list;
+            return DataContext.TFABillGenPermssions
+                .Where(x =>
+                    x.Id != objTFABillGenPermssion.Id &&
+                    x.TFACompanyCustomerId == objTFABillGenPermssion.TFACompanyCustomerId &&
+                    x.TFAMonthId == objTFABillGenPermssion.TFAMonthId &&
+                    x.Year == objTFABillGenPermssion.Year)
+                .ToList();
         }
+        //public List<TFABillGenPermssion> GetBillGenPermissionExceptItSelf(TFABillGenPermssionViewModel objTFABillGenPermssion)
+        //{
+        //    List<TFABillGenPermssion> list = DataContext.TFABillGenPermssions.Where(x => x.Id != objTFABillGenPermssion.Id && (x.TFAMonthId == objTFABillGenPermssion.TFAMonthId && x.Year == objTFABillGenPermssion.Year)).ToList();
+        //    return list;
+        //}
 
         public List<TFABillGenPermssion> GetBillGenPermission(int id)
         {
