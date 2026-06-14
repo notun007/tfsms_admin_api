@@ -205,9 +205,34 @@ namespace TFSMS.Admin.Controllers.TFAdmin
         }
 
         [HttpGet("GetLastPaymentByAppKey")]
-        public ClientPaymentViewModel GetLastPaymentByAppKey(string appKey)
+        public async Task<ClientPaymentViewModel> GetLastPaymentByAppKey(string appKey)
         {
-            return service.GetLastPaymentByAppKey(appKey);
+            ClientPaymentViewModel objClientPayment = new ClientPaymentViewModel();
+            objClientPayment = service.GetLastPaymentByAppKey(appKey);
+
+            //Akhan thaka oy api call korba...
+            var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByAppKey(appKey);
+            var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
+
+            var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/GetLoanReminderByAppKey";
+
+            LoanReminderViewModel objLoanReminder = await Request<LoanReminderViewModel, LoanReminderViewModel>.GetObject(url);
+
+            
+
+            if (objLoanReminder != null)
+            {
+                if (!string.IsNullOrEmpty(objLoanReminder.Message))
+                {
+                    objClientPayment.ExpireMessage =
+                    (objClientPayment.ExpireMessage ?? string.Empty)
+                    + Environment.NewLine
+                    + (objLoanReminder.Message ?? string.Empty);
+                }
+            }
+
+
+            return objClientPayment;
         }
 
         [HttpPost("GetClientSubscriptionSummary")]
