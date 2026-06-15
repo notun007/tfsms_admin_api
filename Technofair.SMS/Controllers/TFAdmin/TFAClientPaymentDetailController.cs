@@ -214,7 +214,7 @@ namespace TFSMS.Admin.Controllers.TFAdmin
             var objCompanyCustomer = await serviceCompanyCustomer.GetCompanyCustomerByAppKey(appKey);
             var smsApiBaseUrl = objCompanyCustomer.SmsApiBaseUrl;
 
-            var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/GetLoanReminderByAppKey";
+            var url = smsApiBaseUrl + "/api/LnDeviceLoanCollection/GetLoanReminder";
 
             LoanReminderViewModel objLoanReminder = await Request<LoanReminderViewModel, LoanReminderViewModel>.GetObject(url);
 
