@@ -226,8 +226,13 @@ namespace TFSMS.Admin.Controllers.TFAdmin
                 {
                     objClientPayment.ExpireMessage =
                     (objClientPayment.ExpireMessage ?? string.Empty)
-                    + Environment.NewLine
+                    + "<br/>"
                     + (objLoanReminder.Message ?? string.Empty);
+                    //objClientPayment.ExpireMessage =
+                    //(objClientPayment.ExpireMessage ?? string.Empty)
+                    // + "<br/>"
+                    ////+ Environment.NewLine
+                    //+ (objLoanReminder.Message ?? string.Empty);
                 }
             }
 
