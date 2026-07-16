@@ -237,9 +237,9 @@ namespace TFSMS.Admin.Controllers.TFAdmin
 
         [Authorize(Policy = "Authenticated")]
         [HttpPost("GetBillGenPermittedMonthByYear")]
-        public async Task<List<TFABillGenPermssionViewModel>> GetBillGenPermittedMonthByYear(int year)
+        public async Task<List<TFABillGenPermssionViewModel>> GetBillGenPermittedMonthByYear(int year, int companyCustomerId)
         {
-            List<TFABillGenPermssionViewModel> list = await service.GetBillGenPermittedMonthByYear(year);
+            List<TFABillGenPermssionViewModel> list = await service.GetBillGenPermittedMonthByYear(year, companyCustomerId);
             return list;
         }
 
