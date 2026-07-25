@@ -30,6 +30,7 @@ namespace TFSMS.Admin.Model.TFAdmin
         public string? MotherBoardId { get; set; }
         public string? NetworkAdapterId { get; set; }
         public string? SmsApiBaseUrl { get; set; }
+        public string? SmsUrl { get; set; }
         public bool IsActive { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
