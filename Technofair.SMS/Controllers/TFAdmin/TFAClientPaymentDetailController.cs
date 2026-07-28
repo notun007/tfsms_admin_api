@@ -240,6 +240,44 @@ namespace TFSMS.Admin.Controllers.TFAdmin
             return objClientPayment;
         }
 
+        [HttpGet("GetAllActiveLoanSummary")]
+        public async Task<List<ActiveLoanSummaryViewModel>> GetAllActiveLoanSummary()
+        {
+            List<ActiveLoanSummaryViewModel> list = new();
+
+            var companies = serviceCompanyCustomer.GetAll();
+
+            foreach (var company in companies)
+            {
+                if (string.IsNullOrWhiteSpace(company.SmsApiBaseUrl))
+                    continue;
+
+                try
+                {
+                    var url = company.SmsApiBaseUrl.TrimEnd('/') +
+                              "/api/LnDeviceLoanDisbursement/GetActiveLoanSummary";
+
+                    //var result =
+                    //    await Request<object, ActiveLoanSummaryViewModel>
+                    //        .PostObject(url, new { });
+                    ActiveLoanSummaryViewModel objActiveLoanSummary = await Request<ActiveLoanSummaryViewModel, ActiveLoanSummaryViewModel>.GetObject(url);
+
+                    if (objActiveLoanSummary != null)
+                    {
+                        objActiveLoanSummary.CompanyName = company.Name;
+                        list.Add(objActiveLoanSummary);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"{company.Name} : {ex.Message}");
+                }
+            }
+
+            return list;
+        }
+        
+
         [HttpPost("GetClientSubscriptionSummary")]
         public List<ClientSubscriptionSummaryViewModel> GetClientSubscriptionSummary()
         {
