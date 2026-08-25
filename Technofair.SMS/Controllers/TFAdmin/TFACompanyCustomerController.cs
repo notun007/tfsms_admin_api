@@ -1,14 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Data;
 using System.Net.Http.Headers;
 using Technofair.Lib.Model;
-using TFSMS.Admin.Model.TFAdmin;
-using System.Collections.Generic;
-using TFSMS.Admin.Model.ViewModel.TFAdmin;
-using Microsoft.AspNetCore.Authorization;
-using TFSMS.Admin.Service.TFAdmin;
-using TFSMS.Admin.Data.Repository.TFAdmin;
-using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using Technofair.Model.Common;
 using Technofair.Model.ViewModel.TFAdmin;
+using Technofair.Utiity.Http;
+using TFSMS.Admin.Data.Infrastructure.TFAdmin;
+using TFSMS.Admin.Data.Repository.TFAdmin;
+using TFSMS.Admin.Model.TFAdmin;
+using TFSMS.Admin.Model.ViewModel.TFAdmin;
+using TFSMS.Admin.Service.TFAdmin;
 
 
 namespace TFSMS.Admin.Controllers.TFAdmin
@@ -186,6 +189,141 @@ namespace TFSMS.Admin.Controllers.TFAdmin
             }
             return objOperation;
         }
+
+        [HttpPost("GetPermittedIntegrator")]
+        public async Task<IEnumerable<CmnIntegrator>> GetPermittedIntegrator(string appKey)
+        {
+            if (string.IsNullOrWhiteSpace(appKey))
+                return Enumerable.Empty<CmnIntegrator>();
+
+            var company = service.GetAll()
+                .FirstOrDefault(x => x.AppKey == appKey);
+
+            if (company == null)
+                return Enumerable.Empty<CmnIntegrator>();
+
+            if (string.IsNullOrWhiteSpace(company.SmsApiBaseUrl))
+                return Enumerable.Empty<CmnIntegrator>();
+
+            try
+            {
+                var url = company.SmsApiBaseUrl.TrimEnd('/') +
+                          "/Common/Integrator/GetPermittedIntegrator";
+
+                var result = await Request<object, IEnumerable<CmnIntegrator>>.Post(
+                    url,
+                    new { }
+                );
+
+                return result ?? Enumerable.Empty<CmnIntegrator>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{company.Name} : {ex}");
+                return Enumerable.Empty<CmnIntegrator>();
+            }
+        }
+
+        [HttpPost("ValidateDeviceNumber")]
+        public async Task<Operation> ValidateDeviceNumber(string appKey, string deviceNumber, int cmnIntegratorId)
+        {
+            try
+            {
+                var company = await service.GetCompanyCustomerByAppKey(appKey);
+
+                if (company == null)
+                {
+                    return new Operation
+                    {
+                        Success = false,
+                        Message = "Company not found."
+                    };
+                }
+
+                if (string.IsNullOrWhiteSpace(company.SmsApiBaseUrl))
+                {
+                    return new Operation
+                    {
+                        Success = false,
+                        Message = "SMS API Base URL is not configured."
+                    };
+                }
+
+                var url = company.SmsApiBaseUrl.TrimEnd('/')
+                          + "/api/DeviceAssign/ValidateDeviceNumberFarida"
+                          + "?cmnIntegratorId=" + cmnIntegratorId
+                          + "&deviceNumber=" + Uri.EscapeDataString(deviceNumber);
+
+                return await Request<object, Operation>.Post(
+                    url,
+                    new { }
+                );
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+
+                return new Operation
+                {
+                    Success = false,
+                    Message = "Unable to connect to CAS."
+                };
+            }
+        }
+        //[HttpPost("ValidateDeviceNumber")]
+        //public async Task<Operation> ValidateDeviceNumber(string appKey,string deviceNumber,int cmnIntegratorId)
+        //{
+        //    try
+        //    {
+        //        var company = service.GetAll()
+        //            .FirstOrDefault(x => x.AppKey == appKey);
+
+        //        if (company == null)
+        //        {
+        //            return new Operation
+        //            {
+        //                Success = false,
+        //                Message = "Company not found."
+        //            };
+        //        }
+
+        //        if (string.IsNullOrWhiteSpace(company.SmsApiBaseUrl))
+        //        {
+        //            return new Operation
+        //            {
+        //                Success = false,
+        //                Message = "SMS API Base URL is not configured."
+        //            };
+        //        }
+
+        //        var url = company.SmsApiBaseUrl.TrimEnd('/')
+        //                  + "/api/DeviceAssign/ValidateDeviceNumberFarida"
+        //                  + "?cmnIntegratorId=" + cmnIntegratorId
+        //                  + "&deviceNumber=" + Uri.EscapeDataString(deviceNumber);
+
+        //        var result = await Request<object, Operation>.Post(
+        //            url,
+        //            new { }
+        //        );
+
+        //        return result ?? new Operation
+        //        {
+        //            Success = false,
+        //            Message = "No response received from SMS API."
+        //        };
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex);
+
+        //        return new Operation
+        //        {
+        //            Success = false,
+        //            Message = "Unable to connect to CAS."
+        //        };
+        //    }
+        //}
+
 
         //[Authorize(Policy = "Authenticated")]
         [HttpGet("GetCompanyCustomerByAppKey")]
