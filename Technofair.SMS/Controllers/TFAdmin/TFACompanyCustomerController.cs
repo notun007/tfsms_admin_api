@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data;
 using System.Net.Http.Headers;
@@ -270,60 +271,46 @@ namespace TFSMS.Admin.Controllers.TFAdmin
                 };
             }
         }
-        //[HttpPost("ValidateDeviceNumber")]
-        //public async Task<Operation> ValidateDeviceNumber(string appKey,string deviceNumber,int cmnIntegratorId)
-        //{
-        //    try
-        //    {
-        //        var company = service.GetAll()
-        //            .FirstOrDefault(x => x.AppKey == appKey);
+        [HttpGet("GetAllActiveIntegratorPingResponse")]
+        public async Task<IEnumerable<PingResponseViewModel>> GetAllActiveIntegratorPingResponse(string appKey)
+        {
+            if (string.IsNullOrWhiteSpace(appKey))
+                return Enumerable.Empty<PingResponseViewModel>();
 
-        //        if (company == null)
-        //        {
-        //            return new Operation
-        //            {
-        //                Success = false,
-        //                Message = "Company not found."
-        //            };
-        //        }
+            var company = service.GetAll()
+                .FirstOrDefault(x => x.AppKey == appKey);
 
-        //        if (string.IsNullOrWhiteSpace(company.SmsApiBaseUrl))
-        //        {
-        //            return new Operation
-        //            {
-        //                Success = false,
-        //                Message = "SMS API Base URL is not configured."
-        //            };
-        //        }
+            if (company == null)
+                return Enumerable.Empty<PingResponseViewModel>();
 
-        //        var url = company.SmsApiBaseUrl.TrimEnd('/')
-        //                  + "/api/DeviceAssign/ValidateDeviceNumberFarida"
-        //                  + "?cmnIntegratorId=" + cmnIntegratorId
-        //                  + "&deviceNumber=" + Uri.EscapeDataString(deviceNumber);
+            if (string.IsNullOrWhiteSpace(company.SmsApiBaseUrl))
+                return Enumerable.Empty<PingResponseViewModel>();
 
-        //        var result = await Request<object, Operation>.Post(
-        //            url,
-        //            new { }
-        //        );
+            try
+            {
+                var url = company.SmsApiBaseUrl.TrimEnd('/') +
+                          "/Common/IntegratorCredential/GetAllActiveIntegratorPingResponse";
 
-        //        return result ?? new Operation
-        //        {
-        //            Success = false,
-        //            Message = "No response received from SMS API."
-        //        };
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex);
+                var result =
+                    await Request<object, IEnumerable<PingResponseViewModel>>
+                        .GetObject(url);
 
-        //        return new Operation
-        //        {
-        //            Success = false,
-        //            Message = "Unable to connect to CAS."
-        //        };
-        //    }
-        //}
+                if (result == null)
+                    return Enumerable.Empty<PingResponseViewModel>();
 
+                var response = JsonConvert.DeserializeObject<List<PingResponseViewModel>>(
+                    JsonConvert.SerializeObject(result)
+                );
+
+                return response ?? Enumerable.Empty<PingResponseViewModel>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{company.Name} : {ex}");
+
+                return Enumerable.Empty<PingResponseViewModel>();
+            }
+        }
 
         //[Authorize(Policy = "Authenticated")]
         [HttpGet("GetCompanyCustomerByAppKey")]
@@ -478,6 +465,8 @@ namespace TFSMS.Admin.Controllers.TFAdmin
         {
             return service.GetBillGeneratableCompanyCustomers();
         }
+
+
 
 
     }
