@@ -30,6 +30,7 @@ namespace TFSMS.Admin.Service.TFAdmin
         Task<List<TFABillGenPermssionViewModel>> GetBillGenPermittedMonthByYear(int year, int companyCustomerId);
         //Task<List<TFABillGenPermssionViewModel>> GetBillGenPermittedMonthByYear(int year);
         BillGenPermissionCheckViewModel GetLastBillGenPermissionByCompanyCustomerId(int tFACompanyCustomerId);
+        List<LatestBillGenPermissionViewModel> GetLatestBillGenPermission(int? companyCustomerId);
         TFABillGenPermssion GetById(int Id);
         List<TFABillGenPermssion> GetAll();
         TFABillGenPermssion? GetBillGenPermissionByMonthIdYear(int monthId, int year);
@@ -162,6 +163,10 @@ namespace TFSMS.Admin.Service.TFAdmin
         public BillGenPermissionCheckViewModel GetLastBillGenPermissionByCompanyCustomerId(int tFACompanyCustomerId)
         {
             return repository.GetLastBillGenPermissionByCompanyCustomerId(tFACompanyCustomerId);
+        }
+        public List<LatestBillGenPermissionViewModel> GetLatestBillGenPermission(int? companyCustomerId)
+        {
+            return repository.GetLatestBillGenPermission(companyCustomerId);
         }
 
         public async Task<List<TFABillGenPermssionViewModel>> GetList()

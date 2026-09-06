@@ -30,6 +30,7 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
         Task<List<TFABillGenPermssionViewModel>> GetBillGenPermittedMonthByYear(int year, int companyCustomerId);
         //Task<List<TFABillGenPermssionViewModel>> GetBillGenPermittedMonthByYear(int year);
         BillGenPermissionCheckViewModel GetLastBillGenPermissionByCompanyCustomerId(int tFACompanyCustomerId);
+        List<LatestBillGenPermissionViewModel> GetLatestBillGenPermission(int? companyCustomerId);
         TFABillGenPermssion? GetBillGenPermissionByMonthIdYear(int monthId, int year);
         TFABillGenPermssion? GetBillGenPermissionByCompanyCustomerIdMonthIdAndYear(int? customerId, int monthId, int year);
         Task<List<TFABillGenPermssionViewModel>> GetList();
@@ -342,6 +343,46 @@ namespace TFSMS.Admin.Data.Repository.TFAdmin
             return result;
         }
 
+        public List<LatestBillGenPermissionViewModel> GetLatestBillGenPermission(int? companyCustomerId)
+        {
+            DataTable dt = new DataTable();
+
+            SqlParameter[] paramsToStore = new SqlParameter[1];
+
+            paramsToStore[0] = new SqlParameter("companyCustomerId", companyCustomerId ?? (object)DBNull.Value );
+
+            List<LatestBillGenPermissionViewModel> result =   new List<LatestBillGenPermissionViewModel>();
+
+            try
+            {
+                dt = Helper.ExecuteDataset(
+                        DataContext.Database.GetDbConnection().ConnectionString,
+                        CommandType.StoredProcedure,
+                        SPList.TFAdmin.GetLatestBillGenPermission,
+                        paramsToStore
+                    ).Tables[0];
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        result.Add(
+                            (LatestBillGenPermissionViewModel)
+                            Helper.FillTo(
+                                row,
+                                typeof(LatestBillGenPermissionViewModel)
+                            )
+                        );
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // log ex
+            }
+
+            return result;
+        }
         //public List<BillGenPermissionCheckViewModel> GetLastBillGenPermissionByCompanyCustomerId(int tFACompanyCustomerId)
         //{
         //    DataTable dt = new DataTable();

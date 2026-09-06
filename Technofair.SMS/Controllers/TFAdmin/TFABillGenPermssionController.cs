@@ -249,5 +249,10 @@ namespace TFSMS.Admin.Controllers.TFAdmin
         {
             return service.GetLastBillGenPermissionByCompanyCustomerId(tFACompanyCustomerId);
         }
+        [HttpPost("GetLatestBillGenPermission")]
+        public List<LatestBillGenPermissionViewModel> GetLatestBillGenPermission(int? companyCustomerId)
+        {
+            return service.GetLatestBillGenPermission(companyCustomerId);
+        }
     }
 }
